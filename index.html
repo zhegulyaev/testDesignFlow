@@ -230,7 +230,7 @@
   .price-cell-wrap:focus-within { border-color: var(--border); background: var(--input-bg); border-radius: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.03); }
   .price-cell-wrap input::-webkit-outer-spin-button, .price-cell-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .currency-symbol { color: var(--muted); font-size: 14px; font-weight: 700; font-family: monospace; min-width: 16px; }
-  .currency-symbol.symbol-empty { font-size: 12px; font-weight: 800; color: var(--muted); text-transform: lowercase; }
+  .currency-symbol.symbol-empty { font-size: 12px; font-weight: 800; color: var(--muted); text-transform: lowercase; opacity: 0; min-width: 0; width: 0; padding: 0; margin: 0; }
 
   /* Net Column Fix */
   .net-display-wrap { display: flex; flex-direction: column; align-items: flex-end; padding: 8px 0; }
@@ -243,19 +243,20 @@
       margin-top: 2px;
   }
 
-  .expense-cell { gap: 10px; justify-content: flex-start; align-items: flex-start; }
-  .expense-cell .price-cell-wrap {
+  .expense-cell {
+      gap: 8px;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 4px 8px;
       background: var(--pill-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 6px 10px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
-      justify-content: flex-start;
-      min-width: 200px;
+      min-width: 220px;
   }
-  .expense-cell .price-cell-wrap input { text-align: left; min-width: 100px; }
-  .expense-mode { background: var(--pill-bg); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; font-size: 12px; cursor: pointer; min-width: 70px; font-weight: 700; }
-  .expense-helper { color: var(--muted); font-size: 12px; margin-top: 4px; text-align: right; line-height: 1.2; font-weight: 600; }
+  .expense-cell input { text-align: left; min-width: 100px; padding: 6px 4px; }
+  .expense-mode { background: var(--pill-bg); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; font-size: 12px; cursor: pointer; min-width: 70px; font-weight: 700; align-self: center; }
+  .expense-helper { color: var(--muted); font-size: 11px; margin-top: 2px; text-align: right; line-height: 1.15; font-weight: 600; opacity: 0.8; }
   .helper-label { color: var(--muted); font-size: 12px; margin-top: 6px; line-height: 1.4; font-weight: 600; }
 
   .paid-amount { font-size: 12px; color: var(--muted); margin-top: 2px; text-align: right; }
@@ -4292,7 +4293,7 @@ function renderActive(){
         const contractorSymbol = contractorMode === 'percent' ? '%' : contractorMode === 'none' ? '' : '₽';
         const contractorSymbolClass = contractorSymbol ? '' : 'symbol-empty';
         const contractorValue = contractorMode === 'none' ? '' : formatPlainNumber(item.contractor ?? 0);
-        const contractorHelper = contractorMode === 'none' ? 'Расходы не учитываются' : `≈ ${formatCurrency(contractorAmount)}`;
+        const contractorHelper = contractorMode === 'none' ? 'Расходы не учитываются' : contractorAmount ? `≈ ${formatCurrency(contractorAmount)}` : '';
         const actionButtons = [
             `<div class="done-btn action-btn-base" onclick="mv(${i},'active','archive')" title="Выполнено"><svg class="btn-icon"><use href="#icon-check"/></svg></div>`
         ];
@@ -4336,14 +4337,14 @@ function renderActive(){
             <td style="text-align:right;">
                 <div class="price-cell-wrap expense-cell">
                     <input type="text" value="${contractorValue}" ${contractorMode === 'none' ? 'disabled' : ''} oninput="formatNumberInput(this)" onblur="updateContractorValue('active',${i},this.value)">
-                    <span class="currency-symbol ${contractorSymbolClass}">${contractorSymbol || 'нет'}</span>
+                    <span class="currency-symbol ${contractorSymbolClass}">${contractorSymbol}</span>
                     <select class="expense-mode" onchange="updateContractorMode('active',${i},this.value)">
                         <option value="none" ${contractorMode==='none'?'selected':''}>Нет</option>
                         <option value="amount" ${contractorMode==='amount'?'selected':''}>₽</option>
                         <option value="percent" ${contractorMode==='percent'?'selected':''}>%</option>
                     </select>
                 </div>
-                <div class="expense-helper">${contractorHelper}</div>
+                <div class="expense-helper ${contractorHelper ? '' : 'is-hidden'}">${contractorHelper}</div>
             </td>
 
             <td style="text-align:right;"><div class="price-cell-wrap"><input type="text" value="${formatPlainNumber(item.p || 0)}" oninput="formatNumberInput(this)" onblur="updVal('active',${i},'p',this.value)"><span class="currency-symbol">₽</span></div></td>
@@ -4719,7 +4720,7 @@ function renderArchive(){
         const contractorSymbol = contractorMode === 'percent' ? '%' : contractorMode === 'none' ? '' : '₽';
         const contractorSymbolClass = contractorSymbol ? '' : 'symbol-empty';
         const contractorValue = contractorMode === 'none' ? '' : formatPlainNumber(item.contractor ?? 0);
-        const contractorHelper = contractorMode === 'none' ? 'Расходы не учитываются' : `≈ ${formatCurrency(contractorAmount)}`;
+        const contractorHelper = contractorMode === 'none' ? 'Расходы не учитываются' : contractorAmount ? `≈ ${formatCurrency(contractorAmount)}` : '';
 
         tr.innerHTML = `
             <td class="select-col">
@@ -4743,14 +4744,14 @@ function renderArchive(){
             <td>
                 <div class="price-cell-wrap expense-cell">
                     <input type="text" value="${contractorValue}" ${contractorMode === 'none' ? 'disabled' : ''} oninput="formatNumberInput(this)" onblur="updateContractorValue('archive',${realIdx},this.value)">
-                    <span class="currency-symbol ${contractorSymbolClass}">${contractorSymbol || 'нет'}</span>
+                    <span class="currency-symbol ${contractorSymbolClass}">${contractorSymbol}</span>
                     <select class="expense-mode" onchange="updateContractorMode('archive',${realIdx},this.value)">
                         <option value="none" ${contractorMode==='none'?'selected':''}>Нет</option>
                         <option value="amount" ${contractorMode==='amount'?'selected':''}>₽</option>
                         <option value="percent" ${contractorMode==='percent'?'selected':''}>%</option>
                     </select>
                 </div>
-                <div class="expense-helper">${contractorHelper}</div>
+                <div class="expense-helper ${contractorHelper ? '' : 'is-hidden'}">${contractorHelper}</div>
             </td>
             <td><div class="net-display-wrap">${formatCurrency(item.pr)}<span class="net-prc-val">(${calcMarginPrc(item)}%)</span></div></td>
             <td><div class="action-btns" style="justify-content:flex-end">
@@ -4829,7 +4830,7 @@ function renderAll(){
         const contractorSymbol = contractorMode === 'percent' ? '%' : contractorMode === 'none' ? '' : '₽';
         const contractorSymbolClass = contractorSymbol ? '' : 'symbol-empty';
         const contractorValue = contractorMode === 'none' ? '' : formatPlainNumber(item.contractor ?? 0);
-        const contractorHelper = contractorMode === 'none' ? 'Расходы не учитываются' : `≈ ${formatCurrency(contractorAmount)}`;
+        const contractorHelper = contractorMode === 'none' ? 'Расходы не учитываются' : contractorAmount ? `≈ ${formatCurrency(contractorAmount)}` : '';
 
         tr.innerHTML = `
             <td class="select-col"><div class="row-index">${i + 1}</div></td>
@@ -4841,9 +4842,9 @@ function renderAll(){
             <td style="text-align:right;">
                 <div class="price-cell-wrap expense-cell">
                     <input type="text" value="${contractorValue}" ${contractorMode === 'none' ? 'disabled' : ''} oninput="formatNumberInput(this)" onblur="updateContractorValue('${wrap.__type}',${wrap.idx},this.value)">
-                    <span class="currency-symbol ${contractorSymbolClass}">${contractorSymbol || 'нет'}</span>
+                    <span class="currency-symbol ${contractorSymbolClass}">${contractorSymbol}</span>
                 </div>
-                <div class="expense-helper">${contractorHelper}</div>
+                <div class="expense-helper ${contractorHelper ? '' : 'is-hidden'}">${contractorHelper}</div>
             </td>
             <td style="text-align:right;">${item.taxPrc || 0}%</td>
             <td style="text-align:right;"><div class="net-display-wrap">${formatCurrency(net)}</div></td>
