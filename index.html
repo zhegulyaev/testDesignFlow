@@ -1085,8 +1085,8 @@
 
 
   const sb = (window.supabase && SUPABASE_URL !== "https://mljfqhczwxflwezgvkcv.supabase.co")
-    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-    : null;
+// Мы просто создаем подключение, так как ключи у вас уже верные
+const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
   let user = null;
   const K = 'designflow-goals';
