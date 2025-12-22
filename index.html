@@ -60,7 +60,6 @@
       overflow-y: scroll;
     }
 
-    /* --- HEADER --- */
     .header-wrapper {
         margin-top: 24px;
         background: var(--bg);
@@ -132,7 +131,6 @@
       flex-wrap: wrap;
     }
 
-    /* --- BUTTONS --- */
     .btn {
       padding: 9px 16px;
       border-radius: 10px;
@@ -167,7 +165,6 @@
     .btn.danger { background: #fee2e2; color: var(--red); }
     .btn.danger:hover { background: #fecaca; }
     
-    /* Icon Only Button (Trash in History) */
     .btn-icon {
         background: transparent;
         border: none;
@@ -186,7 +183,6 @@
     .btn-icon.del:hover { background: #fee2e2; color: var(--red); }
     body[data-theme="dark"] .btn-icon.del:hover { background: #450a0a; color: #f87171; }
 
-    /* --- WARNING BLOCK --- */
     .warning-wrapper {
         max-width: 1200px;
         margin: 0 auto;
@@ -230,8 +226,6 @@
         font-weight: 700;
     }
 
-
-    /* --- TABS --- */
     .tabs-wrapper {
         max-width: 1200px;
         margin: 0 auto;
@@ -263,7 +257,6 @@
 
     .tab .count { margin-left: 6px; opacity: 0.7; font-size: 0.9em; }
 
-    /* --- LAYOUT --- */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px 60px; }
 
     .grid {
@@ -287,7 +280,6 @@
     .card h2 { font-size: 18px; font-weight: 700; margin: 0 0 20px; display: flex; align-items: center; gap: 8px;}
     .card h2 i { color: var(--accent); }
 
-    /* --- FORM --- */
     .form-row {
       display: flex;
       gap: 12px;
@@ -349,7 +341,6 @@
     .btn-group { display: flex; gap: 10px; margin-top: 16px; }
     .btn-group .btn { flex: 1; justify-content: center; padding: 12px; }
 
-    /* --- GOAL ITEMS --- */
     .goal-list { display: flex; flex-direction: column; gap: 16px; }
 
     .goal-card {
@@ -373,14 +364,12 @@
     
     .goal-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
     
-    /* Стили для выбранной карточки (вместо чекбокса) */
     .goal-card.selected {
         border-color: var(--accent);
         box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.2), var(--shadow);
         background: rgba(124, 92, 255, 0.02);
     }
     
-    /* Стили для завершенной цели */
     .goal-card.done {
         border-color: var(--celebrate-end);
         opacity: 0.8; 
@@ -412,12 +401,11 @@
     .star-icon {
         color: #cbd5e1;
         font-size: 16px;
-        /* margin-top: 4px; */
         cursor: pointer;
         transition: transform 0.2s, color 0.2s;
         display: flex;
         align-items: center;
-        height: 24px; /* Match height of title */
+        height: 24px; 
     }
     .star-icon:hover {
         transform: scale(1.2);
@@ -503,9 +491,7 @@
     body[data-theme="dark"] .progress-bar { background: #334155; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #c084fc); transition: width .5s; }
     
-    /* ИЗМЕНЕНИЕ: Новая победная (золотая) шкала */
     .progress-bar.done .progress-fill {
-        /* Золотой градиент */
         background: linear-gradient(90deg, #facc15, #fbbf24, #f59e0b, #d97706);
         background-size: 200% 100%;
         animation: shine 3s infinite linear;
@@ -521,7 +507,6 @@
     .numbers { display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; margin-bottom: 16px; }
     .numbers span:last-child { color: var(--text-muted); font-weight: 500; font-size: 14px; }
 
-    /* Quick Actions */
     .quick-add { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
     .quick-btn {
       padding: 8px 12px;
@@ -569,7 +554,6 @@
     body[data-theme="dark"] .action-icon-btn.delete:hover { background: #450a0a; color: #f87171; }
 
 
-    /* KPI */
     .kpi {
       display: flex; 
       justify-content: space-between; 
@@ -618,7 +602,6 @@
         letter-spacing: 0.2px;
     }
     
-    /* --- MULTI-SELECT MODE STYLES --- */
     .multi-action-bar {
         background: var(--card-bg);
         border: 1px solid var(--border);
@@ -642,7 +625,6 @@
         flex-shrink: 0;
     }
     
-    /* --- TOAST & MODAL --- */
     .toast {
       position: fixed;
       bottom: 24px;
@@ -697,13 +679,11 @@
     
     .empty-message { text-align: center; padding: 50px; color: var(--text-muted); font-size: 15px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 
-    /* --- CONFIRM MODAL --- */
     #confirm-modal .modal-content { max-width: 400px; }
     #confirm-modal .modal-actions { justify-content: space-between; }
     #confirm-modal .modal-actions .btn { flex: 1; justify-content: center; padding: 12px; }
     #confirm-modal p { font-size: 16px; text-align: center; margin: 0; }
     
-    /* --- DELETE HISTORY MODAL (CUSTOM) --- */
     #history-delete-modal .modal-content { max-width: 400px; }
     #history-delete-modal .modal-body { text-align: center; }
     #history-delete-modal .modal-body h3 { margin: 0 0 10px; font-size: 16px; color: var(--text); }
@@ -715,7 +695,6 @@
         width: 100%; justify-content: center;
     }
     
-    /* --- EDIT HISTORY MODAL (CUSTOM) --- */
     #history-edit-modal .modal-content { max-width: 400px; }
     
     .edited-mark {
@@ -727,7 +706,6 @@
         border-bottom: 1px dotted var(--text-muted);
     }
     
-    /* CONGRATULATIONS MODAL */
     #congratulations-modal .modal-content { max-width: 400px; padding: 40px 24px; text-align: center; }
     #congratulations-modal .modal-header,
     #congratulations-modal .modal-actions { display: none; }
@@ -763,7 +741,6 @@
     .congrats-actions { display: flex; gap: 10px; width: 100%; }
     .congrats-actions .btn { flex: 1; justify-content: center; padding: 12px; }
 
-    /* --- HISTORY MODAL (НОВЫЕ СТИЛИ) --- */
     .history-filter-container {
         display: flex;
         gap: 10px;
@@ -819,7 +796,6 @@
     }
 
 
-    /* --- FOOTER --- */
     .footer {
         padding: 40px 24px;
         text-align: center;
@@ -864,6 +840,7 @@
         .desktop-only { display: inline; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -873,20 +850,18 @@
         <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
         <div class="logo-text">
           <h1>DesignFlow <span>v0.3</span></h1>
-  <div class="authbar" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 18px;">
-    <button id="btn-login" class="btn" type="button">Войти через Google</button>
-    <button id="btn-logout" class="btn secondary" type="button" style="display:none;">Выйти</button>
-    <span id="auth-status" style="opacity:.75;font-size:13px;"></span>
-  </div>
-
           <p>Трекер целей</p>
         </div>
       </div>
       <div class="header-actions">
+        <div class="authbar" style="display:flex;gap:10px;align-items:center;">
+          <button id="btn-login" class="btn" type="button">Войти через Google</button>
+          <button id="btn-logout" class="btn secondary" type="button" style="display:none;">Выйти</button>
+          <span id="auth-status" style="opacity:.75;font-size:13px;"></span>
+        </div>
         <a href="https://zhegulyaev.github.io/DesignFlow/" class="btn secondary">
           <i class="fa-solid fa-list-check"></i> Трекер проектов
         </a>
-        
         <button class="btn" id="theme-btn"><i class="fa-solid fa-moon"></i></button>
       </div>
     </div>
@@ -963,7 +938,7 @@
           <option value="custom">Свой вариант...</option>
         </select>
         <div class="custom-days-field" id="g-custom-days-field">
-          <input id="g-custom-days-input" type="number" min="1" placeholder="Введите кол-во дней" />
+            <input id="g-custom-days-input" type="number" min="1" placeholder="Введите кол-во дней" />
         </div>
       </div>
 
@@ -979,12 +954,12 @@
     </div>
 
     <div>
-       <div class="card" style="margin-bottom: 24px; padding: 20px;">
+      <div class="card" style="margin-bottom: 24px; padding: 20px;">
         <h2 style="font-size: 15px; margin-bottom:12px; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-chart-pie"></i> Общий прогресс</h2>
         <div class="progress-bar" style="margin-top:0"><div class="progress-fill" id="overall-progress" style="width:0%"></div></div>
         <div style="font-size:13px; color:var(--text-muted); text-align:right; margin-top:8px;" id="overall-text">0%</div>
       </div>
-      
+
       <div class="multi-action-bar" id="multi-action-bar" style="display: none;">
           <div class="multi-action-text" id="multi-action-text">Выбрано: 0</div>
           <div class="multi-action-btns">
@@ -993,6 +968,7 @@
               <button class="btn danger" id="btn-multi-trash" title="В корзину"><i class="fa-regular fa-trash-can"></i> <span class="desktop-only">В корзину</span></button>
           </div>
       </div>
+
       <div class="goal-list" id="goals-list"></div>
     </div>
   </div>
@@ -1002,7 +978,8 @@
   </div>
 
   <div class="toast" id="toast">
-    <i class="fa-solid fa-circle-check"></i> <span id="toast-message"></span>
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toast-message"></span>
   </div>
 
   <input type="file" id="file-import" accept="application/json" style="display:none" />
@@ -1042,18 +1019,18 @@
             </select>
           </div>
         </div>
-         <div class="field">
-          <label>Шаблон срока</label>
-          <select id="edit-template">
-            <option value="">Не менять</option>
-            <option value="7">Через неделю (7 дн.)</option>
-            <option value="14">Через 2 недели (14 дн.)</option>
-            <option value="30">Месяц</option>
-            <option value="custom">Свой</option>
-          </select>
-           <div class="custom-days-field" id="edit-custom-days-field">
-            <input id="edit-custom-days-input" type="number" min="1" placeholder="Дней" />
-          </div>
+        <div class="field">
+            <label>Шаблон срока</label>
+            <select id="edit-template">
+              <option value="">Не менять</option>
+              <option value="7">Через неделю (7 дн.)</option>
+              <option value="14">Через 2 недели (14 дн.)</option>
+              <option value="30">Месяц</option>
+              <option value="custom">Свой</option>
+            </select>
+            <div class="custom-days-field" id="edit-custom-days-field">
+                <input id="edit-custom-days-input" type="number" min="1" placeholder="Дней" />
+            </div>
         </div>
         <div class="field">
           <label>Заметка</label>
@@ -1078,8 +1055,8 @@
           <input id="progress-amount" placeholder="5 000 или 5к" inputmode="numeric" autofocus />
         </div>
         <div class="field">
-            <label>Комментарий (опционально)</label>
-            <input id="progress-comment" placeholder="Например: Потратил на отель" />
+          <label>Комментарий (опционально)</label>
+          <input id="progress-comment" placeholder="Например: Потратил на отель" />
         </div>
       </div>
       <div class="modal-actions" style="justify-content: space-between;">
@@ -1088,7 +1065,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="modal" id="history-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -1100,1486 +1077,546 @@
             <input id="history-date-filter" placeholder="Фильтр по дате..." readonly style="cursor: pointer; background: var(--bg);" />
             <button class="btn secondary" id="history-clear-filter" title="Сбросить фильтр"><i class="fa-solid fa-rotate-left"></i></button>
         </div>
-
         <div id="history-list-container" style="max-height: 50vh; overflow-y: auto; padding-right: 5px;"></div>
-        
         <div id="history-load-more-container" style="display:none;">
             <button class="btn secondary" id="btn-history-load-more" style="width:100%">Показать еще</button>
         </div>
       </div>
       <div class="modal-actions">
-          <button class="btn secondary modal-close">Закрыть</button>
+        <button class="btn secondary modal-close">Закрыть</button>
       </div>
     </div>
   </div>
-  
+
   <div class="modal" id="history-delete-modal">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h2>Удаление записи</h2>
-              <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-          </div>
-          <div class="modal-body">
-              <h3 id="hd-amount-display"></h3>
-              <p>Вы хотите просто удалить эту запись из истории или также отменить её влияние на текущий баланс цели?</p>
-              
-              <div class="history-delete-actions">
-                  <button class="btn primary" id="btn-hd-revert">
-                      <i class="fa-solid fa-rotate-left"></i> Удалить и вернуть деньги
-                  </button>
-                  <button class="btn secondary" id="btn-hd-delete-only">
-                      <i class="fa-regular fa-trash-can"></i> Только удалить запись
-                  </button>
-                  <button class="btn" style="background: transparent; border: 1px solid var(--border);" id="btn-hd-cancel">
-                      Отмена
-                  </button>
-              </div>
-          </div>
-      </div>
-  </div>
-  
-  <div class="modal" id="history-edit-modal">
-    <div class="modal-content" style="max-width: 400px;">
-      <div class="modal-header">
-        <h2>Редактировать запись</h2>
-        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-      </div>
-      <div class="modal-body">
-        <div class="field">
-          <label>Сумма операции</label>
-          <input id="he-amount" inputmode="numeric" />
+    <div class="modal-content">
+        <div class="modal-body">
+            <h3>Удалить запись?</h3>
+            <p>Это действие нельзя отменить.</p>
+            <div class="history-delete-actions">
+                <button class="btn danger" id="confirm-delete-history">Удалить</button>
+                <button class="btn secondary" id="cancel-delete-history">Отмена</button>
+            </div>
         </div>
-        <div class="field">
-            <label>Комментарий</label>
-            <input id="he-comment" />
-        </div>
-        <div style="font-size:12px; color:var(--text-muted); margin-top:8px; line-height:1.4">
-            При изменении суммы баланс цели будет автоматически скорректирован.
-        </div>
-      </div>
-      <div class="modal-actions">
-        <button class="btn secondary modal-close">Отмена</button>
-        <button class="btn primary" id="btn-he-save">Сохранить</button>
-      </div>
     </div>
   </div>
-  
-  <div class="modal" id="congratulations-modal">
+
+  <div class="modal" id="history-edit-modal">
     <div class="modal-content">
-      <div class="modal-body">
-        <i class="fa-solid fa-party-horn confetti-icon"></i>
-        <h2 id="congrats-title">Цель достигнута!</h2>
-        <p>Поздравляем с завершением задачи! Что будем делать дальше?</p>
-        <div class="congrats-actions">
-            <button class="btn secondary" id="btn-congrats-cancel"><i class="fa-solid fa-rotate-left"></i> Оставить активной</button>
-            <button class="btn primary" id="btn-congrats-done"><i class="fa-solid fa-check"></i> В завершенные</button>
+        <div class="modal-header">
+            <h2>Редактировать запись</h2>
+            <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
         </div>
-      </div>
+        <div class="modal-body">
+            <div class="field">
+                <label>Комментарий</label>
+                <input id="edit-history-comment" />
+            </div>
+            <div class="field">
+                <label>Сумма</label>
+                <input id="edit-history-amount" inputmode="numeric" />
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn primary" id="save-history-edit">Сохранить</button>
+        </div>
     </div>
   </div>
 
   <div class="modal" id="confirm-modal">
     <div class="modal-content">
-      <div class="modal-header">
-        <h2>Подтвердите действие</h2>
-        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-      </div>
       <div class="modal-body">
         <p id="confirm-text"></p>
       </div>
       <div class="modal-actions">
-        <button class="btn secondary" id="confirm-cancel">Отмена</button>
-        <button class="btn danger" id="confirm-ok">ОК</button>
+        <button class="btn secondary" id="confirm-no">Отмена</button>
+        <button class="btn primary" id="confirm-yes">Да</button>
       </div>
     </div>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-(() => {
-  const K = 'designFlowGoalData'; 
+  <div class="modal" id="congratulations-modal">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="confetti-icon"><i class="fa-solid fa-trophy"></i></div>
+        <h2>Цель достигнута!</h2>
+        <p id="congrats-goal-title"></p>
+        <div class="congrats-actions">
+            <button class="btn primary" id="congrats-done">Круто!</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-// === Supabase (облачная база) ===
-const SUPABASE_URL =
-  window.SUPABASE_URL ||
-  'https://mljfqhczwxflwezgvkcv.supabase.co';
+  <script>
+  /** --- SUPABASE CONFIG --- **/
+  const SUPABASE_URL = "";
+  const SUPABASE_ANON_KEY = "";
 
-const SUPABASE_ANON_KEY =
-  window.SUPABASE_ANON_KEY ||
-  'sb_publishable_jRYBjMlX30kP1PIMc5G0iw_1o82qB5x';
+  const sb = (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
 
-// инициализация клиента
-const sb = (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY)
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-  : null;
+  window.sb = sb; // Доступность из консоли
 
-if (!sb) {
-  console.warn('Supabase client не инициализирован');
-}
+  if (!sb) {
+    console.warn("Supabase SDK не найден или ключи не заполнены. Работа в локальном режиме.");
+  }
 
+  let user = null;
+  const K = 'designflow-goals';
+  let goals = [];
+  let currentFilter = 'active';
+  let selectedGoalIds = new Set();
   
-  let currentUser = null;
-  let dbKnownIds = new Set();
+  const historyPageSize = 20;
+  let currentHistoryGoalId = null;
+  let historyOffset = 0;
+  let historyDateFilter = null;
 
-  const $authStatus = document.getElementById('auth-status');
-  const $btnLogin = document.getElementById('btn-login');
-  const $btnLogout = document.getElementById('btn-logout');
+  async function initAuth() {
+    if (!sb) return;
+    const { data: { session } } = await sb.auth.getSession();
+    user = session?.user || null;
+    updateAuthUI();
 
-  function setAuthStatus(text){ if($authStatus) $authStatus.textContent = text || ''; }
+    sb.auth.onAuthStateChange((_event, session) => {
+      user = session?.user || null;
+      updateAuthUI();
+      load().then(render);
+    });
+  }
 
-  async function refreshAuthUI(){
-    if(!$btnLogin || !$btnLogout) return;
-    if(!sb){
-      $btnLogin.style.display='none';
-      $btnLogout.style.display='none';
-      setAuthStatus('Supabase не подключен: вставь URL + anon key в код');
+  function updateAuthUI() {
+    const btnL = document.getElementById('btn-login');
+    const btnO = document.getElementById('btn-logout');
+    const status = document.getElementById('auth-status');
+    if (user) {
+      btnL.style.display = 'none';
+      btnO.style.display = 'block';
+      status.innerText = user.email;
+    } else {
+      btnL.style.display = 'block';
+      btnO.style.display = 'none';
+      status.innerText = sb ? 'Локальный режим' : 'SDK не подключен';
+    }
+  }
+
+  async function signInWithGoogle() {
+    if (!sb) return alert("Supabase не настроен");
+    await sb.auth.signInWithOAuth({ provider: 'google' });
+  }
+
+  window.signInWithGoogle = signInWithGoogle; // Доступность из консоли
+
+  document.getElementById('btn-login').onclick = signInWithGoogle;
+  document.getElementById('btn-logout').onclick = async () => await sb.auth.signOut();
+
+  async function dbFetchAll() {
+    if (!user || !sb) return JSON.parse(localStorage.getItem(K) || '[]');
+    const { data, error } = await sb.from('goals').select('*').eq('user_id', user.id);
+    if (error) { console.error(error); return []; }
+    return data;
+  }
+
+  async function dbUpsertOne(goal) {
+    if (!user || !sb) {
+      const idx = goals.findIndex(g => g.id === goal.id);
+      if (idx > -1) goals[idx] = goal; else goals.push(goal);
+      localStorage.setItem(K, JSON.stringify(goals));
       return;
     }
-    if(currentUser){
-      $btnLogin.style.display='none';
-      $btnLogout.style.display='';
-      setAuthStatus(`Вошёл: ${currentUser.email || currentUser.id}`);
-    } else {
-      $btnLogin.style.display='';
-      $btnLogout.style.display='none';
-      setAuthStatus('Не вошёл (данные будут храниться локально)');
+    const { error } = await sb.from('goals').upsert({ ...goal, user_id: user.id });
+    if (error) console.error(error);
+  }
+
+  async function dbDeleteIds(ids) {
+    if (!user || !sb) {
+      goals = goals.filter(g => !ids.includes(g.id));
+      localStorage.setItem(K, JSON.stringify(goals));
+      return;
     }
+    const { error } = await sb.from('goals').delete().in('id', ids).eq('user_id', user.id);
+    if (error) console.error(error);
   }
 
-  async function signInWithGoogle(){
-    if(!sb) return;
-    const redirectTo = window.location.origin + window.location.pathname;
-    await sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo } });
-  }
-
-  async function signOut(){ if(!sb) return; await sb.auth.signOut(); }
-
-  async function initAuth(){
-    if($btnLogin) $btnLogin.onclick = signInWithGoogle;
-    if($btnLogout) $btnLogout.onclick = signOut;
-    if(!sb){ await refreshAuthUI(); return; }
-    const { data:{ session } } = await sb.auth.getSession();
-    currentUser = session?.user || null;
-    await refreshAuthUI();
-    sb.auth.onAuthStateChange(async (_e, s)=>{
-      currentUser = s?.user || null;
-      await refreshAuthUI();
-      await load();
-      render();
-    });
-  }
-
-  async function dbFetchAll(){
-    if(!sb || !currentUser) return null;
-    const { data, error } = await sb
-      .from('projects')
-      .select('id, data, created_at, updated_at')
-      .eq('user_id', currentUser.id)
-      .order('updated_at', { ascending:false });
-    if(error){ console.warn('dbFetchAll', error); showToast('Ошибка загрузки из базы'); return null; }
-    dbKnownIds = new Set((data||[]).map(r=>r.id));
-    return (data||[]).map(r=>({ ...(r.data||{}), id:r.id, created_at:r.created_at, updated_at:r.updated_at }));
-  }
-
-  function validateGoalObject(g){
-    if(!g || typeof g!=='object') return null;
-    if(typeof g.title==='string') g.title=g.title.trim();
-    if(!g.title) g.title='Без названия';
-    if(g.title.length>120) g.title=g.title.slice(0,120);
-    if(typeof g.user_id==='string') delete g.user_id;
-    return g;
-  }
-
-  async function dbUpsertOne(goal){
-    if(!sb || !currentUser) return;
-    const clean = validateGoalObject(JSON.parse(JSON.stringify(goal)));
-    const row = { id: clean.id || undefined, user_id: currentUser.id, data: clean, updated_at: new Date().toISOString() };
-    const { data, error } = await sb.from('projects').upsert(row, { onConflict:'id' }).select('id').single();
-    if(error){ console.warn('dbUpsertOne', error); showToast('Ошибка сохранения в базу'); return; }
-    if(data?.id){ goal.id=data.id; dbKnownIds.add(data.id); }
-  }
-
-  async function dbDeleteIds(ids){
-    if(!sb || !currentUser) return;
-    const arr = Array.from(ids).filter(Boolean);
-    if(!arr.length) return;
-    const { error } = await sb.from('projects').delete().in('id', arr);
-    if(error){ console.warn('dbDeleteIds', error); showToast('Ошибка удаления из базы'); }
-    arr.forEach(id=>dbKnownIds.delete(id));
-  }
-  let DATA = { goals: [] };
-  let currentEditId = null;
-  let currentProgressId = null;
-  
-  // Переменные для истории
-  let hCurrentGoalId = null;
-  let hLimit = 10;
-  let hFilterDate = null;
-  let hPicker = null;
-  let hItemToDelete = null; 
-  let hItemToEdit = null;
-
-  let confirmAction = null;
-  let congratsGoalId = null; 
-
-  const toast = document.getElementById('toast');
-  const toastMessage = document.getElementById('toast-message');
-  
-  let selectedGoalIds = new Set();
-  const multiActionBar = document.getElementById('multi-action-bar');
-  const multiActionText = document.getElementById('multi-action-text');
-  const btnSelectAll = document.getElementById('btn-select-all');
-  const btnMultiDone = document.getElementById('btn-multi-done');
-  const btnMultiTrash = document.getElementById('btn-multi-trash');
-  
-  const btnMultiRestore = document.createElement('button');
-  btnMultiRestore.className = 'btn';
-  btnMultiRestore.innerHTML = '<i class="fa-solid fa-rotate-left"></i> <span class="desktop-only">Восстановить</span>';
-  btnMultiRestore.title = 'Восстановить';
-  btnMultiRestore.id = 'btn-multi-restore';
-
-  const btnMultiFinalDelete = document.createElement('button');
-  btnMultiFinalDelete.className = 'btn danger';
-  btnMultiFinalDelete.innerHTML = '<i class="fa-solid fa-ban"></i> <span class="desktop-only">Удалить навсегда</span>';
-  btnMultiFinalDelete.title = 'Удалить навсегда';
-  btnMultiFinalDelete.id = 'btn-multi-final-delete';
-
-
-  function showToast(msg) {
-    toastMessage.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
-  }
-
-  function nowISO() { return new Date().toISOString(); }
-
-  function safeParseNum(v) {
-    if (!v && v !== 0) return 0;
-    let str = String(v).replace(/\s+/g, '').replace(/,/g, '.').toLowerCase();
-    let multiplier = 1;
-    if (str.endsWith('к') || str.endsWith('k')) {
-        str = str.slice(0, -1);
-        multiplier = 1000;
-    }
-    const res = parseFloat(str);
-    return isNaN(res) ? 0 : res * multiplier;
-  }
-
-  function fmt(n) {
-    const num = safeParseNum(n);
-    return Math.round(num).toLocaleString('ru-RU');
-  }
-
-  // --- ОБНОВЛЕННАЯ ФУНКЦИЯ ФОРМАТИРОВАНИЯ И КАЛЬКУЛЯТОРА ---
-  function formatNumberInput(inputId) {
-      const input = document.getElementById(inputId);
-      if (!input) return;
-
-      let calcTimeout;
-
-      // 1. Форматирование при вводе (моментально)
-      input.addEventListener('input', (e) => {
-          clearTimeout(calcTimeout);
-          
-          let val = e.target.value;
-          // Если есть мат. знаки (+ - * /), значит это формула - не форматируем, ждем
-          if (/[+\-*/]/.test(val)) {
-              // Запускаем таймер на вычисление (1 секунда бездействия)
-              calcTimeout = setTimeout(() => {
-                   calculateAndSet(e.target);
-              }, 1000);
-              return; 
-          }
-
-          // Если просто число - форматируем пробелы сразу
-          // Удаляем всё кроме цифр и запятой/точки
-          let clean = val.replace(/[^\d.,]/g, '');
-          if (!clean) return;
-
-          // Пробуем отформатировать
-          let num = safeParseNum(clean);
-          if (!isNaN(num)) {
-             // Сохраняем позицию курсора (упрощенно: если в конце, то пусть будет в конце)
-             // Если число изменилось (добавился пробел), обновляем
-             let formatted = new Intl.NumberFormat('ru-RU').format(num);
-             // Чтобы можно было писать 0.5 или запятую, проверяем
-             if (!val.includes('.') && !val.includes(',')) {
-                 if (val.replace(/\s/g,'') == formatted.replace(/\s/g,'')) {
-                     // Только добавляем пробелы, если контент тот же
-                     e.target.value = formatted;
-                 }
-             }
-          }
-      });
-
-      // 2. Функция вычисления
-      const calculateAndSet = (target) => {
-          let val = target.value;
-          // Безопасное вычисление
-          try {
-             let safe = val.replace(/\s/g, '').replace(/,/g, '.');
-             // Разрешаем только цифры и мат. операторы
-             if (/[^0-9+\-*/().]/.test(safe)) return; 
-             
-             let result = new Function('return ' + safe)();
-             if (result !== undefined && !isNaN(result) && isFinite(result)) {
-                 target.value = new Intl.NumberFormat('ru-RU').format(Math.round(result));
-             }
-          } catch(e) {}
-      };
-
-      // 3. Также вычисляем при потере фокуса (на всякий случай)
-      input.addEventListener('blur', (e) => calculateAndSet(e.target));
-      
-      // 4. И по Enter
-      input.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-              calculateAndSet(e.target);
-              e.target.blur();
-          }
-      });
-      
-      // 5. Убираем пробелы при фокусе для удобного редактирования
-      input.addEventListener('focus', (e) => {
-          let val = e.target.value;
-          if (!/[+\-*/]/.test(val)) {
-             e.target.value = val.replace(/\s/g, '');
-          }
-      });
-  }
-
-  formatNumberInput('g-target');
-  formatNumberInput('g-current');
-  formatNumberInput('edit-target');
-  formatNumberInput('edit-current');
-  formatNumberInput('progress-amount');
-  formatNumberInput('he-amount');
-
-  function setupDateTemplate(selectId, customGroup, customInputId, dateInputId) {
-    const select = document.getElementById(selectId);
-    const customDiv = document.getElementById(customGroup);
-    const customInp = document.getElementById(customInputId);
-    const dateInp = document.getElementById(dateInputId);
-
-    function updateDate(days) {
-        if (!days || days <= 0) return;
-        const date = new Date();
-        date.setDate(date.getDate() + parseInt(days));
-        dateInp.value = date.toISOString().slice(0,10);
-    }
-
-    select.addEventListener('change', () => {
-        if (customDiv) customDiv.style.display = select.value === 'custom' ? 'block' : 'none';
-        if (select.value !== 'custom' && select.value !== '') {
-            updateDate(select.value);
-        }
-    });
-
-    if(customInp) customInp.addEventListener('input', () => updateDate(customInp.value));
-  }
-
-  setupDateTemplate('g-template', 'g-custom-days-field', 'g-custom-days-input', 'g-deadline');
-  setupDateTemplate('edit-template', 'edit-custom-days-field', 'edit-custom-days-input', 'edit-deadline');
-
-  function declOfNum(number, titles) {
-    const cases = [2, 0, 1, 1, 1, 2];
-    number = Math.abs(number);
-    return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
-  }
-  
-  function formatTimeLeft(deadline) {
-    if (!deadline) return { text: '<span style="color:var(--text-muted)"><i class="fa-solid fa-infinity" style="font-size:11px"></i> Бессрочно</span>', totalHours: null };
-
-    const deadlineTime = new Date(deadline + 'T23:59:59');
-    const now = new Date();
-    let diffMs = deadlineTime - now;
-
-    if (diffMs <= 0) {
-      const absDays = Math.ceil(Math.abs(diffMs) / 86400000); 
-      const overdueText = absDays === 0 
-          ? `<span style="color:var(--red)">Просрочено (сегодня)</span>`
-          : `<span style="color:var(--red)">Просрочено (${absDays} ${declOfNum(absDays, ['день', 'дня', 'дней'])})</span>`;
-      return { text: overdueText, totalHours: 0 };
-    }
-
-    const MS_PER_DAY = 86400000;
-    const MS_PER_HOUR = 3600000;
-    const MS_PER_MINUTE = 60000;
-    
-    const totalHours = diffMs / MS_PER_HOUR;
-
-    let text = 'Осталось ';
-    
-    if (diffMs < MS_PER_DAY) {
-      const hours = Math.floor(diffMs / MS_PER_HOUR);
-      const minutes = Math.floor((diffMs % MS_PER_HOUR) / MS_PER_MINUTE);
-      
-      if (hours === 0 && minutes === 0) {
-          text = 'Осталось менее минуты';
-      } else {
-          text += `${hours} ${declOfNum(hours, ['час', 'часа', 'часов'])}`;
-          if (minutes > 0) {
-              text += `, ${minutes} ${declOfNum(minutes, ['минута', 'минуты', 'минут'])}`;
-          }
-      }
-      
-    } else {
-      const days = Math.floor(diffMs / MS_PER_DAY);
-      const remainingMs = diffMs % MS_PER_DAY;
-      const hours = Math.floor(remainingMs / MS_PER_HOUR);
-      const minutes = Math.floor((remainingMs % MS_PER_HOUR) / MS_PER_MINUTE);
-      
-      text += `${days} ${declOfNum(days, ['день', 'дня', 'дней'])}`;
-      if (hours > 0) {
-          text += `, ${hours} ${declOfNum(hours, ['час', 'часа', 'часов'])}`;
-      }
-      if (minutes > 0) {
-          text += `, ${minutes} ${declOfNum(minutes, ['минута', 'минуты', 'минут'])}`;
-      }
-    }
-    
-    return { text: `<span style="color:var(--text)">${text}</span>`, totalHours: totalHours };
-  }
-
-  function shortDate(dateStr) {
-    if (!dateStr) return '<i class="fa-solid fa-infinity"></i>';
-    const date = new Date(dateStr);
-    date.setHours(12); 
-    const day = date.getDate();
-    const month = date.toLocaleString('ru-RU', { month: 'short' }).replace('.', '');
-    return `${day} ${month}`;
-  }
-
-    async function save(){
-    try{ localStorage.setItem(K, JSON.stringify(DATA)); }catch(e){}
-    if(!sb || !currentUser) return;
-    const goals = Array.isArray(DATA.goals) ? DATA.goals : [];
-    for(const g of goals) await dbUpsertOne(g);
-    const currentIds = new Set(goals.map(g=>g.id).filter(Boolean));
-    const toDelete = new Set(Array.from(dbKnownIds).filter(id=>!currentIds.has(id)));
-    await dbDeleteIds(toDelete);
-  }
-
-
-    async function load(){
-    if(sb && currentUser){
-      const rows = await dbFetchAll();
-      if(rows){ DATA = { goals: rows }; if(!Array.isArray(DATA.goals)) DATA.goals=[]; return; }
-    }
-    const raw = localStorage.getItem(K);
-    if(raw){ try{ DATA = JSON.parse(raw); }catch(e){ DATA={goals:[]}; } }
-    else { DATA={goals:[]}; }
-    if(!Array.isArray(DATA.goals)) DATA.goals=[];
-  }
-
-
-  function openModal(id) { document.getElementById(id).classList.add('show'); }
-  function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-  
-  function openConfirmModal(text, callback, isDestructive = false) {
-        document.getElementById('confirm-text').textContent = text;
-        confirmAction = callback;
-        const okBtn = document.getElementById('confirm-ok');
-        okBtn.className = isDestructive ? 'btn danger' : 'btn primary';
-        okBtn.textContent = isDestructive ? 'Удалить' : 'ОК';
-        openModal('confirm-modal');
-  }
-  
-  function showCongratulationsModal(goalId, title) {
-    congratsGoalId = goalId;
-    document.getElementById('congrats-title').innerHTML = `«${title}» достигнута!`;
-    openModal('congratulations-modal');
-  }
-
-  document.querySelectorAll('.modal-close').forEach(btn => {
-    btn.onclick = () => closeModal(btn.closest('.modal').id);
-  });
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.onclick = (e) => { if (e.target === modal) closeModal(modal.id); };
-  });
-  
-  document.getElementById('confirm-ok').onclick = () => {
-      if(confirmAction) confirmAction();
-      closeModal('confirm-modal');
-      confirmAction = null;
-  };
-  document.getElementById('confirm-cancel').onclick = () => {
-      closeModal('confirm-modal');
-      confirmAction = null;
-  };
-  
-  document.getElementById('btn-congrats-done').onclick = () => {
-      const g = DATA.goals.find(x => x.id === congratsGoalId);
-      if (g) {
-          g.status = 'done';
-          g.updatedAt = nowISO();
-          save(); render();
-          showToast('Цель перенесена в завершенные!');
-      }
-      closeModal('congratulations-modal');
-      congratsGoalId = null;
-  };
-  
-  document.getElementById('btn-congrats-cancel').onclick = () => {
-      closeModal('congratulations-modal');
-      congratsGoalId = null;
-      showToast('Цель оставлена активной');
+  const parseSum = (v) => {
+    if (!v) return 0;
+    v = v.toString().replace(/\s/g, '').replace(/,/g, '.').toLowerCase();
+    if (v.endsWith('к') || v.endsWith('k')) return parseFloat(v) * 1000;
+    if (v.endsWith('м') || v.endsWith('m')) return parseFloat(v) * 1000000;
+    return parseFloat(v) || 0;
   };
 
-  function updateMultiActionBar(visibleGoals) {
-    const selectedCount = selectedGoalIds.size;
-    
-    multiActionBar.style.display = selectedCount > 0 ? 'flex' : 'none';
-    multiActionText.textContent = `Выбрано: ${selectedCount}`;
-    
-    const actionBtnsContainer = multiActionBar.querySelector('.multi-action-btns');
-    actionBtnsContainer.innerHTML = ''; 
-    
-    const filter = document.querySelector('.tab.active').dataset.filter;
-    
-    if (filter === 'trash') {
-        actionBtnsContainer.appendChild(btnSelectAll);
-        btnSelectAll.innerHTML = `<i class="fa-solid fa-list-check"></i> <span class="desktop-only">${selectedCount === visibleGoals.length && visibleGoals.length > 0 ? 'Снять выделение' : 'Выбрать все'}</span>`;
-        actionBtnsContainer.appendChild(btnMultiRestore);
-        actionBtnsContainer.appendChild(btnMultiFinalDelete);
-    } else if (filter === 'active' || filter === 'done' || filter === 'all' || filter === 'favorite') {
-        actionBtnsContainer.appendChild(btnSelectAll);
-        btnSelectAll.innerHTML = `<i class="fa-solid fa-list-check"></i> <span class="desktop-only">${selectedCount === visibleGoals.length && visibleGoals.length > 0 ? 'Снять выделение' : 'Выбрать все'}</span>`;
+  const fmt = (n) => new Intl.NumberFormat('ru-RU').format(n);
+  const showToast = (m) => {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-message').innerText = m;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  };
 
-        const selected = DATA.goals.filter(g => selectedGoalIds.has(g.id));
-        const allSelectedAreDone = selected.every(g => g.status === 'done');
-        
-        btnMultiDone.innerHTML = allSelectedAreDone 
-            ? '<i class="fa-solid fa-rotate-left"></i> <span class="desktop-only">Вернуть</span>'
-            : '<i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span>';
-            
-        btnMultiDone.title = allSelectedAreDone ? 'Вернуть в работу' : 'Завершить';
-        
-        actionBtnsContainer.appendChild(btnMultiDone);
-        actionBtnsContainer.appendChild(btnMultiTrash);
+  const openModal = (id) => document.getElementById(id).classList.add('show');
+  const closeModal = (id) => {
+    document.getElementById(id).classList.remove('show');
+    if (id === 'history-modal') {
+        currentHistoryGoalId = null;
+        historyOffset = 0;
+        historyDateFilter = null;
+        document.getElementById('history-date-filter').value = '';
     }
-  }
-  
-  function toggleSelection(goalId) {
-    if (selectedGoalIds.has(goalId)) {
-        selectedGoalIds.delete(goalId);
-    } else {
-        selectedGoalIds.add(goalId);
-    }
-    render(); 
-  }
-  
-  function getSelectedGoals() {
-      return DATA.goals.filter(g => selectedGoalIds.has(g.id));
-  }
-  
-  if(btnSelectAll) {
-      btnSelectAll.onclick = () => {
-          const filter = document.querySelector('.tab.active').dataset.filter;
-          const visibleGoals = DATA.goals.filter(g => {
-            if (filter === 'active') return g.status === 'active';
-            if (filter === 'done') return g.status === 'done';
-            if (filter === 'trash') return g.status === 'trash';
-            if (filter === 'favorite') return g.isFavorite && g.status !== 'trash';
-            if (filter === 'all') return g.status !== 'trash';
-            return false;
-          });
-          
-          if (selectedGoalIds.size === visibleGoals.length && visibleGoals.length > 0) {
-              selectedGoalIds.clear(); 
-              showToast('Выделение снято');
-          } else {
-              selectedGoalIds.clear(); 
-              visibleGoals.forEach(g => selectedGoalIds.add(g.id)); 
-              showToast(`Выбрано ${visibleGoals.length} целей`);
-          }
-          render();
-      };
-  }
+  };
 
-  if(btnMultiDone) {
-      btnMultiDone.onclick = () => {
-          const selected = getSelectedGoals();
-          if (selected.length === 0) return showToast('Сначала выберите цели!');
-          
-          const allDone = selected.every(g => g.status === 'done');
-          const newStatus = allDone ? 'active' : 'done';
-          const actionText = allDone ? 'вернуть в работу' : 'завершить';
-          
-          openConfirmModal(`Вы действительно хотите ${actionText} ${selected.length} целей?`, () => {
-              selected.forEach(g => {
-                  g.status = newStatus;
-                  g.updatedAt = nowISO();
-              });
-              selectedGoalIds.clear();
-              save(); render();
-              showToast(newStatus === 'done' ? `Выполнено ${selected.length} целей!` : `Восстановлено ${selected.length} целей!`);
-          });
-      };
-  }
-
-  if(btnMultiTrash) {
-      btnMultiTrash.onclick = () => {
-          const selected = getSelectedGoals();
-          if (selected.length === 0) return showToast('Сначала выберите цели!');
-          
-          openConfirmModal(`Переместить ${selected.length} целей в корзину?`, () => {
-              selected.forEach(g => {
-                  g.status = 'trash';
-                  g.updatedAt = nowISO();
-              });
-              selectedGoalIds.clear();
-              save(); render();
-              showToast(`В корзину перемещено ${selected.length} целей`);
-          });
-      };
-  }
-  
-  if(btnMultiRestore) {
-      btnMultiRestore.onclick = () => {
-          const selected = getSelectedGoals();
-          if (selected.length === 0) return showToast('Сначала выберите цели!');
-          
-          openConfirmModal(`Восстановить ${selected.length} целей из корзины?`, () => {
-              selected.forEach(g => {
-                  g.status = 'active';
-                  g.updatedAt = nowISO();
-              });
-              selectedGoalIds.clear();
-              save(); render();
-              showToast(`Восстановлено ${selected.length} целей`);
-          });
-      };
-  }
-
-  if(btnMultiFinalDelete) {
-      btnMultiFinalDelete.onclick = () => {
-          const selected = getSelectedGoals();
-          if (selected.length === 0) return showToast('Сначала выберите цели!');
-          
-          openConfirmModal(`Удалить ${selected.length} целей безвозвратно?`, () => {
-              const idsToDelete = Array.from(selectedGoalIds);
-              DATA.goals = DATA.goals.filter(g => !idsToDelete.includes(g.id));
-              selectedGoalIds.clear();
-              save(); render();
-              showToast(`Удалено навсегда ${selected.length} целей`);
-          }, true);
-      };
-  }
-  
-  
-  function reorderGoals(draggedId, targetId) {
-      const draggedIndex = DATA.goals.findIndex(g => g.id === draggedId);
-      const targetIndex = DATA.goals.findIndex(g => g.id === targetId);
-      
-      if (draggedIndex > -1 && targetIndex > -1) {
-          const [movedItem] = DATA.goals.splice(draggedIndex, 1);
-          DATA.goals.splice(targetIndex, 0, movedItem);
-          save();
-          render();
-      }
-  }
-
-  let draggedItem = null;
-
+  const openConfirmModal = (text, onYes) => {
+    document.getElementById('confirm-text').innerText = text;
+    openModal('confirm-modal');
+    document.getElementById('confirm-yes').onclick = () => { onYes(); closeModal('confirm-modal'); };
+    document.getElementById('confirm-no').onclick = () => closeModal('confirm-modal');
+  };
 
   function render() {
     const list = document.getElementById('goals-list');
     list.innerHTML = '';
 
-    const filter = document.querySelector('.tab.active').dataset.filter;
-    
-    let visible = DATA.goals.filter(g => {
-      if (filter === 'active') return g.status === 'active';
-      if (filter === 'done') return g.status === 'done';
-      if (filter === 'trash') return g.status === 'trash';
-      if (filter === 'favorite') return g.isFavorite && g.status !== 'trash';
-      if (filter === 'all') return g.status !== 'trash';
-      return false;
-    });
-    
-    // Сортировка - закрепленные (isPinned) всегда сверху
-    visible.sort((a, b) => {
-        if (a.isPinned === b.isPinned) return 0;
-        return a.isPinned ? -1 : 1;
+    const filtered = goals.filter(g => {
+      if (currentFilter === 'trash') return g.is_trash;
+      if (g.is_trash) return false;
+      if (currentFilter === 'active') return !g.is_done;
+      if (currentFilter === 'done') return g.is_done;
+      if (currentFilter === 'favorite') return g.is_favorite;
+      return true;
     });
 
+    const sorted = filtered.sort((a, b) => {
+        if (a.is_pinned && !b.is_pinned) return -1;
+        if (!a.is_pinned && b.is_pinned) return 1;
+        return new Date(b.created_at) - new Date(a.created_at);
+    });
 
-    if (visible.length === 0) {
-      list.innerHTML = `<div class="empty-message"><i class="fa-regular fa-folder-open"></i><span>Список пуст</span></div>`;
-      selectedGoalIds.clear(); 
-      updateMultiActionBar(visible);
-      updateCounts(); 
-      return; 
+    document.getElementById('active-count').innerText = goals.filter(g => !g.is_done && !g.is_trash).length;
+    document.getElementById('done-count').innerText = goals.filter(g => g.is_done && !g.is_trash).length;
+    document.getElementById('total-count').innerText = goals.filter(g => !g.is_trash).length;
+    document.getElementById('trash-count').innerText = goals.filter(g => g.is_trash).length;
+    document.getElementById('fav-count').innerText = goals.filter(g => g.is_favorite && !g.is_trash).length;
+
+    let totalT = 0, totalC = 0;
+    goals.filter(g => !g.is_trash).forEach(g => { totalT += g.target; totalC += Math.min(g.current, g.target); });
+    const overallP = totalT ? Math.round((totalC / totalT) * 100) : 0;
+    document.getElementById('overall-progress').style.width = overallP + '%';
+    document.getElementById('overall-text').innerText = fmt(totalC) + ' / ' + fmt(totalT) + ' (' + overallP + '%)';
+
+    const bar = document.getElementById('multi-action-bar');
+    if (selectedGoalIds.size > 0) {
+        bar.style.display = 'flex';
+        document.getElementById('multi-action-text').innerText = `Выбрано: ${selectedGoalIds.size}`;
+    } else {
+        bar.style.display = 'none';
     }
-    
-    updateMultiActionBar(visible);
-    updateCounts(); 
 
-    const isTrash = (filter === 'trash');
+    if (!sorted.length) {
+      list.innerHTML = `<div class="empty-message"><i class="fa-solid fa- ghost" style="font-size:40px; opacity:0.2"></i> Список пуст</div>`;
+      return;
+    }
 
-    visible.forEach(g => {
-      const target = safeParseNum(g.target);
-      const current = safeParseNum(g.current);
-      const pctValue = target ? (current / target) * 100 : 0;
-      const pct = Math.min(100, pctValue).toFixed(0); 
+    sorted.forEach(g => {
+      const per = Math.round((g.current / g.target) * 100);
+      const isOver = g.deadline && new Date(g.deadline) < new Date() && !g.is_done;
       
-      const { text: deadlineText, totalHours: hoursLeft } = formatTimeLeft(g.deadline);
-      const isOverdue = hoursLeft !== null && hoursLeft <= 0;
-      
-      let pIcon = '';
-      let pText = '';
-      let pClass = '';
-
-      if (g.priority === 'high') {
-          pClass = 'priority-high';
-          pIcon = '<i class="fa-solid fa-fire"></i>';
-          pText = 'Высокий';
-      } else if (g.priority === 'low') {
-          pClass = 'priority-low';
-          pIcon = '<i class="fa-solid fa-leaf"></i>';
-          pText = 'Низкий';
-      } else { 
-          pClass = 'priority-med';
-          pIcon = '<i class="fa-solid fa-bolt"></i>'; 
-          pText = 'Средний';
-      }
-      
-      const neededPerHour = isOverdue || hoursLeft === null || hoursLeft <= 0 ? 0 : (target - current) / hoursLeft;
-      const neededPerDay = neededPerHour * 24;
-
-
-      const el = document.createElement('div');
-      el.className = `goal-card ${selectedGoalIds.has(g.id) ? 'selected' : ''} ${isTrash ? 'goal-card-trash' : ''} ${g.status === 'done' ? 'done' : ''}`;
-      el.dataset.id = g.id; 
-      
-      el.setAttribute('draggable', 'true');
-      
-      // Добавляем обработчик клика для выбора (вместо чекбокса)
-      el.onclick = (e) => {
-        // Если кликнули на кнопку, ссылку или инпут внутри карточки - не выбираем
-        if (e.target.closest('button') || e.target.closest('input') || e.target.closest('a') || e.target.closest('.star-icon') || e.target.closest('.pin-icon')) return;
-        
-        toggleSelection(g.id);
+      const div = document.createElement('div');
+      div.className = `goal-card ${g.is_done ? 'done' : ''} ${selectedGoalIds.has(g.id) ? 'selected' : ''}`;
+      div.onclick = (e) => {
+          if (e.target.closest('.btn, .action-icon-btn, .star-icon, .pin-icon')) return;
+          if (selectedGoalIds.has(g.id)) selectedGoalIds.delete(g.id);
+          else selectedGoalIds.add(g.id);
+          render();
       };
-      
-      let controls = '';
-      
-      if (!isTrash) {
-          controls = `
-            <div class="quick-add">
-                <button class="quick-btn" data-act="progress" data-goal-id="${g.id}"><i class="fa-solid fa-right-left"></i> Изменить баланс</button>
-            </div>
-            <div class="actions-row">
-                <button class="action-icon-btn" data-act="edit" data-goal-id="${g.id}"><i class="fa-solid fa-pen"></i> <span class="desktop-only">Редактировать</span></button>
-                <button class="action-icon-btn" data-act="history" data-goal-id="${g.id}"><i class="fa-solid fa-list-ul"></i> <span class="desktop-only">История</span></button>
-                <button class="action-icon-btn" data-act="done" data-goal-id="${g.id}">
-                    ${g.status === 'done' ? '<i class="fa-solid fa-rotate-left"></i> <span class="desktop-only">Вернуть</span>' : '<i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span>'}
-                </button>
-                <button class="action-icon-btn delete" data-act="del" data-goal-id="${g.id}" style="margin-left:auto"><i class="fa-regular fa-trash-can"></i> <span class="desktop-only">В корзину</span></button>
-            </div>
-          `;
-      } else {
-          controls = `
-             <div class="actions-row">
-                <button class="action-icon-btn" data-act="restore" data-goal-id="${g.id}"><i class="fa-solid fa-rotate-left"></i> <span class="desktop-only">Восстановить</span></button>
-                <button class="action-icon-btn delete" data-act="del-final" data-goal-id="${g.id}" style="margin-left:auto"><i class="fa-solid fa-ban"></i> <span class="desktop-only">Удалить навсегда</span></button>
-            </div>
-          `;
-      }
 
-      // Убран <div class="goal-checkbox-wrapper">
-      el.innerHTML = `
+      div.innerHTML = `
         <div class="goal-card-content">
-            <div class="goal-header">
-                <div class="goal-title-wrapper">
-                   <i class="fa-${g.isFavorite ? 'solid' : 'regular'} fa-star star-icon ${g.isFavorite ? 'active' : ''}" data-act="fav" data-goal-id="${g.id}" title="${g.isFavorite ? 'Убрать из избранного' : 'В избранное'}"></i>
-                   <i class="fa-solid fa-thumbtack pin-icon ${g.isPinned ? 'active' : ''}" data-act="pin" data-goal-id="${g.id}" title="${g.isPinned ? 'Открепить' : 'Закрепить сверху'}"></i>
-                   <div class="goal-title" style="margin-left: 4px;">${g.title}</div>
-                </div>
-                <div class="priority-badge ${pClass}">${pIcon} ${pText}</div>
+          <div class="goal-header">
+            <div class="goal-title-wrapper">
+                <i class="fa-solid fa-star star-icon ${g.is_favorite ? 'active' : ''}" data-id="${g.id}"></i>
+                <div class="goal-title">${g.title}</div>
             </div>
-            <div class="goal-meta">
-              <i class="fa-regular fa-clock"></i> ${deadlineText}
+            <div class="priority-badge priority-${g.priority}">
+                ${g.priority === 'high' ? '<i class="fa-solid fa-fire"></i> Срочно' : g.priority === 'med' ? 'Средний' : 'Низкий'}
             </div>
+          </div>
+          
+          <div class="goal-meta">
+            ${g.deadline ? `<span><i class="fa-regular fa-clock"></i> ${new Date(g.deadline).toLocaleDateString()} ${isOver ? '<span style="color:var(--red)">!</span>' : ''}</span>` : ''}
+            ${g.is_pinned ? '<i class="fa-solid fa-thumbtack pin-icon-status"></i>' : ''}
+          </div>
 
-            <div class="progress-bar ${g.status === 'done' ? 'done' : ''}"><div class="progress-fill" style="width:${pct}%"></div></div>
-            <div class="numbers">
-              <span>${fmt(current)}</span>
-              <span>${fmt(target)} • ${pctValue.toFixed(0)}%</span>
-            </div>
+          <div class="progress-bar ${g.is_done ? 'done' : ''}">
+            <div class="progress-fill" style="width: ${Math.min(per, 100)}%"></div>
+          </div>
+          <div class="numbers">
+            <span>${fmt(g.current)} ₽</span>
+            <span>из ${fmt(g.target)} ₽ (${per}%)</span>
+          </div>
 
-            ${g.status === 'active' || g.status === 'trash' || g.status === 'done' ? controls : ''}
-            
-            <div class="kpi">
-              <div class="kpi-item">
-                 <div class="kpi-value">${fmt(Math.max(0, target - current))}</div>
-                 <div class="kpi-label">Осталось</div>
-              </div>
-              <div class="kpi-item">
-                 <div class="kpi-value" style="color:var(--text);">${shortDate(g.deadline)}</div> 
-                 <div class="kpi-label">Дедлайн</div>
-              </div>
-              ${!isOverdue && hoursLeft !== null && hoursLeft > 0 ? `
-              <div class="kpi-item">
-                 <div class="kpi-value">${fmt(neededPerDay)}</div>
-                 <div class="kpi-label">В день</div>
-              </div>` : `
-              <div class="kpi-item">
-                 <div class="kpi-value" style="color:var(--text-muted)">—</div>
-                 <div class="kpi-label">В день</div>
-              </div>`}
-            </div>
-            
-            ${g.notes ? `<div style="margin-top:12px; font-size:13px; color:var(--text-muted); padding:10px; background:var(--bg); border-radius:8px; line-height:1.4;">${g.notes}</div>` : ''}
+          <div class="quick-add">
+            <button class="quick-btn" data-id="${g.id}" data-add="1000">+ 1к</button>
+            <button class="quick-btn" data-id="${g.id}" data-add="5000">+ 5к</button>
+            <button class="quick-btn" data-id="${g.id}" data-type="custom"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="quick-btn" data-id="${g.id}" data-type="history"><i class="fa-solid fa-clock-rotate-left"></i></button>
+          </div>
+
+          <div class="actions-row">
+            <button class="action-icon-btn" data-id="${g.id}" data-type="edit"><i class="fa-solid fa-pen"></i> Ред.</button>
+            <button class="action-icon-btn ${g.is_pinned ? 'pinned' : ''}" data-id="${g.id}" data-type="pin"><i class="fa-solid fa-thumbtack"></i> Закрепить</button>
+            <button class="action-icon-btn delete" data-id="${g.id}" data-type="trash"><i class="fa-regular fa-trash-can"></i> ${g.is_trash ? 'Удалить' : 'В корзину'}</button>
+            ${g.is_trash ? `<button class="action-icon-btn" data-id="${g.id}" data-type="restore"><i class="fa-solid fa-rotate-left"></i> Вернуть</button>` : ''}
+          </div>
         </div>
       `;
-      
-      el.addEventListener('dragstart', (e) => {
-         draggedItem = g;
-         el.classList.add('dragging');
-         e.dataTransfer.effectAllowed = 'move';
-      });
-
-      el.addEventListener('dragend', () => {
-         el.classList.remove('dragging');
-         draggedItem = null;
-      });
-
-      el.addEventListener('dragover', (e) => {
-         e.preventDefault(); 
-      });
-
-      el.addEventListener('drop', (e) => {
-         e.preventDefault();
-         if (draggedItem && draggedItem.id !== g.id) {
-             reorderGoals(draggedItem.id, g.id);
-         }
-      });
-
-      el.querySelectorAll('[data-act]').forEach(btn => {
-        btn.onclick = (e) => {
-            e.stopPropagation(); 
-            const act = btn.dataset.act;
-            const goalId = btn.dataset.goalId;
-            const g = DATA.goals.find(x => x.id === goalId);
-            
-            if (!g) return;
-            
-            if (act === 'fav') {
-                g.isFavorite = !g.isFavorite;
-                g.updatedAt = nowISO();
-                save(); render();
-                showToast(g.isFavorite ? 'Добавлено в избранное' : 'Убрано из избранного');
-            }
-            
-            if (act === 'pin') {
-                g.isPinned = !g.isPinned;
-                g.updatedAt = nowISO();
-                save(); render();
-                showToast(g.isPinned ? 'Закреплено сверху' : 'Откреплено');
-            }
-
-            if (act === 'edit') openEditModal(goalId);
-            if (act === 'progress') openProgressModal(goalId);
-            if (act === 'history') openHistoryModal(goalId);
-            if (act === 'done') {
-                const newStatus = g.status === 'done' ? 'active' : 'done';
-                
-                if (newStatus === 'done' && safeParseNum(g.current) >= safeParseNum(g.target) && safeParseNum(g.target) > 0) {
-                    showCongratulationsModal(goalId, g.title);
-                } else {
-                    openConfirmModal(`Вы действительно хотите ${newStatus === 'done' ? 'завершить' : 'вернуть в работу'} цель "${g.title}"?`, () => {
-                        g.status = newStatus;
-                        g.updatedAt = nowISO();
-                        save(); render();
-                        showToast(newStatus === 'done' ? 'Цель выполнена!' : 'Цель активна');
-                    });
-                }
-            }
-            if (act === 'del') {
-                 openConfirmModal(`Переместить цель "${g.title}" в корзину?`, () => {
-                    g.status = 'trash';
-                    g.updatedAt = nowISO();
-                    save(); render();
-                    showToast('В корзине');
-                });
-            }
-            if (act === 'restore') {
-                g.status = 'active';
-                g.updatedAt = nowISO();
-                save(); render();
-                showToast('Восстановлено');
-            }
-            if (act === 'del-final') {
-                openConfirmModal(`Удалить цель "${g.title}" безвозвратно?`, () => {
-                    DATA.goals = DATA.goals.filter(x => x.id !== goalId);
-                    save(); render();
-                    showToast('Удалено');
-                }, true);
-            }
-        }
-      });
-      
-
-      list.appendChild(el);
+      list.appendChild(div);
     });
   }
-  
-  function updateCounts() {
-    const active = DATA.goals.filter(g => g.status === 'active');
-    const done = DATA.goals.filter(g => g.status === 'done');
-    const trash = DATA.goals.filter(g => g.status === 'trash');
-    const all = DATA.goals.filter(g => g.status !== 'trash');
-    const fav = DATA.goals.filter(g => g.isFavorite && g.status !== 'trash');
-    
-    const totalT = active.reduce((s,g) => s + safeParseNum(g.target), 0);
-    const totalC = active.reduce((s,g) => s + safeParseNum(g.current), 0);
-    const overall = totalT ? (totalC / totalT) * 100 : 0;
 
-    document.getElementById('overall-progress').style.width = overall + '%';
-    document.getElementById('overall-text').textContent = `Собрано ${fmt(totalC)} из ${fmt(totalT)} (${overall.toFixed(0)}%)`;
-
-    document.getElementById('active-count').textContent = active.length;
-    document.getElementById('done-count').textContent = done.length;
-    document.getElementById('trash-count').textContent = trash.length;
-    document.getElementById('fav-count').textContent = fav.length;
-    document.getElementById('total-count').textContent = all.length;
+  async function load() {
+    goals = await dbFetchAll();
   }
 
+  document.getElementById('btn-add').onclick = async () => {
+    const t = document.getElementById('g-title').value;
+    const tg = parseSum(document.getElementById('g-target').value);
+    const cur = parseSum(document.getElementById('g-current').value);
+    if (!t || !tg) return showToast('Заполните название и сумму');
 
-  // --- ACTIONS ---
+    const goal = {
+      id: crypto.randomUUID(),
+      title: t,
+      target: tg,
+      current: cur,
+      deadline: document.getElementById('g-deadline').value,
+      priority: document.getElementById('g-priority').value,
+      notes: document.getElementById('g-notes').value,
+      is_done: cur >= tg,
+      is_favorite: false,
+      is_pinned: false,
+      is_trash: false,
+      history: [],
+      created_at: new Date().toISOString()
+    };
+    if (cur > 0) goal.history.push({ id: crypto.randomUUID(), amount: cur, comment: 'Начальный баланс', date: new Date().toISOString() });
+    
+    await dbUpsertOne(goal);
+    goals.unshift(goal);
+    render();
+    document.getElementById('g-title').value = '';
+    document.getElementById('g-target').value = '';
+    document.getElementById('g-current').value = '';
+    document.getElementById('g-notes').value = '';
+    showToast('Цель добавлена');
+  };
 
-  function openEditModal(id) {
-    const g = DATA.goals.find(x => x.id === id);
+  document.getElementById('goals-list').onclick = async (e) => {
+    const btn = e.target.closest('button, .star-icon');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const g = goals.find(x => x.id === id);
     if (!g) return;
-    currentEditId = id;
-    document.getElementById('edit-title').value = g.title || '';
-    // Подставляем чистое число без пробелов, чтобы легче было редактировать
-    document.getElementById('edit-target').value = g.target; 
-    document.getElementById('edit-current').value = g.current;
-    
-    document.getElementById('edit-deadline').value = g.deadline || '';
-    document.getElementById('edit-priority').value = g.priority || 'med';
-    document.getElementById('edit-notes').value = g.notes || '';
-    document.getElementById('edit-template').value = '';
-    document.getElementById('edit-custom-days-field').style.display = 'none';
-    
-    openModal('edit-modal');
-  }
 
-  document.getElementById('save-edit').onclick = () => {
-    openConfirmModal('Сохранить изменения в цели?', () => {
-        const g = DATA.goals.find(x => x.id === currentEditId);
-        if (!g) return;
-        
-        g.title = document.getElementById('edit-title').value.trim();
-        g.target = safeParseNum(document.getElementById('edit-target').value); 
-        
-        const newCurrent = safeParseNum(document.getElementById('edit-current').value);
-        const oldCurrent = safeParseNum(g.current);
-        const diff = newCurrent - oldCurrent;
-        
-        g.deadline = document.getElementById('edit-deadline').value || null;
-        g.priority = document.getElementById('edit-priority').value;
-        g.notes = document.getElementById('edit-notes').value.trim();
-        g.updatedAt = nowISO();
-        
-        g.current = newCurrent;
-        
-        // --- ADDED: History log for manual edits ---
-        if (diff !== 0) {
-            if (!g.history) g.history = [];
-            g.history.push({
-                id: Date.now().toString(36),
-                date: nowISO(),
-                amount: diff,
-                type: 'edit',
-                comment: 'Ручное изменение'
+    if (btn.classList.contains('star-icon')) {
+        g.is_favorite = !g.is_favorite;
+        await dbUpsertOne(g); render(); return;
+    }
+
+    const type = btn.dataset.type;
+    const addVal = btn.dataset.add;
+
+    if (addVal) {
+      const val = parseInt(addVal);
+      g.current += val;
+      g.history.push({ id: crypto.randomUUID(), amount: val, comment: 'Быстрое пополнение', date: new Date().toISOString() });
+      checkDone(g);
+      await dbUpsertOne(g); render();
+    } else if (type === 'custom') {
+      currentHistoryGoalId = id;
+      document.getElementById('progress-amount').value = '';
+      document.getElementById('progress-comment').value = '';
+      openModal('progress-modal');
+    } else if (type === 'history') {
+      currentHistoryGoalId = id;
+      openHistoryModal();
+    } else if (type === 'edit') {
+        currentHistoryGoalId = id;
+        document.getElementById('edit-title').value = g.title;
+        document.getElementById('edit-target').value = g.target;
+        document.getElementById('edit-current').value = g.current;
+        document.getElementById('edit-deadline').value = g.deadline || '';
+        document.getElementById('edit-priority').value = g.priority;
+        document.getElementById('edit-notes').value = g.notes || '';
+        openModal('edit-modal');
+    } else if (type === 'pin') {
+        g.is_pinned = !g.is_pinned;
+        await dbUpsertOne(g); render();
+    } else if (type === 'trash') {
+        if (g.is_trash) {
+            openConfirmModal('Удалить цель навсегда?', async () => {
+                await dbDeleteIds([id]);
+                goals = goals.filter(x => x.id !== id);
+                render();
             });
-        }
-        
-        const target = safeParseNum(g.target);
-
-        save();
-        
-        if (newCurrent >= target && target > 0 && oldCurrent < target && g.status !== 'done') {
-            render(); 
-            showCongratulationsModal(g.id, g.title);
         } else {
-            render();
-            closeModal('edit-modal');
-            showToast('Сохранено');
+            g.is_trash = true;
+            selectedGoalIds.delete(id);
+            await dbUpsertOne(g); render();
         }
-    });
+    } else if (type === 'restore') {
+        g.is_trash = false;
+        await dbUpsertOne(g); render();
+    }
   };
 
-  function openProgressModal(id) {
-    currentProgressId = id;
-    document.getElementById('progress-amount').value = '';
-    document.getElementById('progress-comment').value = '';
-    openModal('progress-modal');
+  function checkDone(g) {
+    if (g.current >= g.target && !g.is_done) {
+        g.is_done = true;
+        document.getElementById('congrats-goal-title').innerText = g.title;
+        openModal('congratulations-modal');
+    } else if (g.current < g.target) {
+        g.is_done = false;
+    }
   }
 
-  function updateProgress(isSubtract) {
-    const g = DATA.goals.find(x => x.id === currentProgressId);
-    if (!g || g.status !== 'active') return showToast('Цель неактивна');
+  document.getElementById('congrats-done').onclick = () => closeModal('congratulations-modal');
+
+  document.getElementById('btn-add-progress').onclick = () => handleProgress(1);
+  document.getElementById('btn-subtract').onclick = () => handleProgress(-1);
+
+  async function handleProgress(sign) {
+    const val = parseSum(document.getElementById('progress-amount').value);
+    const comm = document.getElementById('progress-comment').value;
+    if (!val) return;
+    const g = goals.find(x => x.id === currentHistoryGoalId);
+    const amount = val * sign;
+    g.current += amount;
+    g.history.push({ id: crypto.randomUUID(), amount, comment: comm || (sign > 0 ? 'Пополнение' : 'Списание'), date: new Date().toISOString() });
+    checkDone(g);
+    await dbUpsertOne(g);
+    render();
+    closeModal('progress-modal');
+  }
+
+  function openHistoryModal() {
+    const g = goals.find(x => x.id === currentHistoryGoalId);
+    document.getElementById('history-modal-title').innerText = g.title;
+    historyOffset = 0;
+    renderHistory();
+    openModal('history-modal');
+  }
+
+  function renderHistory() {
+    const g = goals.find(x => x.id === currentHistoryGoalId);
+    const container = document.getElementById('history-list-container');
+    if (historyOffset === 0) container.innerHTML = '';
+
+    let items = [...g.history].sort((a,b) => new Date(b.date) - new Date(a.date));
+    if (historyDateFilter) {
+        const d = historyDateFilter.toISOString().split('T')[0];
+        items = items.filter(x => x.date.startsWith(d));
+    }
+
+    const slice = items.slice(historyOffset, historyOffset + historyPageSize);
     
-    const val = safeParseNum(document.getElementById('progress-amount').value); 
-    const comment = document.getElementById('progress-comment').value.trim();
-    
-    if (val <= 0) { showToast('Введите положительную сумму!'); return; }
-    
-    openConfirmModal(`${isSubtract ? 'Вычесть' : 'Добавить'} ${fmt(val)}?`, () => {
-        const target = safeParseNum(g.target);
-        const oldCurrent = safeParseNum(g.current);
-        let newCurrent = oldCurrent;
-        
-        if (isSubtract) {
-            newCurrent = Math.max(0, oldCurrent - val);
-        } else {
-            newCurrent = oldCurrent + val;
-        }
-        
-        g.current = newCurrent;
-        g.updatedAt = nowISO();
-        
-        if (!g.history) g.history = [];
-        g.history.push({
-            id: Date.now().toString(36),
-            date: nowISO(),
-            amount: isSubtract ? -val : val,
-            type: isSubtract ? 'sub' : 'add',
-            comment: comment || (isSubtract ? 'Уменьшение баланса' : 'Пополнение')
-        });
+    if (slice.length === 0 && historyOffset === 0) {
+        container.innerHTML = '<div class="empty-message">Истории пока нет</div>';
+        document.getElementById('history-load-more-container').style.display = 'none';
+        return;
+    }
 
-        save(); 
-
-        closeModal('progress-modal');
-        
-        if (newCurrent >= target && target > 0 && oldCurrent < target && g.status !== 'done') {
-            render(); 
-            showCongratulationsModal(g.id, g.title);
-        } else {
-            render();
-            showToast(`${isSubtract ? 'Вычтено' : 'Добавлено'} ${fmt(val)}`);
-        }
-    });
-  }
-
-  document.getElementById('btn-add-progress').onclick = () => updateProgress(false);
-  document.getElementById('btn-subtract').onclick = () => updateProgress(true);
-  
-  // --- HISTORY LOGIC ---
-  
-  // Модальное окно для выбора способа удаления истории
-  function openHistoryDeleteModal(historyItem) {
-      hItemToDelete = historyItem;
-      const displayAmount = (historyItem.amount > 0 ? '+' : '') + fmt(historyItem.amount);
-      document.getElementById('hd-amount-display').textContent = `${historyItem.comment}: ${displayAmount}`;
-      openModal('history-delete-modal');
-  }
-
-  // Обработчики кнопок модального окна удаления истории
-  document.getElementById('btn-hd-cancel').onclick = () => {
-      closeModal('history-delete-modal');
-      hItemToDelete = null;
-  };
-  
-  document.getElementById('btn-hd-delete-only').onclick = () => {
-      if (hCurrentGoalId && hItemToDelete) {
-          performHistoryDelete(hCurrentGoalId, hItemToDelete.id, false);
-      }
-      closeModal('history-delete-modal');
-  };
-
-  document.getElementById('btn-hd-revert').onclick = () => {
-      if (hCurrentGoalId && hItemToDelete) {
-          performHistoryDelete(hCurrentGoalId, hItemToDelete.id, true);
-      }
-      closeModal('history-delete-modal');
-  };
-
-
-  // Функция выполнения удаления
-  function performHistoryDelete(goalId, historyId, revertBalance) {
-      const g = DATA.goals.find(x => x.id === goalId);
-      if (!g || !g.history) return;
-      
-      const item = g.history.find(h => h.id === historyId);
-      if (!item) return;
-
-      // Если нужно вернуть деньги на счет
-      if (revertBalance) {
-          // Если это было добавление (+1000), то надо отнять (current - 1000)
-          // Если это был расход (-1000), то надо прибавить (current - (-1000) = current + 1000)
-          const newCurrent = Math.max(0, safeParseNum(g.current) - item.amount);
-          g.current = newCurrent;
-      }
-      
-      // Удаляем из массива
-      g.history = g.history.filter(h => h.id !== historyId);
-      save();
-      
-      // Обновляем UI
-      renderHistoryList();
-      render(); // Обновляем основную карточку, так как баланс мог измениться
-      
-      const msg = revertBalance 
-        ? 'Запись удалена, баланс скорректирован' 
-        : 'Запись удалена из истории';
-      showToast(msg);
-  }
-  
-  // --- HISTORY EDIT LOGIC ---
-  function openHistoryEditModal(historyItem) {
-      hItemToEdit = historyItem;
-      // В инпут подставляем само число, можно с пробелами
-      document.getElementById('he-amount').value = new Intl.NumberFormat('ru-RU').format(historyItem.amount);
-      document.getElementById('he-comment').value = historyItem.comment || '';
-      openModal('history-edit-modal');
-  }
-  
-  document.getElementById('btn-he-save').onclick = () => {
-      if (hCurrentGoalId && hItemToEdit) {
-          const g = DATA.goals.find(x => x.id === hCurrentGoalId);
-          if (!g) return;
-          
-          const item = g.history.find(h => h.id === hItemToEdit.id);
-          if (!item) return;
-          
-          const newAmount = safeParseNum(document.getElementById('he-amount').value);
-          const newComment = document.getElementById('he-comment').value.trim();
-          
-          // Корректировка основного баланса
-          const oldAmount = item.amount;
-          const diff = newAmount - oldAmount;
-          
-          if (diff !== 0) {
-              g.current = Math.max(0, safeParseNum(g.current) + diff);
-          }
-          
-          item.amount = newAmount;
-          item.comment = newComment || (newAmount > 0 ? 'Пополнение' : 'Расход');
-          item.editedAt = nowISO(); // Ставим метку редактирования
-          
-          save();
-          renderHistoryList();
-          render();
-          showToast('Запись изменена');
-          closeModal('history-edit-modal');
-      }
-  };
-
-  // Открытие модального окна истории
-  function openHistoryModal(goalId) {
-      hCurrentGoalId = goalId;
-      hLimit = 10; // Сбрасываем лимит при открытии
-      hFilterDate = null; // Сбрасываем фильтр
-
-      const g = DATA.goals.find(x => x.id === goalId);
-      if (!g) return;
-      
-      document.getElementById('history-modal-title').textContent = `История: ${g.title}`;
-
-      // Инициализируем календарь, если еще не был создан
-      if (!hPicker) {
-        hPicker = flatpickr("#history-date-filter", {
-            locale: "ru",
-            dateFormat: "Y-m-d",
-            onChange: (selectedDates, dateStr) => {
-                hFilterDate = dateStr;
-                hLimit = 10; // При фильтрации сбрасываем пагинацию
-                renderHistoryList();
-            }
-        });
-      } else {
-        hPicker.clear(); // Очищаем поле при новом открытии
-      }
-
-      renderHistoryList();
-      openModal('history-modal');
-  }
-  
-  // Кнопка сброса фильтра
-  document.getElementById('history-clear-filter').onclick = () => {
-      if (hPicker) hPicker.clear();
-      hFilterDate = null;
-      hLimit = 10;
-      renderHistoryList();
-  };
-  
-  // Кнопка "Показать еще"
-  document.getElementById('btn-history-load-more').onclick = () => {
-      hLimit += 15;
-      renderHistoryList();
-  };
-
-  // Основная функция отрисовки списка истории
-  function renderHistoryList() {
-      const container = document.getElementById('history-list-container');
-      const loadMoreBtn = document.getElementById('history-load-more-container');
-      container.innerHTML = '';
-      
-      const g = DATA.goals.find(x => x.id === hCurrentGoalId);
-      if (!g || !g.history || g.history.length === 0) {
-          container.innerHTML = '<div class="empty-message" style="padding: 20px;">Нет операций</div>';
-          loadMoreBtn.style.display = 'none';
-          return;
-      }
-      
-      // 1. Сортируем (новые сверху)
-      let entries = [...g.history].sort((a,b) => new Date(b.date) - new Date(a.date));
-      
-      // 2. Фильтруем по дате (если выбрана)
-      if (hFilterDate) {
-          entries = entries.filter(h => h.date.startsWith(hFilterDate));
-      }
-      
-      const totalEntries = entries.length;
-      
-      // 3. Пагинация (берем только hLimit штук)
-      const visibleEntries = entries.slice(0, hLimit);
-      
-      if (visibleEntries.length === 0) {
-           container.innerHTML = '<div class="empty-message" style="padding: 20px;">Ничего не найдено за эту дату</div>';
-           loadMoreBtn.style.display = 'none';
-           return;
-      }
-      
-      // 4. Группировка
-      // Вспомогательная функция для заголовка группы
-      const getGroupLabel = (dateIso) => {
-          const d = new Date(dateIso);
-          const today = new Date();
-          const yesterday = new Date();
-          yesterday.setDate(yesterday.getDate() - 1);
-          
-          const dStr = d.toDateString();
-          if (dStr === today.toDateString()) return 'Сегодня';
-          if (dStr === yesterday.toDateString()) return 'Вчера';
-          
-          return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-      };
-
-      let lastGroupLabel = '';
-      
-      visibleEntries.forEach(h => {
-          // Определяем группу
-          const groupLabel = getGroupLabel(h.date);
-          
-          // Если группа сменилась, рисуем заголовок
-          if (groupLabel !== lastGroupLabel) {
-              // --- Считаем сумму за день для этой группы ---
-              const groupItems = visibleEntries.filter(item => getGroupLabel(item.date) === groupLabel);
-              const dayInc = groupItems.reduce((acc, curr) => curr.amount > 0 ? acc + curr.amount : acc, 0);
-              const dayExp = groupItems.reduce((acc, curr) => curr.amount < 0 ? acc + curr.amount : acc, 0);
-              
-              // NEW: Считаем чистое сальдо (net)
-              const net = dayInc + dayExp;
-
-              const header = document.createElement('div');
-              header.className = 'history-group-header';
-              // Делаем так, чтобы дата была слева, а суммы справа
-              header.style.justifyContent = 'space-between';
-
-              let sumsHtml = '<div style="display:flex; align-items:center;">';
-              if (dayInc > 0) sumsHtml += `<span style="color:var(--green); margin-left:10px;">+${fmt(dayInc)}</span>`;
-              if (dayExp < 0) sumsHtml += `<span style="color:var(--red); margin-left:10px;">${fmt(dayExp)}</span>`;
-              
-              // NEW: Если есть и доход и расход, показываем "Итого"
-              if (dayInc !== 0 && dayExp !== 0) {
-                  sumsHtml += ` <span style="color:var(--text-muted); margin: 0 4px;">=</span> `;
-                  const netColor = net >= 0 ? 'var(--green)' : 'var(--red)';
-                  const netSign = net > 0 ? '+' : '';
-                  sumsHtml += `<span style="color:${netColor}; font-weight:800; border:1px solid var(--border); padding:0 4px; border-radius:4px; background:var(--bg)">${netSign}${fmt(net)}</span>`;
-              }
-              
-              // Если вдруг всё по нулям (редкий случай)
-              if (dayInc === 0 && dayExp === 0) sumsHtml += `<span style="color:var(--text-muted); margin-left:10px;">0</span>`;
-              sumsHtml += '</div>';
-
-              header.innerHTML = `<span>${groupLabel}</span>${sumsHtml}`;
-              container.appendChild(header);
-              lastGroupLabel = groupLabel;
-          }
-          
-          // Рисуем элемент
-          const isPositive = h.amount > 0;
-          const sign = isPositive ? '+' : '';
-          const colorClass = isPositive ? 'plus' : 'minus';
-          
-          // Форматируем время (ЧЧ:ММ)
-          let timeStr = '';
-          try {
-             timeStr = new Date(h.date).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-          } catch(e) {}
-          
-          // Проверка на редактирование
-          let editedHtml = '';
-          if (h.editedAt) {
-              const editTime = new Date(h.editedAt).toLocaleString('ru-RU');
-              editedHtml = `<span class="edited-mark" title="Изменено: ${editTime}">(ред.)</span>`;
-          }
-
-          const item = document.createElement('div');
-          item.className = 'history-item';
-          item.innerHTML = `
+    slice.forEach(h => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.innerHTML = `
             <div class="history-info">
-                <div class="history-comment">${h.comment || (isPositive ? 'Пополнение' : 'Расход')}</div>
-                <div class="history-date">${timeStr}${editedHtml}</div>
+                <div class="history-comment">${h.comment} ${h.is_edited ? '<span class="edited-mark" title="Изменено вручную">ред.</span>' : ''}</div>
+                <div class="history-date">${new Date(h.date).toLocaleString()}</div>
             </div>
             <div class="history-right">
-                <div class="history-amount ${colorClass}">${sign}${fmt(h.amount)}</div>
-                <button class="btn-icon" style="margin-right:2px;" title="Редактировать"><i class="fa-solid fa-pencil"></i></button>
-                <button class="btn-icon del" title="Удалить запись"><i class="fa-regular fa-trash-can"></i></button>
+                <div class="history-amount ${h.amount > 0 ? 'plus' : 'minus'}">${h.amount > 0 ? '+' : ''}${fmt(h.amount)}</div>
+                <button class="btn-icon" onclick="editHistoryItem('${h.id}')"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn-icon del" onclick="deleteHistoryItem('${h.id}')"><i class="fa-regular fa-trash-can"></i></button>
             </div>
-          `;
-          
-          // Клик на редактирование
-          const editBtn = item.querySelector('.btn-icon:not(.del)');
-          editBtn.onclick = () => {
-              openHistoryEditModal(h);
-          };
+        `;
+        container.appendChild(div);
+    });
 
-          // Клик на удаление (NEW: Вызов новой функции)
-          const delBtn = item.querySelector('.btn-icon.del');
-          delBtn.onclick = () => {
-             openHistoryDeleteModal(h);
-          };
-          
-          container.appendChild(item);
-      });
-      
-      // 5. Показываем кнопку "Показать еще", если есть скрытые записи
-      if (totalEntries > hLimit) {
-          loadMoreBtn.style.display = 'block';
-          document.getElementById('btn-history-load-more').textContent = `Показать еще (${totalEntries - hLimit})`;
-      } else {
-          loadMoreBtn.style.display = 'none';
-      }
+    historyOffset += historyPageSize;
+    document.getElementById('history-load-more-container').style.display = items.length > historyOffset ? 'block' : 'none';
   }
 
-
-  document.getElementById('btn-add').onclick = () => {
-    const title = document.getElementById('g-title').value.trim();
-    if (!title) { showToast('Введите название!'); return; }
-
-    const target = safeParseNum(document.getElementById('g-target').value);
-    const current = safeParseNum(document.getElementById('g-current').value);
-    
-    const isDone = (target > 0) && (current >= target);
-
-    const g = {
-      id: Date.now().toString(36),
-      title,
-      priority: document.getElementById('g-priority').value,
-      target: target,
-      current: current,
-      deadline: document.getElementById('g-deadline').value || null,
-      notes: document.getElementById('g-notes').value.trim(),
-      status: isDone ? 'done' : 'active', 
-      isFavorite: false, 
-      isPinned: false, 
-      history: [], 
-      createdAt: nowISO(),
-      updatedAt: nowISO()
+  window.deleteHistoryItem = (hid) => {
+    openModal('history-delete-modal');
+    document.getElementById('confirm-delete-history').onclick = async () => {
+        const g = goals.find(x => x.id === currentHistoryGoalId);
+        const item = g.history.find(x => x.id === hid);
+        g.current -= item.amount;
+        g.history = g.history.filter(x => x.id !== hid);
+        checkDone(g);
+        await dbUpsertOne(g);
+        historyOffset = 0;
+        renderHistory();
+        render();
+        closeModal('history-delete-modal');
     };
-    
-    if (current > 0) {
-        g.history.push({
-            id: Date.now().toString(36),
-            date: nowISO(),
-            amount: current,
-            type: 'set',
-            comment: 'Начальный баланс'
-        });
-    }
+  };
+  document.getElementById('cancel-delete-history').onclick = () => closeModal('history-delete-modal');
 
-    DATA.goals.push(g);
-    save(); 
+  let currentEditingHistoryId = null;
+  window.editHistoryItem = (hid) => {
+      const g = goals.find(x => x.id === currentHistoryGoalId);
+      const h = g.history.find(x => x.id === hid);
+      currentEditingHistoryId = hid;
+      document.getElementById('edit-history-comment').value = h.comment;
+      document.getElementById('edit-history-amount').value = h.amount;
+      openModal('history-edit-modal');
+  };
+
+  document.getElementById('save-history-edit').onclick = async () => {
+      const g = goals.find(x => x.id === currentHistoryGoalId);
+      const h = g.history.find(x => x.id === currentEditingHistoryId);
+      const newA = parseSum(document.getElementById('edit-history-amount').value);
+      
+      g.current = g.current - h.amount + newA;
+      h.amount = newA;
+      h.comment = document.getElementById('edit-history-comment').value;
+      h.is_edited = true;
+      
+      checkDone(g);
+      await dbUpsertOne(g);
+      historyOffset = 0;
+      renderHistory();
+      render();
+      closeModal('history-edit-modal');
+  };
+
+  document.querySelectorAll('.modal-close').forEach(b => {
+    b.onclick = () => {
+        const modal = b.closest('.modal');
+        if (modal) closeModal(modal.id);
+    };
+  });
+
+  document.getElementById('save-edit').onclick = async () => {
+    const g = goals.find(x => x.id === currentHistoryGoalId);
+    g.title = document.getElementById('edit-title').value;
+    g.target = parseSum(document.getElementById('edit-target').value);
+    g.current = parseSum(document.getElementById('edit-current').value);
+    g.deadline = document.getElementById('edit-deadline').value;
+    g.priority = document.getElementById('edit-priority').value;
+    g.notes = document.getElementById('edit-notes').value;
+    checkDone(g);
+    await dbUpsertOne(g);
     render();
-    
-    if (isDone) {
-        showToast('Цель создана и сразу выполнена!');
-    } else {
-        showToast('Цель создана');
-    }
-    
-    ['g-title','g-target','g-current','g-deadline','g-notes','g-custom-days-input'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) el.value = '';
-    });
-    document.getElementById('g-template').value = '';
-    document.getElementById('g-custom-days-field').style.display = 'none';
+    closeModal('edit-modal');
+    showToast('Сохранено');
   };
-
-  const demoGoals = [
-      { t: 'Поездка на Бали', target: 200000, cur: 45000, p: 'high', note: 'Серфинг и отдых' },
-      { t: 'Новый iPhone 16', target: 120000, cur: 10000, p: 'med', note: 'Подарок себе на ДР' },
-      { t: 'Финансовая подушка', target: 500000, cur: 125000, p: 'high', note: '6 месяцев расходов' },
-      { t: 'Курсы английского', target: 60000, cur: 0, p: 'low', note: 'Уровень B2 к лету' }
-  ];
-
-  document.getElementById('btn-demo').onclick = () => {
-    if (DATA.goals.filter(g => g.status === 'active').length > 0) {
-        showToast('Активные цели уже есть. Создайте вручную!');
-        return;
-    }
-    
-    demoGoals.forEach(rnd => {
-        const d = new Date();
-        d.setDate(d.getDate() + 30 + Math.floor(Math.random() * 60));
-        
-        const isDone = rnd.t === 'Новый iPhone 16'; 
-        const current = isDone ? rnd.target : rnd.cur;
-
-        const g = {
-          id: Date.now().toString(36) + Math.random().toString(36).slice(2),
-          title: rnd.t,
-          priority: rnd.p,
-          target: rnd.target,
-          current: current,
-          deadline: d.toISOString().slice(0,10),
-          notes: rnd.note,
-          status: isDone ? 'done' : 'active',
-          isFavorite: false,
-          isPinned: false,
-          history: [],
-          createdAt: nowISO(),
-          updatedAt: nowISO()
-        };
-        
-        if (current > 0) {
-            g.history.push({ id: Date.now().toString(36), date: nowISO(), amount: current, type: 'set', comment: 'Начальный баланс' });
-        }
-        DATA.goals.push(g);
-    });
-    
-    save(); 
-    render(); 
-    showToast('Демо-цели добавлены!');
-  };
-
-  
-  document.getElementById('theme-btn').onclick = () => {
-    const isDarkNow = document.body.dataset.theme === 'dark';
-    const newTheme = isDarkNow ? '' : 'dark';
-    document.body.dataset.theme = newTheme;
-    localStorage.setItem('theme', newTheme);
-    
-    document.querySelector('#theme-btn i').className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-  };
-
 
   document.getElementById('export-btn').onclick = () => {
-    const dataToExport = localStorage.getItem(K);
-    if (!dataToExport) {
-        showToast('Нет данных для скачивания!');
-        return;
-    }
-    
-    const blob = new Blob([dataToExport], {type: 'application/json'});
+    const blob = new Blob([JSON.stringify(goals, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -2593,16 +1630,19 @@ if (!sb) {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = async () => {
         try {
-            JSON.parse(reader.result); 
-            openConfirmModal('Загрузить данные? Текущие будут заменены!', () => {
+            const data = JSON.parse(reader.result); 
+            openConfirmModal('Загрузить данные? Текущие будут заменены!', async () => {
                 localStorage.setItem(K, reader.result);
-  (async()=>{ await initAuth(); await load(); render(); })();
+                if (user && sb) {
+                    for (const g of data) await dbUpsertOne(g);
+                }
+                await load(); render();
                 showToast('База загружена');
             });
         } catch(err) {
-            showToast('Ошибка: Файл поврежден или не является JSON.');
+            showToast('Ошибка: Файл поврежден');
         }
     };
     reader.readAsText(file);
@@ -2613,6 +1653,7 @@ if (!sb) {
     tab.onclick = () => {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
+      currentFilter = tab.dataset.filter;
       selectedGoalIds.clear(); 
       render();
     };
@@ -2621,14 +1662,19 @@ if (!sb) {
   const savedTheme = localStorage.getItem('theme') || '';
   document.body.dataset.theme = savedTheme;
   
-  const isDark = savedTheme === 'dark';
-  const themeButtonIcon = document.querySelector('#theme-btn i');
-  if (themeButtonIcon) {
-      themeButtonIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-  }
-  
-  load();
-})();
-</script>
+  document.getElementById('theme-btn').onclick = () => {
+    const isDark = document.body.dataset.theme === 'dark';
+    const newTheme = isDark ? '' : 'dark';
+    document.body.dataset.theme = newTheme;
+    localStorage.setItem('theme', newTheme);
+  };
+
+  // Инициализация при загрузке
+  (async () => {
+    await initAuth();
+    await load();
+    render();
+  })();
+  </script>
 </body>
 </html>
