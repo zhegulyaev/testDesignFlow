@@ -1202,10 +1202,12 @@ if (window.supabase && window.supabase.createClient) {
     }
   }
 
-  async function signInWithGoogle() {
-    if (!sb) return alert("Supabase не настроен");
-    await sb.auth.signInWithOAuth({ provider: 'google' });
+await sb.auth.signInWithOAuth({
+  provider: 'google',
+  options: {
+    redirectTo: 'https://zhegulyaev.github.io/testDesignFlow/'
   }
+})
 
   window.signInWithGoogle = signInWithGoogle; // Доступность из консоли
 
