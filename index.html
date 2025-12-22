@@ -1084,9 +1084,7 @@
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1samZxaGN6d3hmbHdlemd2a2N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzODI1MDAsImV4cCI6MjA4MTk1ODUwMH0.S3empDGZqo8s6-BhSt5ziA0EC0sGvQgkXDDq-t2JuOs';
 
 
-  const sb = (window.supabase && SUPABASE_URL !== "https://mljfqhczwxflwezgvkcv.supabase.co")
-// Мы просто создаем подключение, так как ключи у вас уже верные
-const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+  const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
   let user = null;
   const K = 'designflow-goals';
