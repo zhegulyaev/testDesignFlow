@@ -1136,13 +1136,16 @@
     });
   };
 
-  document.getElementById('btn-logout').onclick = async () => {
-    await sb.auth.signOut();
-    user = null;
-    goals = JSON.parse(localStorage.getItem(K) || '[]');
-    updateAuthUI();
-    render();
-  };
+document.getElementById('btn-logout').onclick = async () => {
+    if (sb) {
+      await sb.auth.signOut();
+      user = null;
+      // Очищаем локальные данные, чтобы при смене аккаунта не было путаницы
+      localStorage.removeItem(K);
+      // Полностью обновляем страницу для чистого входа
+      window.location.reload();
+    }
+
 
   // База данных
   async function dbFetchAll() {
