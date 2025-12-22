@@ -6,7 +6,11 @@
   <title>DesignFlow — Трекер целей</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' ry='6' fill='%230d1117'/%3E%3Cpath d='M11 2 L5 14 H10 L9 22 L19 8 H13 L14 2 Z' fill='%23facc15'/%3E%3C/svg%3E">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
   
   <style>
     :root {
@@ -351,6 +355,13 @@
 
     .goal-card:active { transform: scale(0.99); }
     
+    .goal-card.dragging {
+        opacity: 0.4;
+        border: 2px dashed var(--accent);
+        box-shadow: none;
+        background: var(--bg);
+    }
+    
     .goal-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
     
     .goal-card.selected {
@@ -543,6 +554,54 @@
     body[data-theme="dark"] .action-icon-btn.delete:hover { background: #450a0a; color: #f87171; }
 
 
+    .kpi {
+      display: flex; 
+      justify-content: space-between; 
+      gap: 15px; 
+      margin-top: 16px;
+      padding: 0;
+      background: none; 
+      text-align: center;
+    }
+    
+    .kpi-item { 
+      flex: 1; 
+      padding: 0; 
+      position: relative;
+    }
+    
+    .kpi-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -8px; 
+        top: 5px;
+        bottom: 5px;
+        width: 1px;
+        background: var(--border); 
+    }
+    
+    .kpi-icon {
+        color: var(--accent); 
+        font-size: 16px;
+        margin-bottom: 2px;
+        display: block;
+    }
+    
+    .kpi-value { 
+        font-size: 20px; 
+        font-weight: 700; 
+        color: var(--text); 
+        line-height: 1.1;
+    }
+    .kpi-label { 
+        font-size: 11px; 
+        color: var(--text-muted); 
+        margin-top: 4px;
+        font-weight: 600; 
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+    }
+    
     .multi-action-bar {
         background: var(--card-bg);
         border: 1px solid var(--border);
@@ -690,6 +749,18 @@
         margin-bottom: 15px;
     }
 
+    .history-group-header {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 20px 0 10px;
+        display: flex;
+        align-items: center;
+    }
+    .history-group-header:first-of-type { margin-top: 5px; }
+
     .history-list {
         display: flex;
         flex-direction: column;
@@ -723,6 +794,7 @@
         margin-top: 20px;
         text-align: center;
     }
+
 
     .footer {
         padding: 40px 24px;
@@ -768,6 +840,7 @@
         .desktop-only { display: inline; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -776,17 +849,17 @@
       <div class="logo-container">
         <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
         <div class="logo-text">
-          <h1>DesignFlow <span>v0.4 (Fixed)</span></h1>
+          <h1>DesignFlow <span>v0.4</span></h1>
           <p>Трекер целей</p>
         </div>
       </div>
       <div class="header-actions">
         <div class="authbar" style="display:flex;gap:10px;align-items:center;">
-          <button id="btn-login" class="btn" type="button">Войти через Google</button>
+          <button id="btn-login" class="btn primary" type="button">Войти через Google</button>
           <button id="btn-logout" class="btn secondary" type="button" style="display:none;">Выйти</button>
-          <span id="auth-status" style="opacity:.75;font-size:13px;">Локально</span>
+          <span id="auth-status" style="opacity:.75;font-size:13px;"></span>
         </div>
-        <a href="#" class="btn secondary">
+        <a href="https://zhegulyaev.github.io/DesignFlow/" class="btn secondary">
           <i class="fa-solid fa-list-check"></i> Трекер проектов
         </a>
         <button class="btn" id="theme-btn"><i class="fa-solid fa-moon"></i></button>
@@ -799,8 +872,8 @@
         <div class="warning-content">
             <i class="fa-solid fa-triangle-exclamation warning-red-icon"></i>
             <div>
-                <strong class="warning-red-text">Важно:</strong> Данные хранятся только в вашем браузере.<br>
-                Обязательно скачивайте резервную копию перед очисткой кэша или переустановкой системы.
+                <strong class="warning-red-text">Важно:</strong> При выходе данные сохраняются в облаке (Supabase).<br>
+                Без входа данные хранятся только в браузере.
             </div>
         </div>
         <div class="warning-actions">
@@ -856,16 +929,6 @@
       </div>
       
       <div class="field">
-        <label>Шаблон срока</label>
-        <select id="g-template">
-          <option value="">Выбрать быстрый срок...</option>
-          <option value="7">Через неделю (7 дн.)</option>
-          <option value="14">Через 2 недели (14 дн.)</option>
-          <option value="30">Через месяц (30 дн.)</option>
-          </select>
-      </div>
-
-      <div class="field">
         <label>Заметка</label>
         <textarea id="g-notes" placeholder="План действий, ссылки, мысли..."></textarea>
       </div>
@@ -887,7 +950,6 @@
           <div class="multi-action-text" id="multi-action-text">Выбрано: 0</div>
           <div class="multi-action-btns">
               <button class="btn secondary" id="btn-select-all"><i class="fa-solid fa-list-check"></i> <span class="desktop-only">Выбрать все</span></button>
-              <button class="btn" id="btn-multi-done" title="Завершить"><i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span></button>
               <button class="btn danger" id="btn-multi-trash" title="В корзину"><i class="fa-regular fa-trash-can"></i> <span class="desktop-only">В корзину</span></button>
           </div>
       </div>
@@ -897,7 +959,7 @@
   </div>
 
   <div class="footer">
-    DesignFlow Tracker by Zhegulyaev
+    DesignFlow Tracker by <a href="https://t.me/r_zhegulyaev" target="_blank">Zhegulyaev</a>
   </div>
 
   <div class="toast" id="toast">
@@ -983,53 +1045,11 @@
         <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
       </div>
       <div class="modal-body">
-        <div class="history-filter-container">
-            <input id="history-date-filter" type="date" placeholder="Фильтр по дате..." style="cursor: pointer; background: var(--bg);" />
-            <button class="btn secondary" id="history-clear-filter" title="Сбросить фильтр"><i class="fa-solid fa-rotate-left"></i></button>
-        </div>
         <div id="history-list-container" style="max-height: 50vh; overflow-y: auto; padding-right: 5px;"></div>
-        <div id="history-load-more-container" style="display:none;">
-            <button class="btn secondary" id="btn-history-load-more" style="width:100%">Показать еще</button>
-        </div>
       </div>
       <div class="modal-actions">
         <button class="btn secondary modal-close">Закрыть</button>
       </div>
-    </div>
-  </div>
-
-  <div class="modal" id="history-delete-modal">
-    <div class="modal-content">
-        <div class="modal-body">
-            <h3>Удалить запись?</h3>
-            <p>Это действие нельзя отменить.</p>
-            <div class="history-delete-actions">
-                <button class="btn danger" id="confirm-delete-history">Удалить</button>
-                <button class="btn secondary" id="cancel-delete-history">Отмена</button>
-            </div>
-        </div>
-    </div>
-  </div>
-
-  <div class="modal" id="history-edit-modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Редактировать запись</h2>
-            <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-        </div>
-        <div class="modal-body">
-            <div class="field">
-                <label>Комментарий</label>
-                <input id="edit-history-comment" />
-            </div>
-            <div class="field">
-                <label>Сумма</label>
-                <input id="edit-history-amount" inputmode="numeric" />
-            </div>
-        </div>
-        <div class="modal-actions">
-            <button class="btn primary" id="save-history-edit">Сохранить</button>
-        </div>
     </div>
   </div>
 
@@ -1059,50 +1079,39 @@
   </div>
 
   <script>
-  // === КОНФИГУРАЦИЯ БАЗЫ ДАННЫХ (SUPABASE) ===
-  // Если вы хотите облачную синхронизацию, вставьте сюда свои правильные данные (URL и ANON KEY)
-  // ВАЖНО: Ключ должен начинаться с "eyJ...", а не "sb_publishable..."
+  /** --- SUPABASE CONFIG --- **/
   const SUPABASE_URL = 'https://mljfqhczwxflwezgvkcv.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1samZxaGN6d3hmbHdlemd2a2N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzODI1MDAsImV4cCI6MjA4MTk1ODUwMH0.S3empDGZqo8s6-BhSt5ziA0EC0sGvQgkXDDq-t2JuOs';
 
-  window.sb = null;
-  let user = null;
-  
-  // Инициализация Supabase с проверкой ошибок
-  try {
-      if (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase) {
-        window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log("Supabase клиент инициализирован");
-      } else {
-        console.log("Работа в локальном режиме (Supabase не настроен)");
-      }
-  } catch (e) {
-      console.warn("Ошибка инициализации Supabase:", e);
-  }
 
+  const sb = (window.supabase && SUPABASE_URL !== "https://mljfqhczwxflwezgvkcv.supabase.co")
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+  let user = null;
   const K = 'designflow-goals';
   let goals = [];
   let currentFilter = 'active';
   let selectedGoalIds = new Set();
-  
-  const historyPageSize = 20;
   let currentHistoryGoalId = null;
-  let historyOffset = 0;
-  
-  // --- АВТОРИЗАЦИЯ ---
+
+  // Инициализация авторизации
   async function initAuth() {
-    if (!sb) {
-        updateAuthUI();
-        return;
-    }
+    if (!sb) return;
+    
+    // Получаем текущую сессию
     const { data: { session } } = await sb.auth.getSession();
     user = session?.user || null;
     updateAuthUI();
 
-    sb.auth.onAuthStateChange((_event, session) => {
+    // Слушаем изменения
+    sb.auth.onAuthStateChange(async (event, session) => {
       user = session?.user || null;
       updateAuthUI();
-      load().then(render);
+      if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+          await load();
+          render();
+      }
     });
   }
 
@@ -1115,61 +1124,62 @@
       btnO.style.display = 'block';
       status.innerText = user.email;
     } else {
-      btnL.style.display = sb ? 'block' : 'none'; // Скрываем кнопку, если SB не настроен
+      btnL.style.display = 'block';
       btnO.style.display = 'none';
-      status.innerText = sb ? 'Войдите для синхронизации' : 'Локальный режим';
+      status.innerText = sb ? 'Локальный режим' : 'SDK не подключен';
     }
   }
 
-  async function signInWithGoogle() {
-      if (!sb) return alert('База данных не подключена. Используйте локальный режим.');
-      // Используем текущий адрес для возврата
-      const redirectTo = window.location.href;
-      await sb.auth.signInWithOAuth({
+  document.getElementById('btn-login').onclick = async () => {
+    if (!sb) return alert("Заполните ключи Supabase в коде!");
+    await sb.auth.signInWithOAuth({ 
         provider: 'google',
-        options: { redirectTo }
-      });
-  }
+        options: { redirectTo: window.location.href }
+    });
+  };
 
-  document.getElementById('btn-login').onclick = signInWithGoogle;
-  document.getElementById('btn-logout').onclick = async () => { if(sb) await sb.auth.signOut(); };
+  document.getElementById('btn-logout').onclick = async () => {
+    await sb.auth.signOut();
+    user = null;
+    goals = JSON.parse(localStorage.getItem(K) || '[]');
+    updateAuthUI();
+    render();
+  };
 
-  // --- РАБОТА С ДАННЫМИ ---
+  // База данных
   async function dbFetchAll() {
-    // Если пользователь залогинен, пытаемся взять из базы
-    if (user && sb) {
-        const { data, error } = await sb.from('goals').select('*').eq('user_id', user.id);
-        if (!error && data) return data;
-    }
-    // Иначе (или при ошибке) берем из локального хранилища
-    return JSON.parse(localStorage.getItem(K) || '[]');
+    if (!user || !sb) return JSON.parse(localStorage.getItem(K) || '[]');
+    const { data, error } = await sb.from('goals').select('*').eq('user_id', user.id);
+    if (error) { console.error(error); return []; }
+    return data || [];
   }
 
   async function dbUpsertOne(goal) {
-    // Сначала обновляем локальный массив
+    // Сохраняем локально всегда
     const idx = goals.findIndex(g => g.id === goal.id);
     if (idx > -1) goals[idx] = goal; else goals.push(goal);
-    
-    // Сохраняем локально
     localStorage.setItem(K, JSON.stringify(goals));
 
-    // Если есть облако - отправляем туда
+    // Если залогинены - в облако
     if (user && sb) {
-      const { error } = await sb.from('goals').upsert({ ...goal, user_id: user.id });
-      if (error) console.error("Ошибка синхронизации:", error);
+      const { error } = await sb.from('goals').upsert({ 
+          ...goal, 
+          user_id: user.id 
+      });
+      if (error) console.error("Ошибка сохранения в облако:", error);
     }
   }
 
   async function dbDeleteIds(ids) {
     goals = goals.filter(g => !ids.includes(g.id));
     localStorage.setItem(K, JSON.stringify(goals));
-
+    
     if (user && sb) {
       await sb.from('goals').delete().in('id', ids).eq('user_id', user.id);
     }
   }
 
-  // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
+  // Логика интерфейса
   const parseSum = (v) => {
     if (!v) return 0;
     v = v.toString().replace(/\s/g, '').replace(/,/g, '.').toLowerCase();
@@ -1187,28 +1197,15 @@
   };
 
   const openModal = (id) => document.getElementById(id).classList.add('show');
-  const closeModal = (id) => {
-    document.getElementById(id).classList.remove('show');
-    if (id === 'history-modal') {
-        currentHistoryGoalId = null;
-        historyOffset = 0;
-        document.getElementById('history-date-filter').value = '';
-    }
-  };
+  const closeModal = (id) => document.getElementById(id).classList.remove('show');
 
   const openConfirmModal = (text, onYes) => {
     document.getElementById('confirm-text').innerText = text;
     openModal('confirm-modal');
-    // Удаляем старые обработчики, чтобы не дублировать
-    const yesBtn = document.getElementById('confirm-yes');
-    const newYesBtn = yesBtn.cloneNode(true);
-    yesBtn.parentNode.replaceChild(newYesBtn, yesBtn);
-    
-    newYesBtn.onclick = () => { onYes(); closeModal('confirm-modal'); };
+    document.getElementById('confirm-yes').onclick = () => { onYes(); closeModal('confirm-modal'); };
     document.getElementById('confirm-no').onclick = () => closeModal('confirm-modal');
   };
 
-  // --- ОТРИСОВКА ---
   function render() {
     const list = document.getElementById('goals-list');
     list.innerHTML = '';
@@ -1222,28 +1219,24 @@
       return true;
     });
 
-    // Сортировка: закрепленные сверху, затем новые
     const sorted = filtered.sort((a, b) => {
         if (a.is_pinned && !b.is_pinned) return -1;
         if (!a.is_pinned && b.is_pinned) return 1;
         return new Date(b.created_at) - new Date(a.created_at);
     });
 
-    // Обновление счетчиков
     document.getElementById('active-count').innerText = goals.filter(g => !g.is_done && !g.is_trash).length;
     document.getElementById('done-count').innerText = goals.filter(g => g.is_done && !g.is_trash).length;
     document.getElementById('total-count').innerText = goals.filter(g => !g.is_trash).length;
     document.getElementById('trash-count').innerText = goals.filter(g => g.is_trash).length;
     document.getElementById('fav-count').innerText = goals.filter(g => g.is_favorite && !g.is_trash).length;
 
-    // Общий прогресс
     let totalT = 0, totalC = 0;
     goals.filter(g => !g.is_trash).forEach(g => { totalT += g.target; totalC += Math.min(g.current, g.target); });
     const overallP = totalT ? Math.round((totalC / totalT) * 100) : 0;
     document.getElementById('overall-progress').style.width = overallP + '%';
     document.getElementById('overall-text').innerText = fmt(totalC) + ' / ' + fmt(totalT) + ' (' + overallP + '%)';
 
-    // Массовые действия
     const bar = document.getElementById('multi-action-bar');
     if (selectedGoalIds.size > 0) {
         bar.style.display = 'flex';
@@ -1253,19 +1246,16 @@
     }
 
     if (!sorted.length) {
-      list.innerHTML = `<div class="empty-message"><i class="fa-solid fa-ghost" style="font-size:40px; opacity:0.2"></i> Список пуст</div>`;
+      list.innerHTML = `<div class="empty-message">Список пуст</div>`;
       return;
     }
 
     sorted.forEach(g => {
-      const per = g.target > 0 ? Math.round((g.current / g.target) * 100) : 0;
-      const isOver = g.deadline && new Date(g.deadline) < new Date() && !g.is_done;
-      
+      const per = Math.round((g.current / g.target) * 100);
       const div = document.createElement('div');
       div.className = `goal-card ${g.is_done ? 'done' : ''} ${selectedGoalIds.has(g.id) ? 'selected' : ''}`;
-      // Клик по карточке для выделения
       div.onclick = (e) => {
-          if (e.target.closest('.btn, .quick-btn, .action-icon-btn, .star-icon, .pin-icon')) return;
+          if (e.target.closest('.btn, .action-icon-btn, .star-icon, .quick-btn')) return;
           if (selectedGoalIds.has(g.id)) selectedGoalIds.delete(g.id);
           else selectedGoalIds.add(g.id);
           render();
@@ -1278,16 +1268,8 @@
                 <i class="fa-solid fa-star star-icon ${g.is_favorite ? 'active' : ''}" data-id="${g.id}"></i>
                 <div class="goal-title">${g.title}</div>
             </div>
-            <div class="priority-badge priority-${g.priority}">
-                ${g.priority === 'high' ? '<i class="fa-solid fa-fire"></i> Срочно' : g.priority === 'med' ? 'Средний' : 'Низкий'}
-            </div>
+            <div class="priority-badge priority-${g.priority}">${g.priority}</div>
           </div>
-          
-          <div class="goal-meta">
-            ${g.deadline ? `<span><i class="fa-regular fa-clock"></i> ${new Date(g.deadline).toLocaleDateString()} ${isOver ? '<span style="color:var(--red)">!</span>' : ''}</span>` : ''}
-            ${g.is_pinned ? '<i class="fa-solid fa-thumbtack pin-icon-status"></i>' : ''}
-          </div>
-
           <div class="progress-bar ${g.is_done ? 'done' : ''}">
             <div class="progress-fill" style="width: ${Math.min(per, 100)}%"></div>
           </div>
@@ -1295,19 +1277,15 @@
             <span>${fmt(g.current)} ₽</span>
             <span>из ${fmt(g.target)} ₽ (${per}%)</span>
           </div>
-
           <div class="quick-add">
             <button class="quick-btn" data-id="${g.id}" data-add="1000">+ 1к</button>
-            <button class="quick-btn" data-id="${g.id}" data-add="5000">+ 5к</button>
-            <button class="quick-btn" data-id="${g.id}" data-type="custom"><i class="fa-solid fa-pen-to-square"></i></button>
-            <button class="quick-btn" data-id="${g.id}" data-type="history"><i class="fa-solid fa-clock-rotate-left"></i></button>
+            <button class="quick-btn" data-id="${g.id}" data-type="custom">Баланс</button>
+            <button class="quick-btn" data-id="${g.id}" data-type="history">История</button>
           </div>
-
           <div class="actions-row">
-            <button class="action-icon-btn" data-id="${g.id}" data-type="edit"><i class="fa-solid fa-pen"></i> Ред.</button>
-            <button class="action-icon-btn ${g.is_pinned ? 'pinned' : ''}" data-id="${g.id}" data-type="pin"><i class="fa-solid fa-thumbtack"></i> Закрепить</button>
-            <button class="action-icon-btn delete" data-id="${g.id}" data-type="trash"><i class="fa-regular fa-trash-can"></i> ${g.is_trash ? 'Удалить' : 'В корзину'}</button>
-            ${g.is_trash ? `<button class="action-icon-btn" data-id="${g.id}" data-type="restore"><i class="fa-solid fa-rotate-left"></i> Вернуть</button>` : ''}
+            <button class="action-icon-btn" data-id="${g.id}" data-type="edit">Ред.</button>
+            <button class="action-icon-btn ${g.is_pinned ? 'pinned' : ''}" data-id="${g.id}" data-type="pin">Закрепить</button>
+            <button class="action-icon-btn delete" data-id="${g.id}" data-type="trash">${g.is_trash ? 'Удалить' : 'В корзину'}</button>
           </div>
         </div>
       `;
@@ -1319,88 +1297,31 @@
     goals = await dbFetchAll();
   }
 
-  // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
-
-  // Выбор шаблона даты
-  document.getElementById('g-template').onchange = (e) => {
-      const val = e.target.value;
-      const dateInput = document.getElementById('g-deadline');
-      
-      if (!val) return;
-      
-      const d = new Date();
-      d.setDate(d.getDate() + parseInt(val));
-      dateInput.value = d.toISOString().split('T')[0];
-  };
-
-  // Кнопка добавления
   document.getElementById('btn-add').onclick = async () => {
     const t = document.getElementById('g-title').value;
     const tg = parseSum(document.getElementById('g-target').value);
     const cur = parseSum(document.getElementById('g-current').value);
-    
     if (!t || !tg) return showToast('Заполните название и сумму');
 
     const goal = {
       id: crypto.randomUUID(),
-      title: t,
-      target: tg,
-      current: cur,
+      title: t, target: tg, current: cur,
       deadline: document.getElementById('g-deadline').value,
       priority: document.getElementById('g-priority').value,
       notes: document.getElementById('g-notes').value,
-      is_done: cur >= tg,
-      is_favorite: false,
-      is_pinned: false,
-      is_trash: false,
-      history: [],
+      is_done: cur >= tg, is_favorite: false, is_pinned: false, is_trash: false,
+      history: cur > 0 ? [{ id: crypto.randomUUID(), amount: cur, comment: 'Начальный баланс', date: new Date().toISOString() }] : [],
       created_at: new Date().toISOString()
     };
-    if (cur > 0) goal.history.push({ id: crypto.randomUUID(), amount: cur, comment: 'Начальный баланс', date: new Date().toISOString() });
     
     await dbUpsertOne(goal);
-    // goals.unshift(goal) не нужен, т.к. upsert обновляет массив, но для надежности можно рендерить сразу
     render();
-    
-    // Очистка
     document.getElementById('g-title').value = '';
     document.getElementById('g-target').value = '';
     document.getElementById('g-current').value = '';
-    document.getElementById('g-notes').value = '';
-    document.getElementById('g-template').value = '';
     showToast('Цель добавлена');
   };
 
-  // Кнопка ДЕМО
-  document.getElementById('btn-demo').onclick = async () => {
-      const demoGoals = [
-          { title: "Новый iPhone", target: 120000, current: 45000, priority: "high" },
-          { title: "Отпуск на море", target: 200000, current: 20000, priority: "med" },
-          { title: "Курс по JS", target: 50000, current: 50000, priority: "low" }
-      ];
-
-      for (const d of demoGoals) {
-          const g = {
-            id: crypto.randomUUID(),
-            title: d.title,
-            target: d.target,
-            current: d.current,
-            priority: d.priority,
-            deadline: new Date(new Date().setDate(new Date().getDate() + 30)).toISOString().split('T')[0],
-            is_done: d.current >= d.target,
-            is_favorite: false,
-            is_pinned: false,
-            is_trash: false,
-            history: [{ id: crypto.randomUUID(), amount: d.current, comment: 'Старт', date: new Date().toISOString() }],
-            created_at: new Date().toISOString()
-          };
-          await dbUpsertOne(g);
-      }
-      render();
-      showToast('Демо-данные добавлены');
-  };
-
-  // Обработка кликов внутри списка целей
   document.getElementById('goals-list').onclick = async (e) => {
     const btn = e.target.closest('button, .star-icon');
     if (!btn) return;
@@ -1414,308 +1335,64 @@
     }
 
     const type = btn.dataset.type;
-    const addVal = btn.dataset.add;
-
-    if (addVal) {
-      const val = parseInt(addVal);
+    if (btn.dataset.add) {
+      const val = parseInt(btn.dataset.add);
       g.current += val;
       g.history.push({ id: crypto.randomUUID(), amount: val, comment: 'Быстрое пополнение', date: new Date().toISOString() });
-      checkDone(g);
+      if (g.current >= g.target && !g.is_done) { g.is_done = true; openModal('congratulations-modal'); }
       await dbUpsertOne(g); render();
     } else if (type === 'custom') {
       currentHistoryGoalId = id;
-      document.getElementById('progress-amount').value = '';
-      document.getElementById('progress-comment').value = '';
       openModal('progress-modal');
     } else if (type === 'history') {
       currentHistoryGoalId = id;
-      openHistoryModal();
-    } else if (type === 'edit') {
-        currentHistoryGoalId = id;
-        document.getElementById('edit-title').value = g.title;
-        document.getElementById('edit-target').value = g.target;
-        document.getElementById('edit-current').value = g.current;
-        document.getElementById('edit-deadline').value = g.deadline || '';
-        document.getElementById('edit-priority').value = g.priority;
-        document.getElementById('edit-notes').value = g.notes || '';
-        openModal('edit-modal');
-    } else if (type === 'pin') {
-        g.is_pinned = !g.is_pinned;
-        await dbUpsertOne(g); render();
+      const hContainer = document.getElementById('history-list-container');
+      hContainer.innerHTML = g.history.map(h => `
+        <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border)">
+            <div><b>${h.comment}</b><br><small>${new Date(h.date).toLocaleString()}</small></div>
+            <div style="color:${h.amount>0?'var(--green)':'var(--red)'}">${h.amount>0?'+':''}${fmt(h.amount)}</div>
+        </div>
+      `).join('') || 'Нет записей';
+      openModal('history-modal');
     } else if (type === 'trash') {
-        if (g.is_trash) {
-            openConfirmModal('Удалить цель навсегда?', async () => {
-                await dbDeleteIds([id]);
-                render();
-            });
-        } else {
-            g.is_trash = true;
-            selectedGoalIds.delete(id);
-            await dbUpsertOne(g); render();
-        }
-    } else if (type === 'restore') {
-        g.is_trash = false;
-        await dbUpsertOne(g); render();
+        if (g.is_trash) openConfirmModal('Удалить навсегда?', async () => { await dbDeleteIds([id]); render(); });
+        else { g.is_trash = true; await dbUpsertOne(g); render(); }
+    } else if (type === 'pin') {
+        g.is_pinned = !g.is_pinned; await dbUpsertOne(g); render();
     }
   };
 
-  function checkDone(g) {
-    if (g.current >= g.target && !g.is_done) {
-        g.is_done = true;
-        document.getElementById('congrats-goal-title').innerText = g.title;
-        openModal('congratulations-modal');
-    } else if (g.current < g.target) {
-        g.is_done = false;
-    }
-  }
-
-  document.getElementById('congrats-done').onclick = () => closeModal('congratulations-modal');
-  document.getElementById('btn-add-progress').onclick = () => handleProgress(1);
-  document.getElementById('btn-subtract').onclick = () => handleProgress(-1);
-
-  async function handleProgress(sign) {
+  document.getElementById('btn-add-progress').onclick = async () => {
     const val = parseSum(document.getElementById('progress-amount').value);
-    const comm = document.getElementById('progress-comment').value;
-    if (!val) return;
     const g = goals.find(x => x.id === currentHistoryGoalId);
-    const amount = val * sign;
-    g.current += amount;
-    g.history.push({ id: crypto.randomUUID(), amount, comment: comm || (sign > 0 ? 'Пополнение' : 'Списание'), date: new Date().toISOString() });
-    checkDone(g);
-    await dbUpsertOne(g);
-    render();
-    closeModal('progress-modal');
-  }
+    g.current += val;
+    g.history.push({ id: crypto.randomUUID(), amount: val, comment: document.getElementById('progress-comment').value || 'Пополнение', date: new Date().toISOString() });
+    if (g.current >= g.target && !g.is_done) { g.is_done = true; openModal('congratulations-modal'); }
+    await dbUpsertOne(g); render(); closeModal('progress-modal');
+  };
 
-  // --- ЛОГИКА ИСТОРИИ ---
-  function openHistoryModal() {
+  document.getElementById('btn-subtract').onclick = async () => {
+    const val = parseSum(document.getElementById('progress-amount').value);
     const g = goals.find(x => x.id === currentHistoryGoalId);
-    document.getElementById('history-modal-title').innerText = g.title;
-    historyOffset = 0;
-    renderHistory();
-    openModal('history-modal');
-  }
-
-  // Фильтр истории
-  document.getElementById('history-date-filter').onchange = () => {
-      historyOffset = 0;
-      renderHistory();
-  };
-  document.getElementById('history-clear-filter').onclick = () => {
-      document.getElementById('history-date-filter').value = '';
-      historyOffset = 0;
-      renderHistory();
-  };
-  document.getElementById('btn-history-load-more').onclick = () => {
-      renderHistory();
-  }
-
-  function renderHistory() {
-    const g = goals.find(x => x.id === currentHistoryGoalId);
-    const container = document.getElementById('history-list-container');
-    if (historyOffset === 0) container.innerHTML = '';
-
-    let items = [...(g.history || [])].sort((a,b) => new Date(b.date) - new Date(a.date));
-    
-    // Применяем фильтр даты
-    const filterDate = document.getElementById('history-date-filter').value;
-    if (filterDate) {
-        items = items.filter(x => x.date.startsWith(filterDate));
-    }
-
-    const slice = items.slice(historyOffset, historyOffset + historyPageSize);
-    
-    if (slice.length === 0 && historyOffset === 0) {
-        container.innerHTML = '<div class="empty-message">Истории пока нет</div>';
-        document.getElementById('history-load-more-container').style.display = 'none';
-        return;
-    }
-
-    slice.forEach(h => {
-        const div = document.createElement('div');
-        div.className = 'history-item';
-        div.innerHTML = `
-            <div class="history-info">
-                <div class="history-comment">${h.comment} ${h.is_edited ? '<span class="edited-mark" title="Изменено вручную">ред.</span>' : ''}</div>
-                <div class="history-date">${new Date(h.date).toLocaleString()}</div>
-            </div>
-            <div class="history-right">
-                <div class="history-amount ${h.amount > 0 ? 'plus' : 'minus'}">${h.amount > 0 ? '+' : ''}${fmt(h.amount)}</div>
-                <button class="btn-icon" onclick="editHistoryItem('${h.id}')"><i class="fa-solid fa-pen"></i></button>
-                <button class="btn-icon del" onclick="deleteHistoryItem('${h.id}')"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
-        `;
-        container.appendChild(div);
-    });
-
-    historyOffset += slice.length;
-    // Показываем кнопку "Еще", если остались не показанные элементы
-    document.getElementById('history-load-more-container').style.display = items.length > historyOffset ? 'block' : 'none';
-  }
-
-  window.deleteHistoryItem = (hid) => {
-    openModal('history-delete-modal');
-    // Используем replaceChild для удаления старых лисенеров
-    const confirmBtn = document.getElementById('confirm-delete-history');
-    const newConfirm = confirmBtn.cloneNode(true);
-    confirmBtn.parentNode.replaceChild(newConfirm, confirmBtn);
-
-    newConfirm.onclick = async () => {
-        const g = goals.find(x => x.id === currentHistoryGoalId);
-        const item = g.history.find(x => x.id === hid);
-        if(item) {
-            g.current -= item.amount;
-            g.history = g.history.filter(x => x.id !== hid);
-            checkDone(g);
-            await dbUpsertOne(g);
-            historyOffset = 0;
-            renderHistory();
-            render();
-        }
-        closeModal('history-delete-modal');
-    };
-  };
-  document.getElementById('cancel-delete-history').onclick = () => closeModal('history-delete-modal');
-
-  let currentEditingHistoryId = null;
-  window.editHistoryItem = (hid) => {
-      const g = goals.find(x => x.id === currentHistoryGoalId);
-      const h = g.history.find(x => x.id === hid);
-      currentEditingHistoryId = hid;
-      document.getElementById('edit-history-comment').value = h.comment;
-      document.getElementById('edit-history-amount').value = h.amount;
-      openModal('history-edit-modal');
-  };
-
-  document.getElementById('save-history-edit').onclick = async () => {
-      const g = goals.find(x => x.id === currentHistoryGoalId);
-      const h = g.history.find(x => x.id === currentEditingHistoryId);
-      const newA = parseSum(document.getElementById('edit-history-amount').value);
-      
-      g.current = g.current - h.amount + newA;
-      h.amount = newA;
-      h.comment = document.getElementById('edit-history-comment').value;
-      h.is_edited = true;
-      
-      checkDone(g);
-      await dbUpsertOne(g);
-      historyOffset = 0;
-      renderHistory();
-      render();
-      closeModal('history-edit-modal');
-  };
-
-  // --- МАССОВЫЕ ДЕЙСТВИЯ ---
-  document.getElementById('btn-select-all').onclick = () => {
-      const visibleGoals = goals.filter(g => {
-        if (currentFilter === 'trash') return g.is_trash;
-        if (g.is_trash) return false;
-        if (currentFilter === 'active') return !g.is_done;
-        if (currentFilter === 'done') return g.is_done;
-        if (currentFilter === 'favorite') return g.is_favorite;
-        return true;
-      });
-      
-      const allSelected = visibleGoals.every(g => selectedGoalIds.has(g.id));
-      
-      if (allSelected) {
-          selectedGoalIds.clear();
-      } else {
-          visibleGoals.forEach(g => selectedGoalIds.add(g.id));
-      }
-      render();
-  };
-
-  document.getElementById('btn-multi-trash').onclick = async () => {
-      if (!selectedGoalIds.size) return;
-      openConfirmModal(`Переместить выбранные (${selectedGoalIds.size}) в корзину?`, async () => {
-         for (const id of selectedGoalIds) {
-             const g = goals.find(x => x.id === id);
-             if (g) {
-                 if (currentFilter === 'trash') {
-                     // Если уже в корзине - удаляем совсем
-                     await dbDeleteIds([id]);
-                 } else {
-                     g.is_trash = true;
-                     await dbUpsertOne(g);
-                 }
-             }
-         }
-         selectedGoalIds.clear();
-         render();
-      });
-  };
-  
-  document.getElementById('btn-multi-done').onclick = async () => {
-      if (!selectedGoalIds.size) return;
-      for (const id of selectedGoalIds) {
-          const g = goals.find(x => x.id === id);
-          if (g && !g.is_trash) {
-              g.current = g.target; // Ставим 100%
-              g.is_done = true;
-              await dbUpsertOne(g);
-          }
-      }
-      selectedGoalIds.clear();
-      render();
-      showToast('Выбранные цели завершены');
-  };
-
-
-  document.querySelectorAll('.modal-close').forEach(b => {
-    b.onclick = () => {
-        const modal = b.closest('.modal');
-        if (modal) closeModal(modal.id);
-    };
-  });
-
-  document.getElementById('save-edit').onclick = async () => {
-    const g = goals.find(x => x.id === currentHistoryGoalId);
-    g.title = document.getElementById('edit-title').value;
-    g.target = parseSum(document.getElementById('edit-target').value);
-    g.current = parseSum(document.getElementById('edit-current').value);
-    g.deadline = document.getElementById('edit-deadline').value;
-    g.priority = document.getElementById('edit-priority').value;
-    g.notes = document.getElementById('edit-notes').value;
-    checkDone(g);
-    await dbUpsertOne(g);
-    render();
-    closeModal('edit-modal');
-    showToast('Сохранено');
+    g.current -= val;
+    g.history.push({ id: crypto.randomUUID(), amount: -val, comment: document.getElementById('progress-comment').value || 'Списание', date: new Date().toISOString() });
+    await dbUpsertOne(g); render(); closeModal('progress-modal');
   };
 
   document.getElementById('export-btn').onclick = () => {
     const blob = new Blob([JSON.stringify(goals, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'designflow-goals.json';
+    a.href = URL.createObjectURL(blob);
+    a.download = 'goals.json';
     a.click();
-    showToast('Скачано');
   };
 
-  document.getElementById('import-btn').onclick = () => document.getElementById('file-import').click();
-  document.getElementById('file-import').onchange = e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = async () => {
-        try {
-            const data = JSON.parse(reader.result); 
-            openConfirmModal('Загрузить данные? Текущие будут заменены!', async () => {
-                goals = []; // Очищаем текущие
-                localStorage.setItem(K, reader.result);
-                // Загружаем новые
-                for (const g of data) await dbUpsertOne(g);
-                await load(); render();
-                showToast('База загружена');
-            });
-        } catch(err) {
-            showToast('Ошибка: Файл поврежден');
-        }
-    };
-    reader.readAsText(file);
-    e.target.value = '';
+  document.querySelectorAll('.modal-close').forEach(b => b.onclick = () => closeModal(b.closest('.modal').id));
+  
+  document.getElementById('theme-btn').onclick = () => {
+    const isDark = document.body.dataset.theme === 'dark';
+    document.body.dataset.theme = isDark ? '' : 'dark';
+    localStorage.setItem('theme', document.body.dataset.theme);
   };
 
   document.querySelectorAll('.tab').forEach(tab => {
@@ -1723,22 +1400,10 @@
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       currentFilter = tab.dataset.filter;
-      selectedGoalIds.clear(); 
       render();
     };
   });
-  
-  const savedTheme = localStorage.getItem('theme') || '';
-  document.body.dataset.theme = savedTheme;
-  
-  document.getElementById('theme-btn').onclick = () => {
-    const isDark = document.body.dataset.theme === 'dark';
-    const newTheme = isDark ? '' : 'dark';
-    document.body.dataset.theme = newTheme;
-    localStorage.setItem('theme', newTheme);
-  };
 
-  // Инициализация при загрузке
   (async () => {
     await initAuth();
     await load();
