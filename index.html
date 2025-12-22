@@ -1199,15 +1199,25 @@
 (() => {
   const K = 'designFlowGoalData'; 
 
-  // === Supabase (облачная база) ===
-  // ВСТАВЬ СЮДА свои данные из Supabase -> Project Settings -> API
-  const SUPABASE_URL = window.SUPABASE_URL || 'PASTE_SUPABASE_URL_HERE';
-  const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'PASTE_SUPABASE_ANON_KEY_HERE';
+// === Supabase (облачная база) ===
+const SUPABASE_URL =
+  window.SUPABASE_URL ||
+  'https://mljfqhczwxflwezgvkcv.supabase.co';
 
-  const sb = (window.supabase && !SUPABASE_URL.startsWith('PASTE_'))
-    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-    : null;
+const SUPABASE_ANON_KEY =
+  window.SUPABASE_ANON_KEY ||
+  'sb_publishable_jRYBjMlX30kP1PIMc5G0iw_1o82qB5x';
 
+// инициализация клиента
+const sb = (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY)
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
+
+if (!sb) {
+  console.warn('Supabase client не инициализирован');
+}
+
+  
   let currentUser = null;
   let dbKnownIds = new Set();
 
