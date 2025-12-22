@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DesignFlow — Трекер целей (Cloud Sync)</title>
+  <title>DesignFlow — Трекер целей (Fixed)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' ry='6' fill='%230d1117'/%3E%3Cpath d='M11 2 L5 14 H10 L9 22 L19 8 H13 L14 2 Z' fill='%23facc15'/%3E%3C/svg%3E">
-
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -1252,6 +1251,19 @@
 
   function nowISO() { return new Date().toISOString(); }
 
+  // --- SAFE ID GENERATOR (FIX for file:// protocol) ---
+  function generateId() {
+      // Пытаемся использовать crypto (если есть)
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+          return crypto.randomUUID();
+      }
+      // Фоллбэк для старых браузеров или небезопасного контекста (local files)
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+  }
+
   // --- MAPPING FUNCTIONS (Supabase snake_case <-> App camelCase) ---
   function toDbFormat(goal, userId) {
       return {
@@ -1334,7 +1346,6 @@
           render();
           showToast('Синхронизация с облаком...');
       } else if (event === 'SIGNED_OUT') {
-          // При выходе загружаем локальную копию
           await load();
           render();
           showToast('Локальный режим');
@@ -1585,10 +1596,17 @@
       if (user && sb) {
           const { data, error } = await sb.from('goals').select('*').eq('user_id', user.id);
           if (error) throw error;
-          if (data) {
+          
+          if (data && data.length > 0) {
               DATA.goals = data.map(toLocalFormat);
-              // Обновляем локальный кэш, чтобы при оффлайне данные были свежие
               save(); 
+          } else {
+              // ВАЖНОЕ ИСПРАВЛЕНИЕ:
+              // Если в облаке пусто (0 записей), а локально что-то есть - НЕ стираем локальные данные.
+              // Это защищает пользователя, который залогинился, но у него пустая БД.
+              if (DATA.goals.length > 0) {
+                  showToast('Локальные данные сохранены (Облако пусто)');
+              }
           }
       }
 
@@ -1789,7 +1807,7 @@
               const idsToDelete = Array.from(selectedGoalIds);
               DATA.goals = DATA.goals.filter(g => !idsToDelete.includes(g.id));
               selectedGoalIds.clear();
-              save(); // Save Local
+              save(); // Local save
               
               // Sync Deletion
               idsToDelete.forEach(id => deleteGoalFromCloud(id));
@@ -2120,7 +2138,7 @@
         if (diff !== 0) {
             if (!g.history) g.history = [];
             g.history.push({
-                id: crypto.randomUUID(),
+                id: generateId(),
                 date: nowISO(),
                 amount: diff,
                 type: 'edit',
@@ -2175,7 +2193,7 @@
         
         if (!g.history) g.history = [];
         g.history.push({
-            id: crypto.randomUUID(),
+            id: generateId(),
             date: nowISO(),
             amount: isSubtract ? -val : val,
             type: isSubtract ? 'sub' : 'add',
@@ -2465,7 +2483,7 @@
     const isDone = (target > 0) && (current >= target);
 
     const g = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       title,
       priority: document.getElementById('g-priority').value,
       target: target,
@@ -2482,7 +2500,7 @@
     
     if (current > 0) {
         g.history.push({
-            id: crypto.randomUUID(),
+            id: generateId(),
             date: nowISO(),
             amount: current,
             type: 'set',
@@ -2529,7 +2547,7 @@
         const current = isDone ? rnd.target : rnd.cur;
 
         const g = {
-          id: crypto.randomUUID(),
+          id: generateId(),
           title: rnd.t,
           priority: rnd.p,
           target: rnd.target,
@@ -2545,7 +2563,7 @@
         };
         
         if (current > 0) {
-            g.history.push({ id: crypto.randomUUID(), date: nowISO(), amount: current, type: 'set', comment: 'Начальный баланс' });
+            g.history.push({ id: generateId(), date: nowISO(), amount: current, type: 'set', comment: 'Начальный баланс' });
         }
         DATA.goals.push(g);
         save(g); // Sync
@@ -2597,7 +2615,7 @@
             
             // Если формат был другой, пробуем привести
             newGoals = newGoals.map(g => {
-                if (!g.id) g.id = crypto.randomUUID();
+                if (!g.id) g.id = generateId();
                 return g;
             });
 
