@@ -1678,5 +1678,32 @@ await sb.auth.signInWithOAuth({
     render();
   })();
   </script>
+
+<script>
+async function signInWithGoogle() {
+  if (!sb) {
+    alert('Supabase не инициализирован (проверь URL/KEY и подключение supabase-js)');
+    return;
+  }
+
+  // редирект на ТЕКУЩУЮ страницу, чтобы не было левых доменов и file://
+  const redirectTo = window.location.origin + window.location.pathname;
+
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo }
+  });
+
+  if (error) {
+    console.warn('OAuth error:', error);
+    alert(error.message || 'Ошибка входа через Google');
+  }
+}
+
+// если у тебя кнопка уже с onclick="signInWithGoogle()" — этого достаточно
+window.signInWithGoogle = signInWithGoogle;
+</script>
+
+  
 </body>
 </html>
