@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DesignFlow — Cloud Tracker</title>
+  <title>DesignFlow — Трекер целей (Fixed)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,6 +29,11 @@
       --celebrate-start: #facc15;
       --celebrate-end: #34d399;
       --fav-gold: #fbbf24;
+      
+      --warn-bg: var(--card-bg); 
+      --warn-border: var(--border); 
+      --warn-text: var(--text); 
+      --warn-icon: var(--text-muted); 
     }
 
     body[data-theme="dark"] {
@@ -38,6 +43,11 @@
       --text-muted: #94a3b8;
       --border: #334155;
       background: #020617;
+      
+      --warn-bg: var(--card-bg); 
+      --warn-border: var(--border);
+      --warn-text: var(--text); 
+      --warn-icon: var(--text-muted); 
       --celebrate-start: #facc15;
       --celebrate-end: #22c55e;
     }
@@ -51,398 +61,1027 @@
       overflow-y: scroll;
     }
 
-    /* --- AUTH SCREEN STYLES --- */
-    #auth-screen {
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
+    /* --- HEADER --- */
+    .header-wrapper {
+        margin-top: 24px;
         background: var(--bg);
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        transition: opacity 0.3s;
+        border-bottom: 1px solid var(--border);
+        transition: background .3s, border-color .3s;
     }
     
-    .auth-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        padding: 40px;
-        border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        text-align: center;
-        max-width: 400px;
-        width: 90%;
+    .header {
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    
-    .auth-logo {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fbbf24;
-        font-size: 28px;
-        margin: 0 auto 20px;
-        box-shadow: 0 4px 15px rgba(124, 92, 255, 0.3);
-    }
-    
-    .auth-title { font-size: 24px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
-    .auth-subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; line-height: 1.5; }
-    
-    .auth-btn {
-        width: 100%;
-        padding: 14px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: var(--card-bg);
-        color: var(--text);
-        font-weight: 600;
-        font-size: 15px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        transition: .2s;
-        margin-bottom: 12px;
-    }
-    .auth-btn:hover { background: #f8fafc; border-color: var(--border); transform: translateY(-1px); }
-    body[data-theme="dark"] .auth-btn:hover { background: #334155; }
-    
-    .auth-btn.google {
-        background: #fff; color: #1f2937;
-        border-color: #e5e7eb;
-    }
-    .auth-btn.google:hover { background: #f9fafb; }
-    body[data-theme="dark"] .auth-btn.google { background: #1e293b; color: #fff; border-color: #334155; }
-    body[data-theme="dark"] .auth-btn.google:hover { background: #334155; }
 
-    /* --- APP CONTENT (Hidden by default) --- */
-    #app-content { display: none; }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-    /* --- SHARED STYLES --- */
-    .header-wrapper { margin-top: 24px; background: var(--bg); border-bottom: 1px solid var(--border); }
-    .header { padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; max-width: 1200px; margin: 0 auto; }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fbbf24; 
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(124, 92, 255, 0.2);
+    }
+
+    .logo-text h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .logo-text h1 span {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-left: 6px;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
     
-    .logo-container { display: flex; align-items: center; gap: 12px; }
-    .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fbbf24; font-size: 20px; }
-    .logo-text h1 { margin: 0; font-size: 20px; font-weight: 800; color: var(--accent); line-height: 1; }
-    .logo-text h1 span { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-left: 6px; background: #f1f5f9; padding: 2px 6px; border-radius: 6px; }
     body[data-theme="dark"] .logo-text h1 span { background: #334155; }
-    .logo-text p { margin: 4px 0 0; font-size: 12px; font-weight: 600; color: var(--text-muted); }
 
-    .btn { padding: 9px 16px; border-radius: 10px; background: #f1f5f9; color: var(--text); font-size: 13px; cursor: pointer; font-weight: 600; border: 1px solid transparent; transition: .2s; display: flex; align-items: center; gap: 8px; text-decoration: none; white-space: nowrap; }
+    .logo-text p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* --- BUTTONS --- */
+    .btn {
+      padding: 9px 16px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: .2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    
+    .btn i { color: inherit; } 
+
     body[data-theme="dark"] .btn { background: #334155; border-color: #475569; }
     .btn:hover { background: #e2e8f0; }
     body[data-theme="dark"] .btn:hover { background: #475569; }
+
     .btn.primary { background: var(--accent); color: white; border: none; }
     .btn.primary:hover { background: var(--accent-hover); }
+    .btn.primary i { color: white; } 
+
     .btn.secondary { background: transparent; border: 1px solid var(--border); }
     .btn.secondary:hover { background: #f8fafc; }
     body[data-theme="dark"] .btn.secondary:hover { background: #1e293b; }
+
     .btn.danger { background: #fee2e2; color: var(--red); }
     .btn.danger:hover { background: #fecaca; }
-
-    .btn-icon { background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 6px; border-radius: 6px; transition: .2s; display: flex; align-items: center; justify-content: center; }
+    
+    /* Icon Only Button (Trash in History) */
+    .btn-icon {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 6px;
+        transition: .2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .btn-icon:hover { background: #f1f5f9; color: var(--text); }
     body[data-theme="dark"] .btn-icon:hover { background: #334155; color: var(--text); }
+    
     .btn-icon.del:hover { background: #fee2e2; color: var(--red); }
     body[data-theme="dark"] .btn-icon.del:hover { background: #450a0a; color: #f87171; }
 
-    .tabs-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    .tabs { display: flex; gap: 6px; padding: 20px 0 0; flex-wrap: wrap; }
-    .tab { padding: 8px 14px; border-radius: 8px; background: transparent; color: var(--text-muted); font-weight: 600; font-size: 13px; cursor: pointer; transition: .2s; }
+    /* --- WARNING BLOCK --- */
+    .warning-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+    .warning {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      padding: 16px 24px;
+      margin-top: 24px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: flex;
+      justify-content: space-between; 
+      align-items: center;
+      gap: 20px;
+      color: var(--warn-text); 
+    }
+    
+    .warning-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .warning i { color: var(--warn-icon); font-size: 16px; margin-top: 2px; } 
+    .warning strong { font-weight: 700; color: var(--warn-text); } 
+    
+    .warning-actions {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0; 
+    }
+
+    .warning-red-icon,
+    .warning-red-text {
+        color: var(--red) !important;
+    }
+    .warning-red-text {
+        font-weight: 700;
+    }
+
+
+    /* --- TABS --- */
+    .tabs-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      padding: 20px 0 0;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
     .tab:hover { background: rgba(0,0,0,0.03); }
     body[data-theme="dark"] .tab:hover { background: rgba(255,255,255,0.05); }
+
     .tab.active { background: #e0e7ff; color: var(--accent); }
     body[data-theme="dark"] .tab.active { background: rgba(124, 92, 255, 0.2); }
 
+    .tab .count { margin-left: 6px; opacity: 0.7; font-size: 0.9em; }
+
+    /* --- LAYOUT --- */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px 60px; }
-    .grid { display: grid; grid-template-columns: 380px 1fr; gap: 24px; margin-top: 20px; align-items: start; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+      margin-top: 20px;
+      align-items: start;
+    }
+
     @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 
-    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
     .card h2 { font-size: 18px; font-weight: 700; margin: 0 0 20px; display: flex; align-items: center; gap: 8px;}
     .card h2 i { color: var(--accent); }
 
-    .form-row { display: flex; gap: 12px; margin-bottom: 14px; }
-    .form-row > * { flex: 1; }
+    /* --- FORM --- */
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .form-row > * {
+        flex: 1;
+    }
+
     .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-    label { font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-    input, textarea, select { padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); font-size: 14px; color: var(--text); outline: none; width: 100%; box-sizing: border-box; transition: border-color .2s; }
-    input:focus, textarea:focus, select:focus { border-color: var(--accent); background: var(--card-bg); }
-    body[data-theme="dark"] input, body[data-theme="dark"] textarea, body[data-theme="dark"] select { background: #0f172a; }
-    body[data-theme="dark"] input:focus { background: #1e293b; }
-    textarea { min-height: 80px; resize: vertical; font-family: inherit; }
     
+    label { 
+      font-size: 12px; 
+      color: var(--text-muted); 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px; 
+      display: flex;
+      align-items: center;
+      position: relative; 
+    }
+
+    input, textarea, select {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color .2s;
+    }
+
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); background: var(--card-bg); }
+
+    input::placeholder, textarea::placeholder {
+        color: var(--text-muted);
+        opacity: 0.8; 
+    }
+
+    body[data-theme="dark"] input, 
+    body[data-theme="dark"] textarea, 
+    body[data-theme="dark"] select {
+      background: #0f172a;
+    }
+    body[data-theme="dark"] input:focus { background: #1e293b; }
+    
+    body[data-theme="dark"] input::placeholder,
+    body[data-theme="dark"] textarea::placeholder {
+        color: var(--text-muted);
+        opacity: 1;
+    }
+
+    textarea { min-height: 80px; resize: vertical; font-family: inherit; }
     .custom-days-field { display: none; margin-top: 10px; }
     .btn-group { display: flex; gap: 10px; margin-top: 16px; }
     .btn-group .btn { flex: 1; justify-content: center; padding: 12px; }
 
+    /* --- GOAL ITEMS --- */
     .goal-list { display: flex; flex-direction: column; gap: 16px; }
-    .goal-card { border: 1px solid var(--border); border-radius: 16px; padding: 20px; background: var(--card-bg); transition: transform .2s, box-shadow .2s; position: relative; cursor: pointer; }
-    .goal-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
-    .goal-card.selected { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.2), var(--shadow); background: rgba(124, 92, 255, 0.02); }
-    .goal-card.done { border-color: var(--celebrate-end); opacity: 0.8; box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3); background: #f0fdf4; }
-    body[data-theme="dark"] .goal-card.done { background: #064e3b; border-color: #34d399; }
+
+    .goal-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      background: var(--card-bg);
+      transition: transform .2s, box-shadow .2s, border-color .3s, opacity .2s;
+      position: relative; 
+      cursor: pointer; 
+    }
+
+    .goal-card:active { transform: scale(0.99); }
     
+    .goal-card.dragging {
+        opacity: 0.4;
+        border: 2px dashed var(--accent);
+        box-shadow: none;
+        background: var(--bg);
+    }
+    
+    .goal-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
+    
+    /* Стили для выбранной карточки (вместо чекбокса) */
+    .goal-card.selected {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.2), var(--shadow);
+        background: rgba(124, 92, 255, 0.02);
+    }
+    
+    /* Стили для завершенной цели */
+    .goal-card.done {
+        border-color: var(--celebrate-end);
+        opacity: 0.8; 
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+        background: #f0fdf4;
+    }
+    body[data-theme="dark"] .goal-card.done {
+        background: #064e3b;
+        border-color: #34d399;
+    }
+    .goal-card.done:hover {
+        transform: none;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3), var(--shadow);
+    }
+
+    .goal-card-content {
+        position: relative; 
+        z-index: 1;
+    }
+
     .goal-header { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
-    .goal-title-wrapper { display: flex; align-items: flex-start; gap: 8px; }
+    
+    .goal-title-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .star-icon {
+        color: #cbd5e1;
+        font-size: 16px;
+        /* margin-top: 4px; */
+        cursor: pointer;
+        transition: transform 0.2s, color 0.2s;
+        display: flex;
+        align-items: center;
+        height: 24px; /* Match height of title */
+    }
+    .star-icon:hover {
+        transform: scale(1.2);
+        color: var(--fav-gold);
+    }
+    .star-icon.active { color: var(--fav-gold); }
+    body[data-theme="dark"] .star-icon { color: #475569; }
+    body[data-theme="dark"] .star-icon:hover,
+    body[data-theme="dark"] .star-icon.active { color: var(--fav-gold); }
+    
+    .pin-icon {
+        color: #cbd5e1;
+        font-size: 16px;
+        margin-top: 4px;
+        cursor: pointer;
+        transition: transform 0.2s, color 0.2s;
+        transform: rotate(45deg);
+    }
+    .pin-icon:hover {
+        transform: rotate(45deg) scale(1.2);
+        color: var(--accent);
+    }
+    .pin-icon.active { color: var(--accent); }
+    body[data-theme="dark"] .pin-icon { color: #475569; }
+    body[data-theme="dark"] .pin-icon:hover,
+    body[data-theme="dark"] .pin-icon.active { color: var(--accent); }
+
+    .pin-icon-status {
+        color: var(--accent);
+        font-size: 14px;
+        margin-top: 5px;
+        transform: rotate(45deg);
+    }
+
     .goal-title { font-size: 18px; font-weight: 700; line-height: 1.3; color: var(--text); }
-    .star-icon { color: #cbd5e1; cursor: pointer; transition: transform 0.2s, color 0.2s; height: 24px; display: flex; align-items: center; }
-    .star-icon.active, .star-icon:hover { color: var(--fav-gold); transform: scale(1.1); }
-    .pin-icon { color: #cbd5e1; cursor: pointer; transform: rotate(45deg); height: 24px; margin-top: 4px; }
-    .pin-icon.active, .pin-icon:hover { color: var(--accent); }
 
-    .goal-meta { display: flex; gap: 12px; align-items: center; margin: 10px 0; font-size: 13px; color: var(--text-muted); }
-    .goal-meta > span { color: var(--text); font-weight: 600; }
+    .goal-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin: 10px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    
+    .goal-meta > span { 
+        color: var(--text); 
+        font-weight: 600; 
+    }
+    .goal-meta > i { 
+        color: var(--text-muted);
+    }
+    .goal-meta span .fa-clock { color: inherit; }
 
-    .priority-badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px; }
+    .priority-badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px; 
+    }
+    
+    .priority-badge i { font-size: 12px; } 
+
     .priority-high { background: #fee2e2; color: var(--red); }
     .priority-med { background: #ffedd5; color: var(--orange); }
     .priority-low { background: #dcfce7; color: var(--green); }
+
     body[data-theme="dark"] .priority-high { background: #450a0a; color: #f87171; }
     body[data-theme="dark"] .priority-med { background: #451a03; color: #fb923c; }
     body[data-theme="dark"] .priority-low { background: #064e3b; color: #34d399; }
 
-    .progress-bar { height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin: 16px 0 10px; }
+    .progress-bar {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 16px 0 10px;
+    }
     body[data-theme="dark"] .progress-bar { background: #334155; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #c084fc); transition: width .5s; }
-    .progress-bar.done .progress-fill { background: linear-gradient(90deg, #facc15, #fbbf24, #f59e0b, #d97706); background-size: 200% 100%; animation: shine 3s infinite linear; }
-    @keyframes shine { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+    
+    /* ИЗМЕНЕНИЕ: Новая победная (золотая) шкала */
+    .progress-bar.done .progress-fill {
+        /* Золотой градиент */
+        background: linear-gradient(90deg, #facc15, #fbbf24, #f59e0b, #d97706);
+        background-size: 200% 100%;
+        animation: shine 3s infinite linear;
+        box-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
+    }
+    
+    @keyframes shine {
+        0% { background-position: 100% 0; }
+        100% { background-position: -100% 0; }
+    }
+
 
     .numbers { display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; margin-bottom: 16px; }
     .numbers span:last-child { color: var(--text-muted); font-weight: 500; font-size: 14px; }
 
+    /* Quick Actions */
     .quick-add { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-    .quick-btn { padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .quick-btn {
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      transition: .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .quick-btn i { color: inherit; }
     .quick-btn:hover { border-color: var(--accent); color: var(--accent); }
+
     body[data-theme="dark"] .quick-btn { background: #334155; border-color: #475569; }
+    body[data-theme="dark"] .quick-btn:hover { background: #475569; border-color: var(--accent); }
+
 
     .actions-row { display: flex; gap: 10px; border-top: 1px solid var(--border); padding-top: 16px; }
-    .action-icon-btn { padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; color: var(--text-muted); background: transparent; border: none; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+    .action-icon-btn {
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      transition: .2s;
+    }
     .action-icon-btn:hover { background: #f1f5f9; color: var(--text); }
     .action-icon-btn.delete:hover { background: #fee2e2; color: var(--red); }
+    .action-icon-btn.pinned { color: var(--accent); background: rgba(124, 92, 255, 0.1); }
+    
     body[data-theme="dark"] .action-icon-btn:hover { background: #334155; color: var(--text); }
     body[data-theme="dark"] .action-icon-btn.delete:hover { background: #450a0a; color: #f87171; }
 
+
     /* KPI */
-    .kpi { display: flex; justify-content: space-between; gap: 15px; margin-top: 16px; text-align: center; }
-    .kpi-item { flex: 1; position: relative; }
-    .kpi-item:not(:last-child)::after { content: ''; position: absolute; right: -8px; top: 5px; bottom: 5px; width: 1px; background: var(--border); }
-    .kpi-value { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.1; }
-    .kpi-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; font-weight: 600; text-transform: uppercase; }
-
-    /* Multi Action */
-    .multi-action-bar { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px 20px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; gap: 15px; box-shadow: var(--shadow); }
-    .multi-action-text { font-size: 14px; font-weight: 600; color: var(--text-muted); }
-    .multi-action-btns { display: flex; gap: 10px; flex-shrink: 0; }
-
-    /* Modals & Toast */
-    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--card-bg); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 14px 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 200; display: flex; align-items: center; gap: 12px; opacity: 0; transform: translateY(20px); transition: all .3s; font-size: 14px; }
+    .kpi {
+      display: flex; 
+      justify-content: space-between; 
+      gap: 15px; 
+      margin-top: 16px;
+      padding: 0;
+      background: none; 
+      text-align: center;
+    }
+    
+    .kpi-item { 
+      flex: 1; 
+      padding: 0; 
+      position: relative;
+    }
+    
+    .kpi-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -8px; 
+        top: 5px;
+        bottom: 5px;
+        width: 1px;
+        background: var(--border); 
+    }
+    
+    .kpi-icon {
+        color: var(--accent); 
+        font-size: 16px;
+        margin-bottom: 2px;
+        display: block;
+    }
+    
+    .kpi-value { 
+        font-size: 20px; 
+        font-weight: 700; 
+        color: var(--text); 
+        line-height: 1.1;
+    }
+    .kpi-label { 
+        font-size: 11px; 
+        color: var(--text-muted); 
+        margin-top: 4px;
+        font-weight: 600; 
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+    }
+    
+    /* --- MULTI-SELECT MODE STYLES --- */
+    .multi-action-bar {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 20px;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        box-shadow: var(--shadow);
+    }
+    .multi-action-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+    .multi-action-btns {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+    
+    /* --- TOAST & MODAL --- */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all .3s;
+      font-size: 14px;
+    }
     body[data-theme="dark"] .toast { background: #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
     .toast.show { opacity: 1; transform: translateY(0); }
 
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); align-items: center; justify-content: center; z-index: 100; }
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(2px);
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
     .modal.show { display: flex; }
-    .modal-content { background: var(--card-bg); border-radius: 16px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: slideUp .3s ease; }
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      animation: slideUp .3s ease;
+    }
     @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
     .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
     .modal-header h2 { margin: 0; font-size: 18px; font-weight: 700; }
     .modal-close { font-size: 20px; cursor: pointer; color: var(--text-muted); }
+
     .modal-body { padding: 24px; }
     .modal-actions { padding: 20px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
     
-    .confetti-icon { font-size: 50px; color: var(--celebrate-start); animation: pulse 1s infinite alternate; }
-    @keyframes pulse { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.1); opacity: 1; } }
+    .empty-message { text-align: center; padding: 50px; color: var(--text-muted); font-size: 15px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+    /* --- CONFIRM MODAL --- */
+    #confirm-modal .modal-content { max-width: 400px; }
+    #confirm-modal .modal-actions { justify-content: space-between; }
+    #confirm-modal .modal-actions .btn { flex: 1; justify-content: center; padding: 12px; }
+    #confirm-modal p { font-size: 16px; text-align: center; margin: 0; }
+    
+    /* --- DELETE HISTORY MODAL (CUSTOM) --- */
+    #history-delete-modal .modal-content { max-width: 400px; }
+    #history-delete-modal .modal-body { text-align: center; }
+    #history-delete-modal .modal-body h3 { margin: 0 0 10px; font-size: 16px; color: var(--text); }
+    #history-delete-modal .modal-body p { margin: 0; color: var(--text-muted); font-size: 14px; }
+    #history-delete-modal .history-delete-actions {
+        display: flex; flex-direction: column; gap: 10px; margin-top: 24px;
+    }
+    #history-delete-modal .history-delete-actions .btn {
+        width: 100%; justify-content: center;
+    }
+    
+    /* --- EDIT HISTORY MODAL (CUSTOM) --- */
+    #history-edit-modal .modal-content { max-width: 400px; }
+    
+    .edited-mark {
+        font-size: 11px;
+        color: var(--text-muted);
+        opacity: 0.7;
+        margin-left: 6px;
+        cursor: help;
+        border-bottom: 1px dotted var(--text-muted);
+    }
+    
+    /* CONGRATULATIONS MODAL */
+    #congratulations-modal .modal-content { max-width: 400px; padding: 40px 24px; text-align: center; }
+    #congratulations-modal .modal-header,
+    #congratulations-modal .modal-actions { display: none; }
+    
+    #congratulations-modal .modal-body { 
+        padding: 0; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center;
+    }
+    
+    #congratulations-modal h2 { 
+        color: var(--celebrate-end); 
+        font-size: 24px; 
+        font-weight: 800;
+        margin: 15px 0 10px;
+        line-height: 1.2;
+    }
+    #congratulations-modal p { 
+        font-size: 16px; 
+        color: var(--text-muted); 
+        margin-bottom: 25px;
+    }
+    .confetti-icon {
+        font-size: 50px;
+        color: var(--celebrate-start);
+        animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+        from { transform: scale(1); opacity: 0.8; }
+        to { transform: scale(1.1); opacity: 1; }
+    }
     .congrats-actions { display: flex; gap: 10px; width: 100%; }
     .congrats-actions .btn { flex: 1; justify-content: center; padding: 12px; }
 
-    /* History styles */
-    .history-filter-container { display: flex; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 15px; }
-    .history-group-header { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin: 20px 0 10px; display: flex; align-items: center; justify-content: space-between; }
-    .history-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    /* --- HISTORY MODAL (НОВЫЕ СТИЛИ) --- */
+    .history-filter-container {
+        display: flex;
+        gap: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 15px;
+    }
+
+    .history-group-header {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 20px 0 10px;
+        display: flex;
+        align-items: center;
+    }
+    .history-group-header:first-of-type { margin-top: 5px; }
+
+    .history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin-top: 10px;
+    }
+    .history-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+    }
+    .history-item:last-child { border-bottom: none; }
+    
     .history-info { display: flex; flex-direction: column; gap: 4px; }
     .history-date { font-size: 11px; color: var(--text-muted); }
     .history-comment { font-size: 13px; font-weight: 600; color: var(--text); }
+    
+    .history-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
     .history-amount { font-weight: 700; font-size: 14px; }
     .history-amount.plus { color: var(--green); }
     .history-amount.minus { color: var(--red); }
-    .empty-message { text-align: center; padding: 50px; color: var(--text-muted); font-size: 15px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-
-    @media (max-width: 600px) {
-        .desktop-only { display: none; }
-        .multi-action-btns .btn { font-size: 0; padding: 8px 12px; }
-        .multi-action-btns .btn i { font-size: 14px; margin: 0; }
+    
+    #history-load-more-container {
+        margin-top: 20px;
+        text-align: center;
     }
-    @media (min-width: 601px) { .desktop-only { display: inline; } }
+
+
+    /* --- FOOTER --- */
+    .footer {
+        padding: 40px 24px;
+        text-align: center;
+        border-top: 1px solid var(--border);
+        margin-top: 20px;
+        color: var(--text-muted);
+        font-size: 13px;
+    }
+    .footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .footer a:hover { text-decoration: underline; }
+    
+    @media (max-width: 600px) {
+        .warning {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .warning-actions {
+            margin-top: 10px;
+            width: 100%;
+            justify-content: stretch;
+        }
+        .warning-actions .btn {
+            flex: 1;
+        }
+        
+        .desktop-only { display: none; }
+        .multi-action-btns .btn {
+            font-size: 0;
+            padding: 8px 12px;
+        }
+        .multi-action-btns .btn i {
+            font-size: 14px;
+            margin: 0;
+        }
+    }
+    
+    @media (min-width: 601px) {
+        .desktop-only { display: inline; }
+    }
   </style>
 </head>
 <body>
 
-  <div id="auth-screen">
-      <div class="auth-card">
-          <div class="auth-logo"><i class="fa-solid fa-bolt"></i></div>
-          <div class="auth-title">Добро пожаловать</div>
-          <div class="auth-subtitle">
-              Войдите, чтобы синхронизировать ваши цели.<br>
-              Все данные хранятся в защищенном облаке.
-          </div>
-          
-          <button id="auth-btn-google" class="auth-btn google">
-              <i class="fa-brands fa-google"></i> Войти через Google
-          </button>
-          
-          <div style="margin-top:20px; font-size:12px; color:var(--text-muted)">
-              DesignFlow Tracker v0.5 (Cloud Only)
-          </div>
+  <div class="header-wrapper">
+    <div class="header">
+      <div class="logo-container">
+        <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="logo-text">
+          <h1>DesignFlow <span>v0.4</span></h1>
+          <p>Трекер целей</p>
+        </div>
       </div>
+      <div class="header-actions">
+        <div class="authbar" style="display:flex;gap:10px;align-items:center;">
+          <button id="btn-login" class="btn primary" type="button"><i class="fa-brands fa-google"></i> <span class="desktop-only">Войти</span></button>
+          <button id="btn-logout" class="btn secondary" type="button" style="display:none;"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <span id="auth-status" style="opacity:.75;font-size:13px; display: none;"></span>
+        </div>
+        
+        <a href="https://zhegulyaev.github.io/DesignFlow/" class="btn secondary">
+          <i class="fa-solid fa-list-check"></i> Трекер проектов
+        </a>
+        
+        <button class="btn" id="theme-btn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </div>
   </div>
 
-  <div id="app-content">
-      <div class="header-wrapper">
-        <div class="header">
-          <div class="logo-container">
-            <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
-            <div class="logo-text">
-              <h1>DesignFlow <span>Cloud</span></h1>
-              <p id="user-email-display">user@example.com</p>
+  <div class="warning-wrapper">
+    <div class="warning"> 
+        <div class="warning-content">
+            <i class="fa-solid fa-triangle-exclamation warning-red-icon"></i>
+            <div>
+                <strong class="warning-red-text">Важно:</strong> <span id="sync-warning">Данные хранятся только в вашем браузере. Войдите, чтобы сохранить их в облаке.</span><br>
+                Обязательно скачивайте резервную копию перед очисткой кэша.
             </div>
-          </div>
-          <div class="header-actions">
-            <a href="https://zhegulyaev.github.io/DesignFlow/" class="btn secondary">
-              <i class="fa-solid fa-list-check"></i> <span class="desktop-only">Проекты</span>
-            </a>
-            <button class="btn" id="theme-btn"><i class="fa-solid fa-moon"></i></button>
-            <button id="btn-logout" class="btn secondary" title="Выйти"><i class="fa-solid fa-right-from-bracket"></i></button>
-          </div>
+        </div>
+        <div class="warning-actions">
+            <button class="btn" id="export-btn"><i class="fa-solid fa-download"></i> Скачать базу</button>
+            <button class="btn" id="import-btn"><i class="fa-solid fa-upload"></i> Загрузить</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="tabs-wrapper">
+    <div class="tabs">
+      <div class="tab active" data-filter="active">Активные <span class="count" id="active-count">0</span></div>
+      <div class="tab" data-filter="favorite"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Избранное <span class="count" id="fav-count">0</span></div>
+       <div class="tab" data-filter="done">Завершённые <span class="count" id="done-count">0</span></div>
+      <div class="tab" data-filter="all">Все цели <span class="count" id="total-count">0</span></div>
+      <div class="tab" data-filter="trash">Корзина <span class="count" id="trash-count">0</span></div>
+    </div>
+  </div>
+
+  <div class="container grid">
+    <div class="card">
+      <h2><i class="fa-solid fa-square-plus"></i> Создать цель</h2>
+      
+      <div class="field">
+        <label>Название</label>
+        <input id="g-title" placeholder="Например: Новый MacBook" />
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Сумма</label>
+          <input id="g-target" placeholder="100 000 или 100к" inputmode="numeric" />
+        </div>
+        <div class="field">
+          <label>Есть</label>
+          <input id="g-current" placeholder="0 или 50к" inputmode="numeric" />
         </div>
       </div>
 
-      <div class="tabs-wrapper">
-        <div class="tabs">
-          <div class="tab active" data-filter="active">Активные <span class="count" id="active-count">0</span></div>
-          <div class="tab" data-filter="favorite"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Избранное <span class="count" id="fav-count">0</span></div>
-           <div class="tab" data-filter="done">Завершённые <span class="count" id="done-count">0</span></div>
-          <div class="tab" data-filter="all">Все цели <span class="count" id="total-count">0</span></div>
-          <div class="tab" data-filter="trash">Корзина <span class="count" id="trash-count">0</span></div>
+      <div class="form-row">
+        <div class="field">
+          <label>Дедлайн</label>
+          <input id="g-deadline" type="date" />
         </div>
-      </div>
-
-      <div class="container grid">
-        <div class="card">
-          <h2><i class="fa-solid fa-square-plus"></i> Создать цель</h2>
-          
-          <div class="field">
-            <label>Название</label>
-            <input id="g-title" placeholder="Например: Новый MacBook" />
-          </div>
-
-          <div class="form-row">
-            <div class="field">
-              <label>Сумма</label>
-              <input id="g-target" placeholder="100 000 или 100к" inputmode="numeric" />
-            </div>
-            <div class="field">
-              <label>Есть</label>
-              <input id="g-current" placeholder="0 или 50к" inputmode="numeric" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="field">
-              <label>Дедлайн</label>
-              <input id="g-deadline" type="date" />
-            </div>
-            <div class="field">
-              <label>Приоритет</label>
-              <select id="g-priority">
-                <option value="med">Средний</option>
-                <option value="high">Высокий</option>
-                <option value="low">Низкий</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="field">
-            <label>Шаблон срока</label>
-            <select id="g-template">
-              <option value="">Выбрать быстрый срок...</option>
-              <option value="7">Через неделю (7 дн.)</option>
-              <option value="14">Через 2 недели (14 дн.)</option>
-              <option value="30">Через месяц (30 дн.)</option>
-              <option value="custom">Свой вариант...</option>
-            </select>
-            <div class="custom-days-field" id="g-custom-days-field">
-              <input id="g-custom-days-input" type="number" min="1" placeholder="Введите кол-во дней" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label>Заметка</label>
-            <textarea id="g-notes" placeholder="План действий, ссылки, мысли..."></textarea>
-          </div>
-
-          <div class="btn-group">
-            <button class="btn primary" id="btn-add"><i class="fa-solid fa-plus"></i> Добавить</button>
-            <button class="btn secondary" id="btn-demo"><i class="fa-solid fa-wand-magic-sparkles"></i> Демо</button>
-          </div>
-        </div>
-
-        <div>
-           <div class="card" style="margin-bottom: 24px; padding: 20px;">
-            <h2 style="font-size: 15px; margin-bottom:12px; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-chart-pie"></i> Общий прогресс</h2>
-            <div class="progress-bar" style="margin-top:0"><div class="progress-fill" id="overall-progress" style="width:0%"></div></div>
-            <div style="font-size:13px; color:var(--text-muted); text-align:right; margin-top:8px;" id="overall-text">0%</div>
-          </div>
-          
-          <div class="multi-action-bar" id="multi-action-bar" style="display: none;">
-              <div class="multi-action-text" id="multi-action-text">Выбрано: 0</div>
-              <div class="multi-action-btns">
-                  <button class="btn secondary" id="btn-select-all"><i class="fa-solid fa-list-check"></i> <span class="desktop-only">Выбрать все</span></button>
-                  <button class="btn" id="btn-multi-done" title="Завершить"><i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span></button>
-                  <button class="btn danger" id="btn-multi-trash" title="В корзину"><i class="fa-regular fa-trash-can"></i> <span class="desktop-only">В корзину</span></button>
-              </div>
-          </div>
-          <div class="goal-list" id="goals-list"></div>
+        <div class="field">
+          <label>Приоритет</label>
+          <select id="g-priority">
+            <option value="med">Средний</option>
+            <option value="high">Высокий</option>
+            <option value="low">Низкий</option>
+          </select>
         </div>
       </div>
       
-      <div class="footer">DesignFlow Tracker by <a href="https://t.me/r_zhegulyaev" target="_blank">Zhegulyaev</a></div>
+      <div class="field">
+        <label>Шаблон срока</label>
+        <select id="g-template">
+          <option value="">Выбрать быстрый срок...</option>
+          <option value="7">Через неделю (7 дн.)</option>
+          <option value="14">Через 2 недели (14 дн.)</option>
+          <option value="30">Через месяц (30 дн.)</option>
+          <option value="custom">Свой вариант...</option>
+        </select>
+        <div class="custom-days-field" id="g-custom-days-field">
+          <input id="g-custom-days-input" type="number" min="1" placeholder="Введите кол-во дней" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Заметка</label>
+        <textarea id="g-notes" placeholder="План действий, ссылки, мысли..."></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn primary" id="btn-add"><i class="fa-solid fa-plus"></i> Добавить</button>
+        <button class="btn secondary" id="btn-demo"><i class="fa-solid fa-wand-magic-sparkles"></i> Демо</button>
+      </div>
+    </div>
+
+    <div>
+       <div class="card" style="margin-bottom: 24px; padding: 20px;">
+        <h2 style="font-size: 15px; margin-bottom:12px; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-chart-pie"></i> Общий прогресс</h2>
+        <div class="progress-bar" style="margin-top:0"><div class="progress-fill" id="overall-progress" style="width:0%"></div></div>
+        <div style="font-size:13px; color:var(--text-muted); text-align:right; margin-top:8px;" id="overall-text">0%</div>
+      </div>
+      
+      <div class="multi-action-bar" id="multi-action-bar" style="display: none;">
+          <div class="multi-action-text" id="multi-action-text">Выбрано: 0</div>
+          <div class="multi-action-btns">
+              <button class="btn secondary" id="btn-select-all"><i class="fa-solid fa-list-check"></i> <span class="desktop-only">Выбрать все</span></button>
+              <button class="btn" id="btn-multi-done" title="Завершить"><i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span></button>
+              <button class="btn danger" id="btn-multi-trash" title="В корзину"><i class="fa-regular fa-trash-can"></i> <span class="desktop-only">В корзину</span></button>
+          </div>
+      </div>
+      <div class="goal-list" id="goals-list"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    DesignFlow Tracker by <a href="https://t.me/r_zhegulyaev" target="_blank">Zhegulyaev</a>
   </div>
 
   <div class="toast" id="toast">
     <i class="fa-solid fa-circle-check"></i> <span id="toast-message"></span>
   </div>
 
+  <input type="file" id="file-import" accept="application/json" style="display:none" />
+
   <div class="modal" id="edit-modal">
     <div class="modal-content">
-      <div class="modal-header"><h2>Редактировать</h2><span class="modal-close"><i class="fa-solid fa-xmark"></i></span></div>
-      <div class="modal-body">
-        <div class="field"><label>Название</label><input id="edit-title" /></div>
-        <div class="form-row">
-          <div class="field"><label>Сумма</label><input id="edit-target" inputmode="numeric" /></div>
-          <div class="field"><label>Есть сейчас</label><input id="edit-current" inputmode="numeric" /></div>
-        </div>
-        <div class="form-row">
-          <div class="field"><label>Дедлайн</label><input id="edit-deadline" type="date" /></div>
-          <div class="field"><label>Приоритет</label><select id="edit-priority"><option value="med">Средний</option><option value="high">Высокий</option><option value="low">Низкий</option></select></div>
-        </div>
-        <div class="field"><label>Заметка</label><textarea id="edit-notes"></textarea></div>
+      <div class="modal-header">
+        <h2>Редактировать</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
       </div>
-      <div class="modal-actions"><button class="btn primary" id="save-edit">Сохранить</button></div>
+      <div class="modal-body">
+        <div class="field">
+          <label>Название</label>
+          <input id="edit-title" />
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Сумма</label>
+            <input id="edit-target" inputmode="numeric" placeholder="100 000 или 100к" />
+          </div>
+          <div class="field">
+            <label>Есть сейчас</label>
+            <input id="edit-current" inputmode="numeric" placeholder="0 или 50к" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Дедлайн</label>
+            <input id="edit-deadline" type="date" />
+          </div>
+          <div class="field">
+            <label>Приоритет</label>
+            <select id="edit-priority">
+              <option value="med">Средний</option>
+              <option value="high">Высокий</option>
+              <option value="low">Низкий</option>
+            </select>
+          </div>
+        </div>
+         <div class="field">
+          <label>Шаблон срока</label>
+          <select id="edit-template">
+            <option value="">Не менять</option>
+            <option value="7">Через неделю (7 дн.)</option>
+            <option value="14">Через 2 недели (14 дн.)</option>
+            <option value="30">Месяц</option>
+            <option value="custom">Свой</option>
+          </select>
+           <div class="custom-days-field" id="edit-custom-days-field">
+            <input id="edit-custom-days-input" type="number" min="1" placeholder="Дней" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Заметка</label>
+          <textarea id="edit-notes"></textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn primary" id="save-edit">Сохранить</button>
+      </div>
     </div>
   </div>
 
   <div class="modal" id="progress-modal">
     <div class="modal-content" style="max-width: 400px;">
-      <div class="modal-header"><h2>Изменить баланс</h2><span class="modal-close"><i class="fa-solid fa-xmark"></i></span></div>
+      <div class="modal-header">
+        <h2>Изменить баланс</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      </div>
       <div class="modal-body">
-        <div class="field"><label>Сумма операции</label><input id="progress-amount" inputmode="numeric" autofocus /></div>
-        <div class="field"><label>Комментарий</label><input id="progress-comment" placeholder="Например: Потратил на отель" /></div>
+        <div class="field">
+          <label>Сумма операции</label>
+          <input id="progress-amount" placeholder="5 000 или 5к" inputmode="numeric" autofocus />
+        </div>
+        <div class="field">
+            <label>Комментарий (опционально)</label>
+            <input id="progress-comment" placeholder="Например: Потратил на отель" />
+        </div>
       </div>
       <div class="modal-actions" style="justify-content: space-between;">
         <button class="btn danger" id="btn-subtract"><i class="fa-solid fa-minus"></i> Вычесть</button>
@@ -453,16 +1092,76 @@
   
   <div class="modal" id="history-modal">
     <div class="modal-content">
-      <div class="modal-header"><h2 id="history-modal-title">История</h2><span class="modal-close"><i class="fa-solid fa-xmark"></i></span></div>
+      <div class="modal-header">
+        <h2 id="history-modal-title">История операций</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      </div>
       <div class="modal-body">
         <div class="history-filter-container">
             <input id="history-date-filter" placeholder="Фильтр по дате..." readonly style="cursor: pointer; background: var(--bg);" />
-            <button class="btn secondary" id="history-clear-filter"><i class="fa-solid fa-rotate-left"></i></button>
+            <button class="btn secondary" id="history-clear-filter" title="Сбросить фильтр"><i class="fa-solid fa-rotate-left"></i></button>
         </div>
-        <div id="history-list-container" style="max-height: 50vh; overflow-y: auto;"></div>
-        <div id="history-load-more-container" style="display:none; margin-top:15px;"><button class="btn secondary" id="btn-history-load-more" style="width:100%">Показать еще</button></div>
+
+        <div id="history-list-container" style="max-height: 50vh; overflow-y: auto; padding-right: 5px;"></div>
+        
+        <div id="history-load-more-container" style="display:none;">
+            <button class="btn secondary" id="btn-history-load-more" style="width:100%">Показать еще</button>
+        </div>
       </div>
-      <div class="modal-actions"><button class="btn secondary modal-close">Закрыть</button></div>
+      <div class="modal-actions">
+          <button class="btn secondary modal-close">Закрыть</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" id="history-delete-modal">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2>Удаление записи</h2>
+              <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+          </div>
+          <div class="modal-body">
+              <h3 id="hd-amount-display"></h3>
+              <p>Вы хотите просто удалить эту запись из истории или также отменить её влияние на текущий баланс цели?</p>
+              
+              <div class="history-delete-actions">
+                  <button class="btn primary" id="btn-hd-revert">
+                      <i class="fa-solid fa-rotate-left"></i> Удалить и вернуть деньги
+                  </button>
+                  <button class="btn secondary" id="btn-hd-delete-only">
+                      <i class="fa-regular fa-trash-can"></i> Только удалить запись
+                  </button>
+                  <button class="btn" style="background: transparent; border: 1px solid var(--border);" id="btn-hd-cancel">
+                      Отмена
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <div class="modal" id="history-edit-modal">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h2>Редактировать запись</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <label>Сумма операции</label>
+          <input id="he-amount" inputmode="numeric" />
+        </div>
+        <div class="field">
+            <label>Комментарий</label>
+            <input id="he-comment" />
+        </div>
+        <div style="font-size:12px; color:var(--text-muted); margin-top:8px; line-height:1.4">
+            При изменении суммы баланс цели будет автоматически скорректирован.
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn secondary modal-close">Отмена</button>
+        <button class="btn primary" id="btn-he-save">Сохранить</button>
+      </div>
     </div>
   </div>
   
@@ -482,15 +1181,25 @@
 
   <div class="modal" id="confirm-modal">
     <div class="modal-content">
-      <div class="modal-header"><h2>Подтвердите</h2><span class="modal-close"><i class="fa-solid fa-xmark"></i></span></div>
-      <div class="modal-body"><p id="confirm-text"></p></div>
-      <div class="modal-actions"><button class="btn secondary" id="confirm-cancel">Отмена</button><button class="btn danger" id="confirm-ok">ОК</button></div>
+      <div class="modal-header">
+        <h2>Подтвердите действие</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-text"></p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn secondary" id="confirm-cancel">Отмена</button>
+        <button class="btn danger" id="confirm-ok">ОК</button>
+      </div>
     </div>
   </div>
 
 <script>
 (() => {
-  // --- CONFIG ---
+  const K = 'designFlowGoalData'; 
+  
+  // --- SUPABASE CONFIG ---
   const SUPABASE_URL = 'https://mljfqhczwxflwezgvkcv.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1samZxaGN6d3hmbHdlemd2a2N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzODI1MDAsImV4cCI6MjA4MTk1ODUwMH0.S3empDGZqo8s6-BhSt5ziA0EC0sGvQgkXDDq-t2JuOs';
   const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
@@ -505,483 +1214,1457 @@
   let hLimit = 10;
   let hFilterDate = null;
   let hPicker = null;
+  let hItemToDelete = null; 
+  let hItemToEdit = null;
 
   let confirmAction = null;
   let congratsGoalId = null; 
-  let selectedGoalIds = new Set();
-  
-  const authScreen = document.getElementById('auth-screen');
-  const appContent = document.getElementById('app-content');
-  const userEmailDisplay = document.getElementById('user-email-display');
 
-  // --- SAFE ID GENERATOR ---
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toast-message');
+  
+  let selectedGoalIds = new Set();
+  const multiActionBar = document.getElementById('multi-action-bar');
+  const multiActionText = document.getElementById('multi-action-text');
+  const btnSelectAll = document.getElementById('btn-select-all');
+  const btnMultiDone = document.getElementById('btn-multi-done');
+  const btnMultiTrash = document.getElementById('btn-multi-trash');
+  
+  const btnMultiRestore = document.createElement('button');
+  btnMultiRestore.className = 'btn';
+  btnMultiRestore.innerHTML = '<i class="fa-solid fa-rotate-left"></i> <span class="desktop-only">Восстановить</span>';
+  btnMultiRestore.title = 'Восстановить';
+  btnMultiRestore.id = 'btn-multi-restore';
+
+  const btnMultiFinalDelete = document.createElement('button');
+  btnMultiFinalDelete.className = 'btn danger';
+  btnMultiFinalDelete.innerHTML = '<i class="fa-solid fa-ban"></i> <span class="desktop-only">Удалить навсегда</span>';
+  btnMultiFinalDelete.title = 'Удалить навсегда';
+  btnMultiFinalDelete.id = 'btn-multi-final-delete';
+
+
+  function showToast(msg) {
+    toastMessage.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function nowISO() { return new Date().toISOString(); }
+
+  // --- SAFE ID GENERATOR (FIX for file:// protocol) ---
   function generateId() {
-      if (typeof crypto !== 'undefined' && crypto.randomUUID) { return crypto.randomUUID(); }
+      // Пытаемся использовать crypto (если есть)
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+          return crypto.randomUUID();
+      }
+      // Фоллбэк для старых браузеров или небезопасного контекста (local files)
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
       });
   }
 
-  function nowISO() { return new Date().toISOString(); }
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    document.getElementById('toast-message').textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3000);
-  }
-
-  // --- DB HELPERS ---
+  // --- MAPPING FUNCTIONS (Supabase snake_case <-> App camelCase) ---
   function toDbFormat(goal, userId) {
       return {
-          id: goal.id, user_id: userId, title: goal.title, target: goal.target,
-          current: goal.current, deadline: goal.deadline, priority: goal.priority,
-          notes: goal.notes, is_done: goal.status === 'done', is_trash: goal.status === 'trash',
-          is_favorite: goal.isFavorite, is_pinned: goal.isPinned, history: goal.history,
-          created_at: goal.createdAt, updated_at: goal.updatedAt
+          id: goal.id,
+          user_id: userId,
+          title: goal.title,
+          target: goal.target,
+          current: goal.current,
+          deadline: goal.deadline,
+          priority: goal.priority,
+          notes: goal.notes,
+          is_done: goal.status === 'done',
+          is_trash: goal.status === 'trash',
+          is_favorite: goal.isFavorite,
+          is_pinned: goal.isPinned,
+          history: goal.history,
+          created_at: goal.createdAt,
+          updated_at: goal.updatedAt
       };
   }
+
   function toLocalFormat(dbGoal) {
       let status = 'active';
       if (dbGoal.is_trash) status = 'trash';
       else if (dbGoal.is_done) status = 'done';
+
       return {
-          id: dbGoal.id, title: dbGoal.title, target: dbGoal.target, current: dbGoal.current,
-          deadline: dbGoal.deadline, priority: dbGoal.priority, notes: dbGoal.notes,
-          status: status, isFavorite: dbGoal.is_favorite, isPinned: dbGoal.is_pinned,
-          history: dbGoal.history || [], createdAt: dbGoal.created_at, updatedAt: dbGoal.updated_at
+          id: dbGoal.id,
+          title: dbGoal.title,
+          target: dbGoal.target,
+          current: dbGoal.current,
+          deadline: dbGoal.deadline,
+          priority: dbGoal.priority,
+          notes: dbGoal.notes,
+          status: status,
+          isFavorite: dbGoal.is_favorite,
+          isPinned: dbGoal.is_pinned,
+          history: dbGoal.history || [],
+          createdAt: dbGoal.created_at,
+          updatedAt: dbGoal.updated_at || dbGoal.created_at
       };
   }
 
-  // --- SYNC ---
+  // --- DB SYNC FUNCTIONS ---
   async function syncGoalToCloud(goal) {
       if (!user || !sb) return;
-      await sb.from('goals').upsert(toDbFormat(goal, user.id));
-  }
-  async function deleteGoalFromCloud(id) {
-      if (!user || !sb) return;
-      await sb.from('goals').delete().eq('id', id).eq('user_id', user.id);
-  }
-
-  async function loadData() {
-    if (!user || !sb) {
-        DATA.goals = []; // СТРОГИЙ РЕЖИМ: Если нет юзера, нет данных.
-        return;
-    }
-    const { data, error } = await sb.from('goals').select('*').eq('user_id', user.id);
-    if (!error && data) {
-        DATA.goals = data.map(toLocalFormat);
-    }
-  }
-
-  // --- AUTH FLOW ---
-  async function initAuth() {
-    if (!sb) return;
-    const { data: { session } } = await sb.auth.getSession();
-    handleSession(session);
-
-    sb.auth.onAuthStateChange(async (event, session) => {
-        handleSession(session);
-        if (event === 'SIGNED_OUT') {
-            DATA.goals = []; // Очистка при выходе
-            render();
-            showToast('Вы вышли из системы');
-        }
-    });
-  }
-
-  async function handleSession(session) {
-      user = session?.user || null;
-      if (user) {
-          // Logged In
-          authScreen.style.opacity = '0';
-          setTimeout(() => authScreen.style.display = 'none', 300);
-          appContent.style.display = 'block';
-          userEmailDisplay.textContent = user.email;
-          
-          await loadData(); // Грузим ТОЛЬКО из облака
-          render();
-      } else {
-          // Logged Out
-          authScreen.style.display = 'flex';
-          authScreen.style.opacity = '1';
-          appContent.style.display = 'none';
+      try {
+          const dbData = toDbFormat(goal, user.id);
+          const { error } = await sb.from('goals').upsert(dbData);
+          if (error) throw error;
+      } catch (e) {
+          console.error("Cloud Sync Error:", e);
+          showToast('Ошибка синхронизации с облаком');
       }
   }
 
-  document.getElementById('auth-btn-google').onclick = async () => {
-      await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
+  async function deleteGoalFromCloud(id) {
+      if (!user || !sb) return;
+      try {
+          const { error } = await sb.from('goals').delete().eq('id', id).eq('user_id', user.id);
+          if (error) throw error;
+      } catch (e) {
+          console.error("Cloud Delete Error:", e);
+      }
+  }
+
+  // --- AUTH LOGIC ---
+  async function initAuth() {
+    if (!sb) return;
+    
+    const { data: { session } } = await sb.auth.getSession();
+    user = session?.user || null;
+    updateAuthUI();
+
+    sb.auth.onAuthStateChange(async (event, session) => {
+      user = session?.user || null;
+      updateAuthUI();
+      if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+          await load();
+          render();
+          showToast('Синхронизация с облаком...');
+      } else if (event === 'SIGNED_OUT') {
+          await load();
+          render();
+          showToast('Локальный режим');
+      }
+    });
+  }
+
+  function updateAuthUI() {
+    const btnL = document.getElementById('btn-login');
+    const btnO = document.getElementById('btn-logout');
+    const status = document.getElementById('auth-status');
+    const warn = document.getElementById('sync-warning');
+
+    if (user) {
+      btnL.style.display = 'none';
+      btnO.style.display = 'block';
+      status.style.display = 'block';
+      status.innerText = user.email;
+      warn.innerHTML = `<span style="color:var(--green)">Облачная синхронизация активна.</span>`;
+    } else {
+      btnL.style.display = 'block';
+      btnO.style.display = 'none';
+      status.style.display = 'none';
+      warn.innerHTML = `Данные хранятся только в вашем браузере. Войдите, чтобы сохранить их в облаке.`;
+    }
+  }
+
+  document.getElementById('btn-login').onclick = async () => {
+    if (!sb) return alert("Ключи Supabase не настроены!");
+    await sb.auth.signInWithOAuth({ 
+        provider: 'google',
+        options: { redirectTo: window.location.href }
+    });
   };
-  
+
   document.getElementById('btn-logout').onclick = async () => {
-      await sb.auth.signOut();
+    await sb.auth.signOut();
   };
 
 
-  // --- FORMATTING ---
   function safeParseNum(v) {
     if (!v && v !== 0) return 0;
     let str = String(v).replace(/\s+/g, '').replace(/,/g, '.').toLowerCase();
     let multiplier = 1;
-    if (str.endsWith('к') || str.endsWith('k')) { str = str.slice(0, -1); multiplier = 1000; }
-    else if (str.endsWith('м') || str.endsWith('m')) { str = str.slice(0, -1); multiplier = 1000000; }
+    if (str.endsWith('к') || str.endsWith('k')) {
+        str = str.slice(0, -1);
+        multiplier = 1000;
+    } else if (str.endsWith('м') || str.endsWith('m')) {
+        str = str.slice(0, -1);
+        multiplier = 1000000;
+    }
     const res = parseFloat(str);
     return isNaN(res) ? 0 : res * multiplier;
   }
-  function fmt(n) { return Math.round(safeParseNum(n)).toLocaleString('ru-RU'); }
-  
+
+  function fmt(n) {
+    const num = safeParseNum(n);
+    return Math.round(num).toLocaleString('ru-RU');
+  }
+
   function formatNumberInput(inputId) {
       const input = document.getElementById(inputId);
-      if(!input) return;
-      input.addEventListener('blur', (e) => {
-         let val = e.target.value.replace(/[^\d.,]/g, '').replace(/,/g,'.');
-         let num = parseFloat(val);
-         if(!isNaN(num)) e.target.value = new Intl.NumberFormat('ru-RU').format(Math.round(num));
+      if (!input) return;
+
+      let calcTimeout;
+
+      input.addEventListener('input', (e) => {
+          clearTimeout(calcTimeout);
+          
+          let val = e.target.value;
+          if (/[+\-*/]/.test(val)) {
+              calcTimeout = setTimeout(() => {
+                   calculateAndSet(e.target);
+              }, 1000);
+              return; 
+          }
+
+          let clean = val.replace(/[^\d.,]/g, '');
+          if (!clean) return;
+
+          let num = safeParseNum(clean);
+          if (!isNaN(num)) {
+             let formatted = new Intl.NumberFormat('ru-RU').format(num);
+             if (!val.includes('.') && !val.includes(',')) {
+                 if (val.replace(/\s/g,'') == formatted.replace(/\s/g,'')) {
+                     e.target.value = formatted;
+                 }
+             }
+          }
+      });
+
+      const calculateAndSet = (target) => {
+          let val = target.value;
+          try {
+             let safe = val.replace(/\s/g, '').replace(/,/g, '.');
+             if (/[^0-9+\-*/().]/.test(safe)) return; 
+             
+             let result = new Function('return ' + safe)();
+             if (result !== undefined && !isNaN(result) && isFinite(result)) {
+                 target.value = new Intl.NumberFormat('ru-RU').format(Math.round(result));
+             }
+          } catch(e) {}
+      };
+
+      input.addEventListener('blur', (e) => calculateAndSet(e.target));
+      input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+              calculateAndSet(e.target);
+              e.target.blur();
+          }
       });
       input.addEventListener('focus', (e) => {
-         e.target.value = e.target.value.replace(/\s/g, '');
-      });
-  }
-  ['g-target','g-current','edit-target','edit-current','progress-amount'].forEach(formatNumberInput);
-
-  function declOfNum(n, t) { return t[(n%100>4 && n%100<20)?2 : [2,0,1,1,1,2][(n%10<5)?n%10:5]]; }
-  function formatTimeLeft(deadline) {
-    if (!deadline) return { text: '<span style="color:var(--text-muted)"><i class="fa-solid fa-infinity"></i></span>', totalHours: null };
-    const diffMs = new Date(deadline + 'T23:59:59') - new Date();
-    if (diffMs <= 0) {
-      const days = Math.ceil(Math.abs(diffMs)/86400000);
-      return { text: `<span style="color:var(--red)">Просрочено (${days} дн.)</span>`, totalHours: 0 };
-    }
-    const days = Math.floor(diffMs/86400000);
-    return { text: `Осталось ${days} ${declOfNum(days, ['день','дня','дней'])}`, totalHours: diffMs/3600000 };
-  }
-
-  function setupDateTemplate(selId, customId, inpId, resId) {
-      const s = document.getElementById(selId), c = document.getElementById(customId), i = document.getElementById(inpId), r = document.getElementById(resId);
-      s.addEventListener('change', () => {
-          c.style.display = s.value === 'custom' ? 'block' : 'none';
-          if(s.value && s.value !== 'custom') {
-              const d = new Date(); d.setDate(d.getDate() + parseInt(s.value));
-              r.value = d.toISOString().slice(0,10);
+          let val = e.target.value;
+          if (!/[+\-*/]/.test(val)) {
+             e.target.value = val.replace(/\s/g, '');
           }
       });
-      i.addEventListener('input', () => {
-         if(i.value) { const d = new Date(); d.setDate(d.getDate() + parseInt(i.value)); r.value = d.toISOString().slice(0,10); }
-      });
   }
-  setupDateTemplate('g-template','g-custom-days-field','g-custom-days-input','g-deadline');
 
-  // --- UI ACTIONS ---
+  formatNumberInput('g-target');
+  formatNumberInput('g-current');
+  formatNumberInput('edit-target');
+  formatNumberInput('edit-current');
+  formatNumberInput('progress-amount');
+  formatNumberInput('he-amount');
+
+  function setupDateTemplate(selectId, customGroup, customInputId, dateInputId) {
+    const select = document.getElementById(selectId);
+    const customDiv = document.getElementById(customGroup);
+    const customInp = document.getElementById(customInputId);
+    const dateInp = document.getElementById(dateInputId);
+
+    function updateDate(days) {
+        if (!days || days <= 0) return;
+        const date = new Date();
+        date.setDate(date.getDate() + parseInt(days));
+        dateInp.value = date.toISOString().slice(0,10);
+    }
+
+    select.addEventListener('change', () => {
+        if (customDiv) customDiv.style.display = select.value === 'custom' ? 'block' : 'none';
+        if (select.value !== 'custom' && select.value !== '') {
+            updateDate(select.value);
+        }
+    });
+
+    if(customInp) customInp.addEventListener('input', () => updateDate(customInp.value));
+  }
+
+  setupDateTemplate('g-template', 'g-custom-days-field', 'g-custom-days-input', 'g-deadline');
+  setupDateTemplate('edit-template', 'edit-custom-days-field', 'edit-custom-days-input', 'edit-deadline');
+
+  function declOfNum(number, titles) {
+    const cases = [2, 0, 1, 1, 1, 2];
+    number = Math.abs(number);
+    return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+  }
+  
+  function formatTimeLeft(deadline) {
+    if (!deadline) return { text: '<span style="color:var(--text-muted)"><i class="fa-solid fa-infinity" style="font-size:11px"></i> Бессрочно</span>', totalHours: null };
+
+    const deadlineTime = new Date(deadline + 'T23:59:59');
+    const now = new Date();
+    let diffMs = deadlineTime - now;
+
+    if (diffMs <= 0) {
+      const absDays = Math.ceil(Math.abs(diffMs) / 86400000); 
+      const overdueText = absDays === 0 
+          ? `<span style="color:var(--red)">Просрочено (сегодня)</span>`
+          : `<span style="color:var(--red)">Просрочено (${absDays} ${declOfNum(absDays, ['день', 'дня', 'дней'])})</span>`;
+      return { text: overdueText, totalHours: 0 };
+    }
+
+    const MS_PER_DAY = 86400000;
+    const MS_PER_HOUR = 3600000;
+    const MS_PER_MINUTE = 60000;
+    
+    const totalHours = diffMs / MS_PER_HOUR;
+
+    let text = 'Осталось ';
+    
+    if (diffMs < MS_PER_DAY) {
+      const hours = Math.floor(diffMs / MS_PER_HOUR);
+      const minutes = Math.floor((diffMs % MS_PER_HOUR) / MS_PER_MINUTE);
+      
+      if (hours === 0 && minutes === 0) {
+          text = 'Осталось менее минуты';
+      } else {
+          text += `${hours} ${declOfNum(hours, ['час', 'часа', 'часов'])}`;
+          if (minutes > 0) {
+              text += `, ${minutes} ${declOfNum(minutes, ['минута', 'минуты', 'минут'])}`;
+          }
+      }
+      
+    } else {
+      const days = Math.floor(diffMs / MS_PER_DAY);
+      const remainingMs = diffMs % MS_PER_DAY;
+      const hours = Math.floor(remainingMs / MS_PER_HOUR);
+      const minutes = Math.floor((remainingMs % MS_PER_HOUR) / MS_PER_MINUTE);
+      
+      text += `${days} ${declOfNum(days, ['день', 'дня', 'дней'])}`;
+      if (hours > 0) {
+          text += `, ${hours} ${declOfNum(hours, ['час', 'часа', 'часов'])}`;
+      }
+      if (minutes > 0) {
+          text += `, ${minutes} ${declOfNum(minutes, ['минута', 'минуты', 'минут'])}`;
+      }
+    }
+    
+    return { text: `<span style="color:var(--text)">${text}</span>`, totalHours: totalHours };
+  }
+
+  function shortDate(dateStr) {
+    if (!dateStr) return '<i class="fa-solid fa-infinity"></i>';
+    const date = new Date(dateStr);
+    date.setHours(12); 
+    const day = date.getDate();
+    const month = date.toLocaleString('ru-RU', { month: 'short' }).replace('.', '');
+    return `${day} ${month}`;
+  }
+
+  function save(goalToSync = null) {
+    // 1. Всегда сохраняем локально (кэш/бэкап)
+    try {
+        localStorage.setItem(K, JSON.stringify({data: {goals: DATA.goals}}));
+    } catch(e) {
+        showToast('Ошибка сохранения локально!');
+        console.error("LS Save Error:", e);
+    }
+
+    // 2. Если залогинены - отправляем в облако
+    if (user && goalToSync) {
+        syncGoalToCloud(goalToSync);
+    }
+  }
+
+  async function load() {
+    try {
+      // 1. По умолчанию пробуем грузить локально
+      const raw = localStorage.getItem(K);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        DATA.goals = Array.isArray(parsed.data?.goals) ? parsed.data.goals : [];
+        DATA.goals.forEach(g => { if (!g.history) g.history = []; });
+      }
+
+      // 2. Если пользователь залогинен, загружаем из Supabase
+      if (user && sb) {
+          const { data, error } = await sb.from('goals').select('*').eq('user_id', user.id);
+          if (error) throw error;
+          
+          if (data && data.length > 0) {
+              DATA.goals = data.map(toLocalFormat);
+              save(); 
+          } else {
+              // ВАЖНОЕ ИСПРАВЛЕНИЕ:
+              // Если в облаке пусто (0 записей), а локально что-то есть - НЕ стираем локальные данные.
+              // Это защищает пользователя, который залогинился, но у него пустая БД.
+              if (DATA.goals.length > 0) {
+                  showToast('Локальные данные сохранены (Облако пусто)');
+              }
+          }
+      }
+
+    } catch(e) { 
+        console.error("Load Error:", e); 
+        if (!DATA.goals.length) showToast('Ошибка загрузки данных.');
+    }
+  }
+
   function openModal(id) { document.getElementById(id).classList.add('show'); }
   function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-  document.querySelectorAll('.modal-close, .modal').forEach(el => el.onclick = e => { if(e.target === el) closeModal(el.closest('.modal').id || el.id); });
-
-  function openConfirmModal(text, cb, destructive=false) {
-      document.getElementById('confirm-text').textContent = text;
-      confirmAction = cb;
-      const btn = document.getElementById('confirm-ok');
-      btn.className = destructive ? 'btn danger' : 'btn primary';
-      btn.textContent = destructive ? 'Удалить' : 'ОК';
-      openModal('confirm-modal');
+  
+  function openConfirmModal(text, callback, isDestructive = false) {
+        document.getElementById('confirm-text').textContent = text;
+        confirmAction = callback;
+        const okBtn = document.getElementById('confirm-ok');
+        okBtn.className = isDestructive ? 'btn danger' : 'btn primary';
+        okBtn.textContent = isDestructive ? 'Удалить' : 'ОК';
+        openModal('confirm-modal');
   }
-  document.getElementById('confirm-ok').onclick = () => { if(confirmAction) confirmAction(); closeModal('confirm-modal'); };
-  document.getElementById('confirm-cancel').onclick = () => closeModal('confirm-modal');
-
-  function updateMultiAction(visible) {
-      const bar = document.getElementById('multi-action-bar');
-      const count = selectedGoalIds.size;
-      bar.style.display = count > 0 ? 'flex' : 'none';
-      document.getElementById('multi-action-text').textContent = `Выбрано: ${count}`;
-      
-      const cont = bar.querySelector('.multi-action-btns');
-      cont.innerHTML = '';
-      
-      const btnAll = document.createElement('button');
-      btnAll.className = 'btn secondary';
-      btnAll.innerHTML = `<i class="fa-solid fa-list-check"></i> <span class="desktop-only">${count === visible.length && visible.length>0 ? 'Снять' : 'Все'}</span>`;
-      btnAll.onclick = () => {
-          if (count === visible.length && visible.length > 0) selectedGoalIds.clear();
-          else visible.forEach(g => selectedGoalIds.add(g.id));
-          render();
-      };
-      cont.appendChild(btnAll);
-      
-      const btnTrash = document.createElement('button');
-      btnTrash.className = 'btn danger';
-      btnTrash.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
-      btnTrash.onclick = () => {
-          openConfirmModal(`Удалить ${selectedGoalIds.size} целей?`, () => {
-              DATA.goals.filter(g => selectedGoalIds.has(g.id)).forEach(g => {
-                  g.status = 'trash'; g.updatedAt = nowISO(); syncGoalToCloud(g);
-              });
-              selectedGoalIds.clear(); render();
-          });
-      };
-      cont.appendChild(btnTrash);
+  
+  function showCongratulationsModal(goalId, title) {
+    congratsGoalId = goalId;
+    document.getElementById('congrats-title').innerHTML = `«${title}» достигнута!`;
+    openModal('congratulations-modal');
   }
 
-  // --- RENDER ---
-  function render() {
-      const list = document.getElementById('goals-list');
-      list.innerHTML = '';
-      const filter = document.querySelector('.tab.active').dataset.filter;
-      
-      const visible = DATA.goals.filter(g => {
-          if (filter === 'active') return g.status === 'active';
-          if (filter === 'done') return g.status === 'done';
-          if (filter === 'trash') return g.status === 'trash';
-          if (filter === 'favorite') return g.isFavorite && g.status !== 'trash';
-          return g.status !== 'trash';
-      });
-
-      visible.sort((a,b) => (b.isPinned - a.isPinned));
-
-      if(visible.length === 0) {
-          list.innerHTML = '<div class="empty-message"><i class="fa-regular fa-folder-open"></i><span>Пусто</span></div>';
-          selectedGoalIds.clear();
-      }
-
-      visible.forEach(g => {
-          const t = safeParseNum(g.target), c = safeParseNum(g.current);
-          const pct = t ? Math.min(100, (c/t)*100).toFixed(0) : 0;
-          const {text: dText} = formatTimeLeft(g.deadline);
-          
-          let pClass = g.priority === 'high' ? 'priority-high' : g.priority === 'low' ? 'priority-low' : 'priority-med';
-          let pName = g.priority === 'high' ? 'Высокий' : g.priority === 'low' ? 'Низкий' : 'Средний';
-
-          const el = document.createElement('div');
-          el.className = `goal-card ${selectedGoalIds.has(g.id)?'selected':''} ${g.status==='done'?'done':''}`;
-          el.onclick = (e) => {
-              if(!e.target.closest('button, input, .star-icon, .pin-icon')) {
-                  if(selectedGoalIds.has(g.id)) selectedGoalIds.delete(g.id); else selectedGoalIds.add(g.id);
-                  render();
-              }
-          };
-
-          let ctrls = '';
-          if (g.status !== 'trash') {
-              ctrls = `
-               <div class="quick-add"><button class="quick-btn" data-act="prog" data-id="${g.id}">Баланс</button></div>
-               <div class="actions-row">
-                 <button class="action-icon-btn" data-act="edit" data-id="${g.id}">Ред.</button>
-                 <button class="action-icon-btn" data-act="hist" data-id="${g.id}">История</button>
-                 <button class="action-icon-btn" data-act="done" data-id="${g.id}">${g.status==='done'?'Вернуть':'Готово'}</button>
-                 <button class="action-icon-btn delete" data-act="del" data-id="${g.id}" style="margin-left:auto"><i class="fa-regular fa-trash-can"></i></button>
-               </div>`;
-          } else {
-              ctrls = `<div class="actions-row"><button class="action-icon-btn" data-act="rest" data-id="${g.id}">Восстановить</button><button class="action-icon-btn delete" data-act="kill" data-id="${g.id}" style="margin-left:auto">Удалить навсегда</button></div>`;
-          }
-
-          el.innerHTML = `
-            <div class="goal-header">
-                <div class="goal-title-wrapper">
-                    <i class="fa-${g.isFavorite?'solid':'regular'} fa-star star-icon ${g.isFavorite?'active':''}" data-act="fav" data-id="${g.id}"></i>
-                    <i class="fa-solid fa-thumbtack pin-icon ${g.isPinned?'active':''}" data-act="pin" data-id="${g.id}"></i>
-                    <div class="goal-title" style="margin-left:4px">${g.title}</div>
-                </div>
-                <div class="priority-badge ${pClass}">${pName}</div>
-            </div>
-            <div class="goal-meta"><i class="fa-regular fa-clock"></i> ${dText}</div>
-            <div class="progress-bar ${g.status==='done'?'done':''}"><div class="progress-fill" style="width:${pct}%"></div></div>
-            <div class="numbers"><span>${fmt(c)}</span><span>${fmt(t)} • ${pct}%</span></div>
-            ${ctrls}
-          `;
-
-          // Handlers
-          el.querySelectorAll('[data-act]').forEach(b => b.onclick = (e) => {
-              e.stopPropagation();
-              const id = b.dataset.id;
-              const act = b.dataset.act;
-              const gl = DATA.goals.find(x => x.id === id);
-              if(!gl) return;
-
-              if(act==='fav') { gl.isFavorite = !gl.isFavorite; syncGoalToCloud(gl); render(); }
-              if(act==='pin') { gl.isPinned = !gl.isPinned; syncGoalToCloud(gl); render(); }
-              if(act==='edit') { 
-                  currentEditId = id;
-                  document.getElementById('edit-title').value = gl.title;
-                  document.getElementById('edit-target').value = fmt(gl.target);
-                  document.getElementById('edit-current').value = fmt(gl.current);
-                  document.getElementById('edit-deadline').value = gl.deadline || '';
-                  document.getElementById('edit-priority').value = gl.priority;
-                  document.getElementById('edit-notes').value = gl.notes;
-                  openModal('edit-modal');
-              }
-              if(act==='prog') { currentProgressId = id; document.getElementById('progress-amount').value = ''; openModal('progress-modal'); }
-              if(act==='hist') { hCurrentGoalId = id; renderHistory(); openModal('history-modal'); }
-              if(act==='done') { 
-                  if(gl.status !== 'done' && gl.current >= gl.target) {
-                      congratsGoalId = id; document.getElementById('congrats-title').textContent = gl.title; openModal('congratulations-modal');
-                  } else {
-                      gl.status = gl.status === 'done' ? 'active' : 'done';
-                      syncGoalToCloud(gl); render();
-                  }
-              }
-              if(act==='del') { gl.status = 'trash'; syncGoalToCloud(gl); render(); }
-              if(act==='rest') { gl.status = 'active'; syncGoalToCloud(gl); render(); }
-              if(act==='kill') { openConfirmModal('Удалить навсегда?', () => { DATA.goals = DATA.goals.filter(x=>x.id!==id); deleteGoalFromCloud(id); render(); }, true); }
-          });
-
-          list.appendChild(el);
-      });
-
-      updateMultiAction(visible);
-      updateCounts();
-  }
-
-  function updateCounts() {
-      const all = DATA.goals.filter(g => g.status !== 'trash');
-      const act = DATA.goals.filter(g => g.status === 'active');
-      const done = DATA.goals.filter(g => g.status === 'done');
-      const tr = DATA.goals.filter(g => g.status === 'trash');
-      const fav = DATA.goals.filter(g => g.isFavorite && g.status !== 'trash');
-      
-      document.getElementById('active-count').textContent = act.length;
-      document.getElementById('done-count').textContent = done.length;
-      document.getElementById('trash-count').textContent = tr.length;
-      document.getElementById('fav-count').textContent = fav.length;
-      document.getElementById('total-count').textContent = all.length;
-
-      const tT = act.reduce((s,g)=>s+g.target,0);
-      const tC = act.reduce((s,g)=>s+g.current,0);
-      const p = tT ? (tC/tT)*100 : 0;
-      document.getElementById('overall-progress').style.width = p + '%';
-      document.getElementById('overall-text').textContent = `${fmt(tC)} из ${fmt(tT)}`;
-  }
-
-  // --- SAVE ACTIONS ---
-  document.getElementById('btn-add').onclick = () => {
-      const t = document.getElementById('g-title').value.trim();
-      if(!t) return showToast('Введите название');
-      const tg = safeParseNum(document.getElementById('g-target').value);
-      const cur = safeParseNum(document.getElementById('g-current').value);
-      
-      const g = {
-          id: generateId(), title: t, target: tg, current: cur,
-          deadline: document.getElementById('g-deadline').value || null,
-          priority: document.getElementById('g-priority').value,
-          notes: document.getElementById('g-notes').value,
-          status: (tg>0 && cur>=tg) ? 'done' : 'active',
-          isFavorite: false, isPinned: false, history: [],
-          createdAt: nowISO(), updatedAt: nowISO()
-      };
-      if(cur > 0) g.history.push({id: generateId(), date: nowISO(), amount: cur, comment: 'Начало'});
-      
-      DATA.goals.push(g);
-      syncGoalToCloud(g);
-      render();
-      showToast('Цель создана');
-      
-      // Clear
-      ['g-title','g-target','g-current','g-deadline','g-notes'].forEach(i=>document.getElementById(i).value='');
-  };
-
-  document.getElementById('btn-demo').onclick = () => {
-     if(DATA.goals.filter(g=>g.status==='active').length > 0) return showToast('Активные цели уже есть');
-     const d = [
-         {t:'iPhone 16', trg:120000, c:10000, p:'med'},
-         {t:'Бали', trg:200000, c:45000, p:'high'}
-     ];
-     d.forEach(x => {
-         const g = { id: generateId(), title: x.t, target: x.trg, current: x.c, priority: x.p, status: 'active', history:[], createdAt: nowISO(), updatedAt: nowISO() };
-         if(x.c>0) g.history.push({id:generateId(), date:nowISO(), amount:x.c, comment:'Старт'});
-         DATA.goals.push(g);
-         syncGoalToCloud(g);
-     });
-     render();
-  };
-
-  document.getElementById('save-edit').onclick = () => {
-      const g = DATA.goals.find(x => x.id === currentEditId);
-      if(!g) return;
-      
-      const oldC = g.current;
-      g.title = document.getElementById('edit-title').value;
-      g.target = safeParseNum(document.getElementById('edit-target').value);
-      g.current = safeParseNum(document.getElementById('edit-current').value);
-      g.deadline = document.getElementById('edit-deadline').value || null;
-      g.priority = document.getElementById('edit-priority').value;
-      g.notes = document.getElementById('edit-notes').value;
-      g.updatedAt = nowISO();
-      
-      const diff = g.current - oldC;
-      if(diff !== 0) g.history.push({id: generateId(), date: nowISO(), amount: diff, comment: 'Редактирование'});
-      
-      syncGoalToCloud(g);
-      render(); closeModal('edit-modal');
-  };
-
-  function updateBalance(isSub) {
-      const g = DATA.goals.find(x => x.id === currentProgressId);
-      const val = safeParseNum(document.getElementById('progress-amount').value);
-      if(val <= 0) return;
-      const comm = document.getElementById('progress-comment').value || (isSub?'Расход':'Пополнение');
-      
-      if(isSub) g.current = Math.max(0, g.current - val);
-      else g.current += val;
-      
-      g.history.push({id: generateId(), date: nowISO(), amount: isSub ? -val : val, comment: comm});
-      g.updatedAt = nowISO();
-      
-      syncGoalToCloud(g);
-      render();
-      closeModal('progress-modal');
-      
-      if(g.current >= g.target && g.status !== 'done') {
-           congratsGoalId = g.id; document.getElementById('congrats-title').textContent = g.title; openModal('congratulations-modal');
-      }
-  }
-  document.getElementById('btn-add-progress').onclick = () => updateBalance(false);
-  document.getElementById('btn-subtract').onclick = () => updateBalance(true);
-
-  document.getElementById('btn-congrats-done').onclick = () => {
-      const g = DATA.goals.find(x=>x.id===congratsGoalId);
-      if(g) { g.status = 'done'; syncGoalToCloud(g); render(); }
-      closeModal('congratulations-modal');
-  };
-  document.getElementById('btn-congrats-cancel').onclick = () => closeModal('congratulations-modal');
-
-  // --- HISTORY VIEW ---
-  function renderHistory() {
-      const c = document.getElementById('history-list-container');
-      c.innerHTML = '';
-      const g = DATA.goals.find(x => x.id === hCurrentGoalId);
-      if(!g || !g.history.length) return c.innerHTML = '<div class="empty-message">Нет записей</div>';
-      
-      let h = [...g.history].sort((a,b)=>new Date(b.date)-new Date(a.date));
-      h.forEach(i => {
-          const d = document.createElement('div');
-          d.className = 'history-item';
-          const isP = i.amount > 0;
-          d.innerHTML = `
-            <div class="history-info">
-                <div class="history-comment">${i.comment}</div>
-                <div class="history-date">${new Date(i.date).toLocaleString()}</div>
-            </div>
-            <div class="history-amount ${isP?'plus':'minus'}">${isP?'+':''}${fmt(i.amount)}</div>
-          `;
-          c.appendChild(d);
-      });
-  }
-
-  // --- TABS ---
-  document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
-      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
-      selectedGoalIds.clear();
-      render();
+  document.querySelectorAll('.modal-close').forEach(btn => {
+    btn.onclick = () => closeModal(btn.closest('.modal').id);
+  });
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.onclick = (e) => { if (e.target === modal) closeModal(modal.id); };
   });
   
-  document.getElementById('theme-btn').onclick = () => {
-      const curr = document.body.dataset.theme;
-      document.body.dataset.theme = curr === 'dark' ? '' : 'dark';
-      localStorage.setItem('theme', document.body.dataset.theme); // Theme is okay to persist locally
+  document.getElementById('confirm-ok').onclick = () => {
+      if(confirmAction) confirmAction();
+      closeModal('confirm-modal');
+      confirmAction = null;
   };
-  document.body.dataset.theme = localStorage.getItem('theme') || '';
+  document.getElementById('confirm-cancel').onclick = () => {
+      closeModal('confirm-modal');
+      confirmAction = null;
+  };
+  
+  document.getElementById('btn-congrats-done').onclick = () => {
+      const g = DATA.goals.find(x => x.id === congratsGoalId);
+      if (g) {
+          g.status = 'done';
+          g.updatedAt = nowISO();
+          save(g); render();
+          showToast('Цель перенесена в завершенные!');
+      }
+      closeModal('congratulations-modal');
+      congratsGoalId = null;
+  };
+  
+  document.getElementById('btn-congrats-cancel').onclick = () => {
+      closeModal('congratulations-modal');
+      congratsGoalId = null;
+      showToast('Цель оставлена активной');
+  };
 
-  // Start
-  initAuth();
+  function updateMultiActionBar(visibleGoals) {
+    const selectedCount = selectedGoalIds.size;
+    
+    multiActionBar.style.display = selectedCount > 0 ? 'flex' : 'none';
+    multiActionText.textContent = `Выбрано: ${selectedCount}`;
+    
+    const actionBtnsContainer = multiActionBar.querySelector('.multi-action-btns');
+    actionBtnsContainer.innerHTML = ''; 
+    
+    const filter = document.querySelector('.tab.active').dataset.filter;
+    
+    if (filter === 'trash') {
+        actionBtnsContainer.appendChild(btnSelectAll);
+        btnSelectAll.innerHTML = `<i class="fa-solid fa-list-check"></i> <span class="desktop-only">${selectedCount === visibleGoals.length && visibleGoals.length > 0 ? 'Снять выделение' : 'Выбрать все'}</span>`;
+        actionBtnsContainer.appendChild(btnMultiRestore);
+        actionBtnsContainer.appendChild(btnMultiFinalDelete);
+    } else if (filter === 'active' || filter === 'done' || filter === 'all' || filter === 'favorite') {
+        actionBtnsContainer.appendChild(btnSelectAll);
+        btnSelectAll.innerHTML = `<i class="fa-solid fa-list-check"></i> <span class="desktop-only">${selectedCount === visibleGoals.length && visibleGoals.length > 0 ? 'Снять выделение' : 'Выбрать все'}</span>`;
 
+        const selected = DATA.goals.filter(g => selectedGoalIds.has(g.id));
+        const allSelectedAreDone = selected.every(g => g.status === 'done');
+        
+        btnMultiDone.innerHTML = allSelectedAreDone 
+            ? '<i class="fa-solid fa-rotate-left"></i> <span class="desktop-only">Вернуть</span>'
+            : '<i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span>';
+            
+        btnMultiDone.title = allSelectedAreDone ? 'Вернуть в работу' : 'Завершить';
+        
+        actionBtnsContainer.appendChild(btnMultiDone);
+        actionBtnsContainer.appendChild(btnMultiTrash);
+    }
+  }
+  
+  function toggleSelection(goalId) {
+    if (selectedGoalIds.has(goalId)) {
+        selectedGoalIds.delete(goalId);
+    } else {
+        selectedGoalIds.add(goalId);
+    }
+    render(); 
+  }
+  
+  function getSelectedGoals() {
+      return DATA.goals.filter(g => selectedGoalIds.has(g.id));
+  }
+  
+  if(btnSelectAll) {
+      btnSelectAll.onclick = () => {
+          const filter = document.querySelector('.tab.active').dataset.filter;
+          const visibleGoals = DATA.goals.filter(g => {
+            if (filter === 'active') return g.status === 'active';
+            if (filter === 'done') return g.status === 'done';
+            if (filter === 'trash') return g.status === 'trash';
+            if (filter === 'favorite') return g.isFavorite && g.status !== 'trash';
+            if (filter === 'all') return g.status !== 'trash';
+            return false;
+          });
+          
+          if (selectedGoalIds.size === visibleGoals.length && visibleGoals.length > 0) {
+              selectedGoalIds.clear(); 
+              showToast('Выделение снято');
+          } else {
+              selectedGoalIds.clear(); 
+              visibleGoals.forEach(g => selectedGoalIds.add(g.id)); 
+              showToast(`Выбрано ${visibleGoals.length} целей`);
+          }
+          render();
+      };
+  }
+
+  if(btnMultiDone) {
+      btnMultiDone.onclick = () => {
+          const selected = getSelectedGoals();
+          if (selected.length === 0) return showToast('Сначала выберите цели!');
+          
+          const allDone = selected.every(g => g.status === 'done');
+          const newStatus = allDone ? 'active' : 'done';
+          const actionText = allDone ? 'вернуть в работу' : 'завершить';
+          
+          openConfirmModal(`Вы действительно хотите ${actionText} ${selected.length} целей?`, () => {
+              selected.forEach(g => {
+                  g.status = newStatus;
+                  g.updatedAt = nowISO();
+                  save(g); // Sync each changed goal
+              });
+              selectedGoalIds.clear();
+              render();
+              showToast(newStatus === 'done' ? `Выполнено ${selected.length} целей!` : `Восстановлено ${selected.length} целей!`);
+          });
+      };
+  }
+
+  if(btnMultiTrash) {
+      btnMultiTrash.onclick = () => {
+          const selected = getSelectedGoals();
+          if (selected.length === 0) return showToast('Сначала выберите цели!');
+          
+          openConfirmModal(`Переместить ${selected.length} целей в корзину?`, () => {
+              selected.forEach(g => {
+                  g.status = 'trash';
+                  g.updatedAt = nowISO();
+                  save(g);
+              });
+              selectedGoalIds.clear();
+              render();
+              showToast(`В корзину перемещено ${selected.length} целей`);
+          });
+      };
+  }
+  
+  if(btnMultiRestore) {
+      btnMultiRestore.onclick = () => {
+          const selected = getSelectedGoals();
+          if (selected.length === 0) return showToast('Сначала выберите цели!');
+          
+          openConfirmModal(`Восстановить ${selected.length} целей из корзины?`, () => {
+              selected.forEach(g => {
+                  g.status = 'active';
+                  g.updatedAt = nowISO();
+                  save(g);
+              });
+              selectedGoalIds.clear();
+              render();
+              showToast(`Восстановлено ${selected.length} целей`);
+          });
+      };
+  }
+
+  if(btnMultiFinalDelete) {
+      btnMultiFinalDelete.onclick = () => {
+          const selected = getSelectedGoals();
+          if (selected.length === 0) return showToast('Сначала выберите цели!');
+          
+          openConfirmModal(`Удалить ${selected.length} целей безвозвратно?`, () => {
+              const idsToDelete = Array.from(selectedGoalIds);
+              DATA.goals = DATA.goals.filter(g => !idsToDelete.includes(g.id));
+              selectedGoalIds.clear();
+              save(); // Local save
+              
+              // Sync Deletion
+              idsToDelete.forEach(id => deleteGoalFromCloud(id));
+              
+              render();
+              showToast(`Удалено навсегда ${selected.length} целей`);
+          }, true);
+      };
+  }
+  
+  function reorderGoals(draggedId, targetId) {
+      const draggedIndex = DATA.goals.findIndex(g => g.id === draggedId);
+      const targetIndex = DATA.goals.findIndex(g => g.id === targetId);
+      
+      if (draggedIndex > -1 && targetIndex > -1) {
+          const [movedItem] = DATA.goals.splice(draggedIndex, 1);
+          DATA.goals.splice(targetIndex, 0, movedItem);
+          save(); // Order only saves locally for now unless we add an 'order' field to DB
+          render();
+      }
+  }
+
+  let draggedItem = null;
+
+
+  function render() {
+    const list = document.getElementById('goals-list');
+    list.innerHTML = '';
+
+    const filter = document.querySelector('.tab.active').dataset.filter;
+    
+    let visible = DATA.goals.filter(g => {
+      if (filter === 'active') return g.status === 'active';
+      if (filter === 'done') return g.status === 'done';
+      if (filter === 'trash') return g.status === 'trash';
+      if (filter === 'favorite') return g.isFavorite && g.status !== 'trash';
+      if (filter === 'all') return g.status !== 'trash';
+      return false;
+    });
+    
+    // Сортировка - закрепленные (isPinned) всегда сверху
+    visible.sort((a, b) => {
+        if (a.isPinned === b.isPinned) return 0;
+        return a.isPinned ? -1 : 1;
+    });
+
+
+    if (visible.length === 0) {
+      list.innerHTML = `<div class="empty-message"><i class="fa-regular fa-folder-open"></i><span>Список пуст</span></div>`;
+      selectedGoalIds.clear(); 
+      updateMultiActionBar(visible);
+      updateCounts(); 
+      return; 
+    }
+    
+    updateMultiActionBar(visible);
+    updateCounts(); 
+
+    const isTrash = (filter === 'trash');
+
+    visible.forEach(g => {
+      const target = safeParseNum(g.target);
+      const current = safeParseNum(g.current);
+      const pctValue = target ? (current / target) * 100 : 0;
+      const pct = Math.min(100, pctValue).toFixed(0); 
+      
+      const { text: deadlineText, totalHours: hoursLeft } = formatTimeLeft(g.deadline);
+      const isOverdue = hoursLeft !== null && hoursLeft <= 0;
+      
+      let pIcon = '';
+      let pText = '';
+      let pClass = '';
+
+      if (g.priority === 'high') {
+          pClass = 'priority-high';
+          pIcon = '<i class="fa-solid fa-fire"></i>';
+          pText = 'Высокий';
+      } else if (g.priority === 'low') {
+          pClass = 'priority-low';
+          pIcon = '<i class="fa-solid fa-leaf"></i>';
+          pText = 'Низкий';
+      } else { 
+          pClass = 'priority-med';
+          pIcon = '<i class="fa-solid fa-bolt"></i>'; 
+          pText = 'Средний';
+      }
+      
+      const neededPerHour = isOverdue || hoursLeft === null || hoursLeft <= 0 ? 0 : (target - current) / hoursLeft;
+      const neededPerDay = neededPerHour * 24;
+
+
+      const el = document.createElement('div');
+      el.className = `goal-card ${selectedGoalIds.has(g.id) ? 'selected' : ''} ${isTrash ? 'goal-card-trash' : ''} ${g.status === 'done' ? 'done' : ''}`;
+      el.dataset.id = g.id; 
+      
+      el.setAttribute('draggable', 'true');
+      
+      el.onclick = (e) => {
+        if (e.target.closest('button') || e.target.closest('input') || e.target.closest('a') || e.target.closest('.star-icon') || e.target.closest('.pin-icon')) return;
+        toggleSelection(g.id);
+      };
+      
+      let controls = '';
+      
+      if (!isTrash) {
+          controls = `
+            <div class="quick-add">
+                <button class="quick-btn" data-act="progress" data-goal-id="${g.id}"><i class="fa-solid fa-right-left"></i> Изменить баланс</button>
+            </div>
+            <div class="actions-row">
+                <button class="action-icon-btn" data-act="edit" data-goal-id="${g.id}"><i class="fa-solid fa-pen"></i> <span class="desktop-only">Редактировать</span></button>
+                <button class="action-icon-btn" data-act="history" data-goal-id="${g.id}"><i class="fa-solid fa-list-ul"></i> <span class="desktop-only">История</span></button>
+                <button class="action-icon-btn" data-act="done" data-goal-id="${g.id}">
+                    ${g.status === 'done' ? '<i class="fa-solid fa-rotate-left"></i> <span class="desktop-only">Вернуть</span>' : '<i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span>'}
+                </button>
+                <button class="action-icon-btn delete" data-act="del" data-goal-id="${g.id}" style="margin-left:auto"><i class="fa-regular fa-trash-can"></i> <span class="desktop-only">В корзину</span></button>
+            </div>
+          `;
+      } else {
+          controls = `
+             <div class="actions-row">
+                <button class="action-icon-btn" data-act="restore" data-goal-id="${g.id}"><i class="fa-solid fa-rotate-left"></i> <span class="desktop-only">Восстановить</span></button>
+                <button class="action-icon-btn delete" data-act="del-final" data-goal-id="${g.id}" style="margin-left:auto"><i class="fa-solid fa-ban"></i> <span class="desktop-only">Удалить навсегда</span></button>
+            </div>
+          `;
+      }
+
+      el.innerHTML = `
+        <div class="goal-card-content">
+            <div class="goal-header">
+                <div class="goal-title-wrapper">
+                   <i class="fa-${g.isFavorite ? 'solid' : 'regular'} fa-star star-icon ${g.isFavorite ? 'active' : ''}" data-act="fav" data-goal-id="${g.id}" title="${g.isFavorite ? 'Убрать из избранного' : 'В избранное'}"></i>
+                   <i class="fa-solid fa-thumbtack pin-icon ${g.isPinned ? 'active' : ''}" data-act="pin" data-goal-id="${g.id}" title="${g.isPinned ? 'Открепить' : 'Закрепить сверху'}"></i>
+                   <div class="goal-title" style="margin-left: 4px;">${g.title}</div>
+                </div>
+                <div class="priority-badge ${pClass}">${pIcon} ${pText}</div>
+            </div>
+            <div class="goal-meta">
+              <i class="fa-regular fa-clock"></i> ${deadlineText}
+            </div>
+
+            <div class="progress-bar ${g.status === 'done' ? 'done' : ''}"><div class="progress-fill" style="width:${pct}%"></div></div>
+            <div class="numbers">
+              <span>${fmt(current)}</span>
+              <span>${fmt(target)} • ${pctValue.toFixed(0)}%</span>
+            </div>
+
+            ${g.status === 'active' || g.status === 'trash' || g.status === 'done' ? controls : ''}
+            
+            <div class="kpi">
+              <div class="kpi-item">
+                 <div class="kpi-value">${fmt(Math.max(0, target - current))}</div>
+                 <div class="kpi-label">Осталось</div>
+              </div>
+              <div class="kpi-item">
+                 <div class="kpi-value" style="color:var(--text);">${shortDate(g.deadline)}</div> 
+                 <div class="kpi-label">Дедлайн</div>
+              </div>
+              ${!isOverdue && hoursLeft !== null && hoursLeft > 0 ? `
+              <div class="kpi-item">
+                 <div class="kpi-value">${fmt(neededPerDay)}</div>
+                 <div class="kpi-label">В день</div>
+              </div>` : `
+              <div class="kpi-item">
+                 <div class="kpi-value" style="color:var(--text-muted)">—</div>
+                 <div class="kpi-label">В день</div>
+              </div>`}
+            </div>
+            
+            ${g.notes ? `<div style="margin-top:12px; font-size:13px; color:var(--text-muted); padding:10px; background:var(--bg); border-radius:8px; line-height:1.4;">${g.notes}</div>` : ''}
+        </div>
+      `;
+      
+      el.addEventListener('dragstart', (e) => {
+         draggedItem = g;
+         el.classList.add('dragging');
+         e.dataTransfer.effectAllowed = 'move';
+      });
+
+      el.addEventListener('dragend', () => {
+         el.classList.remove('dragging');
+         draggedItem = null;
+      });
+
+      el.addEventListener('dragover', (e) => {
+         e.preventDefault(); 
+      });
+
+      el.addEventListener('drop', (e) => {
+         e.preventDefault();
+         if (draggedItem && draggedItem.id !== g.id) {
+             reorderGoals(draggedItem.id, g.id);
+         }
+      });
+
+      el.querySelectorAll('[data-act]').forEach(btn => {
+        btn.onclick = (e) => {
+            e.stopPropagation(); 
+            const act = btn.dataset.act;
+            const goalId = btn.dataset.goalId;
+            const g = DATA.goals.find(x => x.id === goalId);
+            
+            if (!g) return;
+            
+            if (act === 'fav') {
+                g.isFavorite = !g.isFavorite;
+                g.updatedAt = nowISO();
+                save(g); render();
+                showToast(g.isFavorite ? 'Добавлено в избранное' : 'Убрано из избранного');
+            }
+            
+            if (act === 'pin') {
+                g.isPinned = !g.isPinned;
+                g.updatedAt = nowISO();
+                save(g); render();
+                showToast(g.isPinned ? 'Закреплено сверху' : 'Откреплено');
+            }
+
+            if (act === 'edit') openEditModal(goalId);
+            if (act === 'progress') openProgressModal(goalId);
+            if (act === 'history') openHistoryModal(goalId);
+            if (act === 'done') {
+                const newStatus = g.status === 'done' ? 'active' : 'done';
+                
+                if (newStatus === 'done' && safeParseNum(g.current) >= safeParseNum(g.target) && safeParseNum(g.target) > 0) {
+                    showCongratulationsModal(goalId, g.title);
+                } else {
+                    openConfirmModal(`Вы действительно хотите ${newStatus === 'done' ? 'завершить' : 'вернуть в работу'} цель "${g.title}"?`, () => {
+                        g.status = newStatus;
+                        g.updatedAt = nowISO();
+                        save(g); render();
+                        showToast(newStatus === 'done' ? 'Цель выполнена!' : 'Цель активна');
+                    });
+                }
+            }
+            if (act === 'del') {
+                 openConfirmModal(`Переместить цель "${g.title}" в корзину?`, () => {
+                    g.status = 'trash';
+                    g.updatedAt = nowISO();
+                    save(g); render();
+                    showToast('В корзине');
+                });
+            }
+            if (act === 'restore') {
+                g.status = 'active';
+                g.updatedAt = nowISO();
+                save(g); render();
+                showToast('Восстановлено');
+            }
+            if (act === 'del-final') {
+                openConfirmModal(`Удалить цель "${g.title}" безвозвратно?`, () => {
+                    DATA.goals = DATA.goals.filter(x => x.id !== goalId);
+                    save(); // Local save
+                    deleteGoalFromCloud(goalId); // Cloud delete
+                    render();
+                    showToast('Удалено');
+                }, true);
+            }
+        }
+      });
+      
+
+      list.appendChild(el);
+    });
+  }
+  
+  function updateCounts() {
+    const active = DATA.goals.filter(g => g.status === 'active');
+    const done = DATA.goals.filter(g => g.status === 'done');
+    const trash = DATA.goals.filter(g => g.status === 'trash');
+    const all = DATA.goals.filter(g => g.status !== 'trash');
+    const fav = DATA.goals.filter(g => g.isFavorite && g.status !== 'trash');
+    
+    const totalT = active.reduce((s,g) => s + safeParseNum(g.target), 0);
+    const totalC = active.reduce((s,g) => s + safeParseNum(g.current), 0);
+    const overall = totalT ? (totalC / totalT) * 100 : 0;
+
+    document.getElementById('overall-progress').style.width = overall + '%';
+    document.getElementById('overall-text').textContent = `Собрано ${fmt(totalC)} из ${fmt(totalT)} (${overall.toFixed(0)}%)`;
+
+    document.getElementById('active-count').textContent = active.length;
+    document.getElementById('done-count').textContent = done.length;
+    document.getElementById('trash-count').textContent = trash.length;
+    document.getElementById('fav-count').textContent = fav.length;
+    document.getElementById('total-count').textContent = all.length;
+  }
+
+
+  // --- ACTIONS ---
+
+  function openEditModal(id) {
+    const g = DATA.goals.find(x => x.id === id);
+    if (!g) return;
+    currentEditId = id;
+    document.getElementById('edit-title').value = g.title || '';
+    // Подставляем чистое число без пробелов, чтобы легче было редактировать
+    document.getElementById('edit-target').value = g.target; 
+    document.getElementById('edit-current').value = g.current;
+    
+    document.getElementById('edit-deadline').value = g.deadline || '';
+    document.getElementById('edit-priority').value = g.priority || 'med';
+    document.getElementById('edit-notes').value = g.notes || '';
+    document.getElementById('edit-template').value = '';
+    document.getElementById('edit-custom-days-field').style.display = 'none';
+    
+    openModal('edit-modal');
+  }
+
+  document.getElementById('save-edit').onclick = () => {
+    openConfirmModal('Сохранить изменения в цели?', () => {
+        const g = DATA.goals.find(x => x.id === currentEditId);
+        if (!g) return;
+        
+        g.title = document.getElementById('edit-title').value.trim();
+        g.target = safeParseNum(document.getElementById('edit-target').value); 
+        
+        const newCurrent = safeParseNum(document.getElementById('edit-current').value);
+        const oldCurrent = safeParseNum(g.current);
+        const diff = newCurrent - oldCurrent;
+        
+        g.deadline = document.getElementById('edit-deadline').value || null;
+        g.priority = document.getElementById('edit-priority').value;
+        g.notes = document.getElementById('edit-notes').value.trim();
+        g.updatedAt = nowISO();
+        
+        g.current = newCurrent;
+        
+        if (diff !== 0) {
+            if (!g.history) g.history = [];
+            g.history.push({
+                id: generateId(),
+                date: nowISO(),
+                amount: diff,
+                type: 'edit',
+                comment: 'Ручное изменение'
+            });
+        }
+        
+        const target = safeParseNum(g.target);
+
+        save(g); // Sync
+        
+        if (newCurrent >= target && target > 0 && oldCurrent < target && g.status !== 'done') {
+            render(); 
+            showCongratulationsModal(g.id, g.title);
+        } else {
+            render();
+            closeModal('edit-modal');
+            showToast('Сохранено');
+        }
+    });
+  };
+
+  function openProgressModal(id) {
+    currentProgressId = id;
+    document.getElementById('progress-amount').value = '';
+    document.getElementById('progress-comment').value = '';
+    openModal('progress-modal');
+  }
+
+  function updateProgress(isSubtract) {
+    const g = DATA.goals.find(x => x.id === currentProgressId);
+    if (!g || g.status !== 'active') return showToast('Цель неактивна');
+    
+    const val = safeParseNum(document.getElementById('progress-amount').value); 
+    const comment = document.getElementById('progress-comment').value.trim();
+    
+    if (val <= 0) { showToast('Введите положительную сумму!'); return; }
+    
+    openConfirmModal(`${isSubtract ? 'Вычесть' : 'Добавить'} ${fmt(val)}?`, () => {
+        const target = safeParseNum(g.target);
+        const oldCurrent = safeParseNum(g.current);
+        let newCurrent = oldCurrent;
+        
+        if (isSubtract) {
+            newCurrent = Math.max(0, oldCurrent - val);
+        } else {
+            newCurrent = oldCurrent + val;
+        }
+        
+        g.current = newCurrent;
+        g.updatedAt = nowISO();
+        
+        if (!g.history) g.history = [];
+        g.history.push({
+            id: generateId(),
+            date: nowISO(),
+            amount: isSubtract ? -val : val,
+            type: isSubtract ? 'sub' : 'add',
+            comment: comment || (isSubtract ? 'Уменьшение баланса' : 'Пополнение')
+        });
+
+        save(g); // Sync
+
+        closeModal('progress-modal');
+        
+        if (newCurrent >= target && target > 0 && oldCurrent < target && g.status !== 'done') {
+            render(); 
+            showCongratulationsModal(g.id, g.title);
+        } else {
+            render();
+            showToast(`${isSubtract ? 'Вычтено' : 'Добавлено'} ${fmt(val)}`);
+        }
+    });
+  }
+
+  document.getElementById('btn-add-progress').onclick = () => updateProgress(false);
+  document.getElementById('btn-subtract').onclick = () => updateProgress(true);
+  
+  // --- HISTORY LOGIC ---
+  
+  function openHistoryDeleteModal(historyItem) {
+      hItemToDelete = historyItem;
+      const displayAmount = (historyItem.amount > 0 ? '+' : '') + fmt(historyItem.amount);
+      document.getElementById('hd-amount-display').textContent = `${historyItem.comment}: ${displayAmount}`;
+      openModal('history-delete-modal');
+  }
+
+  document.getElementById('btn-hd-cancel').onclick = () => {
+      closeModal('history-delete-modal');
+      hItemToDelete = null;
+  };
+  
+  document.getElementById('btn-hd-delete-only').onclick = () => {
+      if (hCurrentGoalId && hItemToDelete) {
+          performHistoryDelete(hCurrentGoalId, hItemToDelete.id, false);
+      }
+      closeModal('history-delete-modal');
+  };
+
+  document.getElementById('btn-hd-revert').onclick = () => {
+      if (hCurrentGoalId && hItemToDelete) {
+          performHistoryDelete(hCurrentGoalId, hItemToDelete.id, true);
+      }
+      closeModal('history-delete-modal');
+  };
+
+
+  function performHistoryDelete(goalId, historyId, revertBalance) {
+      const g = DATA.goals.find(x => x.id === goalId);
+      if (!g || !g.history) return;
+      
+      const item = g.history.find(h => h.id === historyId);
+      if (!item) return;
+
+      if (revertBalance) {
+          const newCurrent = Math.max(0, safeParseNum(g.current) - item.amount);
+          g.current = newCurrent;
+      }
+      
+      g.history = g.history.filter(h => h.id !== historyId);
+      save(g); // Sync
+      
+      renderHistoryList();
+      render(); 
+      
+      const msg = revertBalance 
+        ? 'Запись удалена, баланс скорректирован' 
+        : 'Запись удалена из истории';
+      showToast(msg);
+  }
+  
+  function openHistoryEditModal(historyItem) {
+      hItemToEdit = historyItem;
+      document.getElementById('he-amount').value = new Intl.NumberFormat('ru-RU').format(historyItem.amount);
+      document.getElementById('he-comment').value = historyItem.comment || '';
+      openModal('history-edit-modal');
+  }
+  
+  document.getElementById('btn-he-save').onclick = () => {
+      if (hCurrentGoalId && hItemToEdit) {
+          const g = DATA.goals.find(x => x.id === hCurrentGoalId);
+          if (!g) return;
+          
+          const item = g.history.find(h => h.id === hItemToEdit.id);
+          if (!item) return;
+          
+          const newAmount = safeParseNum(document.getElementById('he-amount').value);
+          const newComment = document.getElementById('he-comment').value.trim();
+          
+          const oldAmount = item.amount;
+          const diff = newAmount - oldAmount;
+          
+          if (diff !== 0) {
+              g.current = Math.max(0, safeParseNum(g.current) + diff);
+          }
+          
+          item.amount = newAmount;
+          item.comment = newComment || (newAmount > 0 ? 'Пополнение' : 'Расход');
+          item.editedAt = nowISO(); 
+          
+          save(g); // Sync
+          renderHistoryList();
+          render();
+          showToast('Запись изменена');
+          closeModal('history-edit-modal');
+      }
+  };
+
+  function openHistoryModal(goalId) {
+      hCurrentGoalId = goalId;
+      hLimit = 10; 
+      hFilterDate = null; 
+
+      const g = DATA.goals.find(x => x.id === goalId);
+      if (!g) return;
+      
+      document.getElementById('history-modal-title').textContent = `История: ${g.title}`;
+
+      if (!hPicker) {
+        hPicker = flatpickr("#history-date-filter", {
+            locale: "ru",
+            dateFormat: "Y-m-d",
+            onChange: (selectedDates, dateStr) => {
+                hFilterDate = dateStr;
+                hLimit = 10; 
+                renderHistoryList();
+            }
+        });
+      } else {
+        hPicker.clear(); 
+      }
+
+      renderHistoryList();
+      openModal('history-modal');
+  }
+  
+  document.getElementById('history-clear-filter').onclick = () => {
+      if (hPicker) hPicker.clear();
+      hFilterDate = null;
+      hLimit = 10;
+      renderHistoryList();
+  };
+  
+  document.getElementById('btn-history-load-more').onclick = () => {
+      hLimit += 15;
+      renderHistoryList();
+  };
+
+  function renderHistoryList() {
+      const container = document.getElementById('history-list-container');
+      const loadMoreBtn = document.getElementById('history-load-more-container');
+      container.innerHTML = '';
+      
+      const g = DATA.goals.find(x => x.id === hCurrentGoalId);
+      if (!g || !g.history || g.history.length === 0) {
+          container.innerHTML = '<div class="empty-message" style="padding: 20px;">Нет операций</div>';
+          loadMoreBtn.style.display = 'none';
+          return;
+      }
+      
+      let entries = [...g.history].sort((a,b) => new Date(b.date) - new Date(a.date));
+      
+      if (hFilterDate) {
+          entries = entries.filter(h => h.date.startsWith(hFilterDate));
+      }
+      
+      const totalEntries = entries.length;
+      const visibleEntries = entries.slice(0, hLimit);
+      
+      if (visibleEntries.length === 0) {
+           container.innerHTML = '<div class="empty-message" style="padding: 20px;">Ничего не найдено за эту дату</div>';
+           loadMoreBtn.style.display = 'none';
+           return;
+      }
+      
+      const getGroupLabel = (dateIso) => {
+          const d = new Date(dateIso);
+          const today = new Date();
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          
+          const dStr = d.toDateString();
+          if (dStr === today.toDateString()) return 'Сегодня';
+          if (dStr === yesterday.toDateString()) return 'Вчера';
+          
+          return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+      };
+
+      let lastGroupLabel = '';
+      
+      visibleEntries.forEach(h => {
+          const groupLabel = getGroupLabel(h.date);
+          
+          if (groupLabel !== lastGroupLabel) {
+              const groupItems = visibleEntries.filter(item => getGroupLabel(item.date) === groupLabel);
+              const dayInc = groupItems.reduce((acc, curr) => curr.amount > 0 ? acc + curr.amount : acc, 0);
+              const dayExp = groupItems.reduce((acc, curr) => curr.amount < 0 ? acc + curr.amount : acc, 0);
+              
+              const net = dayInc + dayExp;
+
+              const header = document.createElement('div');
+              header.className = 'history-group-header';
+              header.style.justifyContent = 'space-between';
+
+              let sumsHtml = '<div style="display:flex; align-items:center;">';
+              if (dayInc > 0) sumsHtml += `<span style="color:var(--green); margin-left:10px;">+${fmt(dayInc)}</span>`;
+              if (dayExp < 0) sumsHtml += `<span style="color:var(--red); margin-left:10px;">${fmt(dayExp)}</span>`;
+              
+              if (dayInc !== 0 && dayExp !== 0) {
+                  sumsHtml += ` <span style="color:var(--text-muted); margin: 0 4px;">=</span> `;
+                  const netColor = net >= 0 ? 'var(--green)' : 'var(--red)';
+                  const netSign = net > 0 ? '+' : '';
+                  sumsHtml += `<span style="color:${netColor}; font-weight:800; border:1px solid var(--border); padding:0 4px; border-radius:4px; background:var(--bg)">${netSign}${fmt(net)}</span>`;
+              }
+              
+              if (dayInc === 0 && dayExp === 0) sumsHtml += `<span style="color:var(--text-muted); margin-left:10px;">0</span>`;
+              sumsHtml += '</div>';
+
+              header.innerHTML = `<span>${groupLabel}</span>${sumsHtml}`;
+              container.appendChild(header);
+              lastGroupLabel = groupLabel;
+          }
+          
+          const isPositive = h.amount > 0;
+          const sign = isPositive ? '+' : '';
+          const colorClass = isPositive ? 'plus' : 'minus';
+          
+          let timeStr = '';
+          try {
+             timeStr = new Date(h.date).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+          } catch(e) {}
+          
+          let editedHtml = '';
+          if (h.editedAt) {
+              const editTime = new Date(h.editedAt).toLocaleString('ru-RU');
+              editedHtml = `<span class="edited-mark" title="Изменено: ${editTime}">(ред.)</span>`;
+          }
+
+          const item = document.createElement('div');
+          item.className = 'history-item';
+          item.innerHTML = `
+            <div class="history-info">
+                <div class="history-comment">${h.comment || (isPositive ? 'Пополнение' : 'Расход')}</div>
+                <div class="history-date">${timeStr}${editedHtml}</div>
+            </div>
+            <div class="history-right">
+                <div class="history-amount ${colorClass}">${sign}${fmt(h.amount)}</div>
+                <button class="btn-icon" style="margin-right:2px;" title="Редактировать"><i class="fa-solid fa-pencil"></i></button>
+                <button class="btn-icon del" title="Удалить запись"><i class="fa-regular fa-trash-can"></i></button>
+            </div>
+          `;
+          
+          const editBtn = item.querySelector('.btn-icon:not(.del)');
+          editBtn.onclick = () => {
+              openHistoryEditModal(h);
+          };
+
+          const delBtn = item.querySelector('.btn-icon.del');
+          delBtn.onclick = () => {
+             openHistoryDeleteModal(h);
+          };
+          
+          container.appendChild(item);
+      });
+      
+      if (totalEntries > hLimit) {
+          loadMoreBtn.style.display = 'block';
+          document.getElementById('btn-history-load-more').textContent = `Показать еще (${totalEntries - hLimit})`;
+      } else {
+          loadMoreBtn.style.display = 'none';
+      }
+  }
+
+
+  document.getElementById('btn-add').onclick = () => {
+    const title = document.getElementById('g-title').value.trim();
+    if (!title) { showToast('Введите название!'); return; }
+
+    const target = safeParseNum(document.getElementById('g-target').value);
+    const current = safeParseNum(document.getElementById('g-current').value);
+    
+    const isDone = (target > 0) && (current >= target);
+
+    const g = {
+      id: generateId(),
+      title,
+      priority: document.getElementById('g-priority').value,
+      target: target,
+      current: current,
+      deadline: document.getElementById('g-deadline').value || null,
+      notes: document.getElementById('g-notes').value.trim(),
+      status: isDone ? 'done' : 'active', 
+      isFavorite: false, 
+      isPinned: false, 
+      history: [], 
+      createdAt: nowISO(),
+      updatedAt: nowISO()
+    };
+    
+    if (current > 0) {
+        g.history.push({
+            id: generateId(),
+            date: nowISO(),
+            amount: current,
+            type: 'set',
+            comment: 'Начальный баланс'
+        });
+    }
+
+    DATA.goals.push(g);
+    save(g); // Sync
+    render();
+    
+    if (isDone) {
+        showToast('Цель создана и сразу выполнена!');
+    } else {
+        showToast('Цель создана');
+    }
+    
+    ['g-title','g-target','g-current','g-deadline','g-notes','g-custom-days-input'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = '';
+    });
+    document.getElementById('g-template').value = '';
+    document.getElementById('g-custom-days-field').style.display = 'none';
+  };
+
+  const demoGoals = [
+      { t: 'Поездка на Бали', target: 200000, cur: 45000, p: 'high', note: 'Серфинг и отдых' },
+      { t: 'Новый iPhone 16', target: 120000, cur: 10000, p: 'med', note: 'Подарок себе на ДР' },
+      { t: 'Финансовая подушка', target: 500000, cur: 125000, p: 'high', note: '6 месяцев расходов' },
+      { t: 'Курсы английского', target: 60000, cur: 0, p: 'low', note: 'Уровень B2 к лету' }
+  ];
+
+  document.getElementById('btn-demo').onclick = () => {
+    if (DATA.goals.filter(g => g.status === 'active').length > 0) {
+        showToast('Активные цели уже есть. Создайте вручную!');
+        return;
+    }
+    
+    demoGoals.forEach(rnd => {
+        const d = new Date();
+        d.setDate(d.getDate() + 30 + Math.floor(Math.random() * 60));
+        
+        const isDone = rnd.t === 'Новый iPhone 16'; 
+        const current = isDone ? rnd.target : rnd.cur;
+
+        const g = {
+          id: generateId(),
+          title: rnd.t,
+          priority: rnd.p,
+          target: rnd.target,
+          current: current,
+          deadline: d.toISOString().slice(0,10),
+          notes: rnd.note,
+          status: isDone ? 'done' : 'active',
+          isFavorite: false,
+          isPinned: false,
+          history: [],
+          createdAt: nowISO(),
+          updatedAt: nowISO()
+        };
+        
+        if (current > 0) {
+            g.history.push({ id: generateId(), date: nowISO(), amount: current, type: 'set', comment: 'Начальный баланс' });
+        }
+        DATA.goals.push(g);
+        save(g); // Sync
+    });
+    
+    render(); 
+    showToast('Демо-цели добавлены!');
+  };
+
+  
+  document.getElementById('theme-btn').onclick = () => {
+    const isDarkNow = document.body.dataset.theme === 'dark';
+    const newTheme = isDarkNow ? '' : 'dark';
+    document.body.dataset.theme = newTheme;
+    localStorage.setItem('theme', newTheme);
+    
+    document.querySelector('#theme-btn i').className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  };
+
+
+  document.getElementById('export-btn').onclick = () => {
+    const dataToExport = localStorage.getItem(K);
+    if (!dataToExport) {
+        showToast('Нет данных для скачивания!');
+        return;
+    }
+    
+    const blob = new Blob([dataToExport], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'designflow-goals.json';
+    a.click();
+    showToast('Скачано');
+  };
+
+  document.getElementById('import-btn').onclick = () => document.getElementById('file-import').click();
+  document.getElementById('file-import').onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+        try {
+            const json = JSON.parse(reader.result); 
+            // Обработка разных форматов импорта
+            let newGoals = [];
+            if (Array.isArray(json)) newGoals = json;
+            else if (json.data && Array.isArray(json.data.goals)) newGoals = json.data.goals;
+            
+            // Если формат был другой, пробуем привести
+            newGoals = newGoals.map(g => {
+                if (!g.id) g.id = generateId();
+                return g;
+            });
+
+            openConfirmModal('Загрузить данные? Текущие будут заменены!', async () => {
+                // Если облако активно, нужно будет загрузить туда
+                DATA.goals = newGoals;
+                
+                if (user) {
+                     showToast('Импорт в облако может занять время...');
+                     for (const g of DATA.goals) {
+                         await syncGoalToCloud(g);
+                     }
+                }
+                
+                save();
+                render();
+                showToast('База загружена');
+            });
+        } catch(err) {
+            showToast('Ошибка: Файл поврежден или не является JSON.');
+        }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      selectedGoalIds.clear(); 
+      render();
+    };
+  });
+  
+  const savedTheme = localStorage.getItem('theme') || '';
+  document.body.dataset.theme = savedTheme;
+  
+  const isDark = savedTheme === 'dark';
+  const themeButtonIcon = document.querySelector('#theme-btn i');
+  if (themeButtonIcon) {
+      themeButtonIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  }
+  
+  (async () => {
+      await initAuth();
+      await load();
+      render();
+  })();
 })();
 </script>
 </body>
