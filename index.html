@@ -1,19 +1,16 @@
-
 <!doctype html>
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DesignFlow — Трекер целей</title>
+  <title>DesignFlow — Трекер целей (Fixed)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' ry='6' fill='%230d1117'/%3E%3Cpath d='M11 2 L5 14 H10 L9 22 L19 8 H13 L14 2 Z' fill='%23facc15'/%3E%3C/svg%3E">
-
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
   
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <style>
@@ -62,243 +59,6 @@
       color: var(--text);
       transition: background .3s, color .3s;
       overflow-y: scroll;
-    }
-
-    /* Auth page styles */
-    .auth-container {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    
-    .auth-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: var(--shadow);
-    }
-    
-    .auth-header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    .auth-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    
-    .auth-logo-icon {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fbbf24;
-      font-size: 24px;
-      box-shadow: 0 4px 10px rgba(124, 92, 255, 0.2);
-    }
-    
-    .auth-logo-text h1 {
-      margin: 0;
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1;
-    }
-    
-    .auth-logo-text p {
-      margin: 4px 0 0;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-    
-    .auth-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
-    }
-    
-    .auth-tab {
-      flex: 1;
-      text-align: center;
-      padding: 12px;
-      border-radius: 10px;
-      background: transparent;
-      color: var(--text-muted);
-      font-weight: 600;
-      cursor: pointer;
-      transition: .2s;
-      border: none;
-      font-size: 14px;
-    }
-    
-    .auth-tab.active {
-      background: #e0e7ff;
-      color: var(--accent);
-    }
-    
-    body[data-theme="dark"] .auth-tab.active {
-      background: rgba(124, 92, 255, 0.2);
-    }
-    
-    .auth-form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .auth-form .field {
-      margin-bottom: 0;
-    }
-    
-    .auth-footer {
-      text-align: center;
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-    
-    .auth-footer a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    
-    .auth-footer a:hover {
-      text-decoration: underline;
-    }
-    
-    .auth-error {
-      background: #fee2e2;
-      color: var(--red);
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 13px;
-      margin-bottom: 20px;
-      display: none;
-    }
-    
-    body[data-theme="dark"] .auth-error {
-      background: #450a0a;
-      color: #f87171;
-    }
-    
-    /* User menu */
-    .user-menu {
-      position: relative;
-    }
-    
-    .user-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 10px;
-      background: #f1f5f9;
-      border: none;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: .2s;
-    }
-    
-    body[data-theme="dark"] .user-btn {
-      background: #334155;
-    }
-    
-    .user-btn:hover {
-      background: #e2e8f0;
-    }
-    
-    body[data-theme="dark"] .user-btn:hover {
-      background: #475569;
-    }
-    
-    .user-btn i {
-      color: var(--accent);
-    }
-    
-    .user-dropdown {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 8px;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      min-width: 200px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      z-index: 1000;
-      display: none;
-    }
-    
-    .user-dropdown.show {
-      display: block;
-    }
-    
-    .user-info {
-      padding: 10px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 10px;
-    }
-    
-    .user-email {
-      font-size: 12px;
-      color: var(--text-muted);
-      word-break: break-all;
-    }
-    
-    .dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      background: transparent;
-      border: none;
-      color: var(--text);
-      font-size: 13px;
-      cursor: pointer;
-      transition: .2s;
-      width: 100%;
-      text-align: left;
-    }
-    
-    .dropdown-item:hover {
-      background: #f1f5f9;
-    }
-    
-    body[data-theme="dark"] .dropdown-item:hover {
-      background: #334155;
-    }
-    
-    .dropdown-item.danger {
-      color: var(--red);
-    }
-    
-    .dropdown-item.danger:hover {
-      background: #fee2e2;
-    }
-    
-    body[data-theme="dark"] .dropdown-item.danger:hover {
-      background: #450a0a;
     }
 
     /* --- HEADER --- */
@@ -1108,417 +868,343 @@
 </head>
 <body>
 
-  <!-- Auth Page -->
-  <div id="auth-page" class="auth-container" style="display: none;">
-    <div class="auth-card">
-      <div class="auth-header">
-        <div class="auth-logo">
-          <div class="auth-logo-icon"><i class="fa-solid fa-bolt"></i></div>
-          <div class="auth-logo-text">
-            <h1>DesignFlow <span>v0.4</span></h1>
-            <p>Трекер целей</p>
-          </div>
+  <div class="header-wrapper">
+    <div class="header">
+      <div class="logo-container">
+        <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="logo-text">
+          <h1>DesignFlow <span>v0.4</span></h1>
+          <p>Трекер целей</p>
         </div>
-        <p>Войдите в систему для доступа к вашим целям</p>
       </div>
-      
-      <div class="auth-error" id="auth-error"></div>
-      
-      <div class="auth-tabs">
-        <button class="auth-tab active" id="login-tab">Вход</button>
-        <button class="auth-tab" id="register-tab">Регистрация</button>
-      </div>
-      
-      <form class="auth-form" id="login-form">
-        <div class="field">
-          <label>Email</label>
-          <input type="email" id="login-email" placeholder="your@email.com" required>
+      <div class="header-actions">
+        <div class="authbar" style="display:flex;gap:10px;align-items:center;">
+          <button id="btn-login" class="btn primary" type="button"><i class="fa-brands fa-google"></i> <span class="desktop-only">Войти</span></button>
+          <button id="btn-logout" class="btn secondary" type="button" style="display:none;"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <span id="auth-status" style="opacity:.75;font-size:13px; display: none;"></span>
         </div>
-        <div class="field">
-          <label>Пароль</label>
-          <input type="password" id="login-password" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn primary">Войти</button>
-      </form>
-      
-      <form class="auth-form" id="register-form" style="display: none;">
-        <div class="field">
-          <label>Email</label>
-          <input type="email" id="register-email" placeholder="your@email.com" required>
-        </div>
-        <div class="field">
-          <label>Пароль</label>
-          <input type="password" id="register-password" placeholder="••••••••" minlength="6" required>
-        </div>
-        <div class="field">
-          <label>Повторите пароль</label>
-          <input type="password" id="register-password-confirm" placeholder="••••••••" minlength="6" required>
-        </div>
-        <button type="submit" class="btn primary">Зарегистрироваться</button>
-      </form>
-      
-      <div class="auth-footer">
-        <p>Все данные хранятся в защищенном облаке</p>
+        
+        <a href="https://zhegulyaev.github.io/DesignFlow/" class="btn secondary">
+          <i class="fa-solid fa-list-check"></i> Трекер проектов
+        </a>
+        
+        <button class="btn" id="theme-btn"><i class="fa-solid fa-moon"></i></button>
       </div>
     </div>
   </div>
 
-  <!-- Main App -->
-  <div id="app" style="display: none;">
-    <div class="header-wrapper">
-      <div class="header">
-        <div class="logo-container">
-          <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
-          <div class="logo-text">
-            <h1>DesignFlow <span>v0.4</span></h1>
-            <p>Трекер целей</p>
-          </div>
-        </div>
-        <div class="header-actions">
-          <a href="https://zhegulyaev.github.io/DesignFlow/" class="btn secondary">
-            <i class="fa-solid fa-list-check"></i> Трекер проектов
-          </a>
-          
-          <div class="user-menu">
-            <button class="user-btn" id="user-menu-btn">
-              <i class="fa-regular fa-user"></i>
-              <span id="user-email"></span>
-            </button>
-            <div class="user-dropdown" id="user-dropdown">
-              <div class="user-info">
-                <div id="dropdown-email"></div>
-              </div>
-              <button class="dropdown-item" id="export-data-btn">
-                <i class="fa-solid fa-download"></i> Скачать базу
-              </button>
-              <button class="dropdown-item" id="import-data-btn">
-                <i class="fa-solid fa-upload"></i> Загрузить базу
-              </button>
-              <button class="dropdown-item" id="theme-btn-dropdown">
-                <i class="fa-solid fa-moon"></i> Сменить тему
-              </button>
-              <button class="dropdown-item danger" id="logout-btn">
-                <i class="fa-solid fa-right-from-bracket"></i> Выйти
-              </button>
+  <div class="warning-wrapper">
+    <div class="warning"> 
+        <div class="warning-content">
+            <i class="fa-solid fa-triangle-exclamation warning-red-icon"></i>
+            <div>
+                <strong class="warning-red-text">Важно:</strong> <span id="sync-warning">Данные хранятся только в вашем браузере. Войдите, чтобы сохранить их в облаке.</span><br>
+                Обязательно скачивайте резервную копию перед очисткой кэша.
             </div>
-          </div>
-          
-          <button class="btn" id="theme-btn"><i class="fa-solid fa-moon"></i></button>
+        </div>
+        <div class="warning-actions">
+            <button class="btn" id="export-btn"><i class="fa-solid fa-download"></i> Скачать базу</button>
+            <button class="btn" id="import-btn"><i class="fa-solid fa-upload"></i> Загрузить</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="tabs-wrapper">
+    <div class="tabs">
+      <div class="tab active" data-filter="active">Активные <span class="count" id="active-count">0</span></div>
+      <div class="tab" data-filter="favorite"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Избранное <span class="count" id="fav-count">0</span></div>
+       <div class="tab" data-filter="done">Завершённые <span class="count" id="done-count">0</span></div>
+      <div class="tab" data-filter="all">Все цели <span class="count" id="total-count">0</span></div>
+      <div class="tab" data-filter="trash">Корзина <span class="count" id="trash-count">0</span></div>
+    </div>
+  </div>
+
+  <div class="container grid">
+    <div class="card">
+      <h2><i class="fa-solid fa-square-plus"></i> Создать цель</h2>
+      
+      <div class="field">
+        <label>Название</label>
+        <input id="g-title" placeholder="Например: Новый MacBook" />
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Сумма</label>
+          <input id="g-target" placeholder="100 000 или 100к" inputmode="numeric" />
+        </div>
+        <div class="field">
+          <label>Есть</label>
+          <input id="g-current" placeholder="0 или 50к" inputmode="numeric" />
         </div>
       </div>
-    </div>
 
-    <div class="warning-wrapper">
-      <div class="warning"> 
-          <div class="warning-content">
-              <i class="fa-solid fa-triangle-exclamation warning-red-icon"></i>
-              <div>
-                  <strong class="warning-red-text">Информация:</strong> Все данные хранятся в защищенном облаке.<br>
-                  Вы можете скачать резервную копию для дополнительной безопасности.
-              </div>
-          </div>
-          <div class="warning-actions">
-              <button class="btn" id="export-btn"><i class="fa-solid fa-download"></i> Скачать базу</button>
-              <button class="btn" id="import-btn"><i class="fa-solid fa-upload"></i> Загрузить</button>
-          </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Дедлайн</label>
+          <input id="g-deadline" type="date" />
+        </div>
+        <div class="field">
+          <label>Приоритет</label>
+          <select id="g-priority">
+            <option value="med">Средний</option>
+            <option value="high">Высокий</option>
+            <option value="low">Низкий</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label>Шаблон срока</label>
+        <select id="g-template">
+          <option value="">Выбрать быстрый срок...</option>
+          <option value="7">Через неделю (7 дн.)</option>
+          <option value="14">Через 2 недели (14 дн.)</option>
+          <option value="30">Через месяц (30 дн.)</option>
+          <option value="custom">Свой вариант...</option>
+        </select>
+        <div class="custom-days-field" id="g-custom-days-field">
+          <input id="g-custom-days-input" type="number" min="1" placeholder="Введите кол-во дней" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Заметка</label>
+        <textarea id="g-notes" placeholder="План действий, ссылки, мысли..."></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn primary" id="btn-add"><i class="fa-solid fa-plus"></i> Добавить</button>
+        <button class="btn secondary" id="btn-demo"><i class="fa-solid fa-wand-magic-sparkles"></i> Демо</button>
       </div>
     </div>
 
-    <div class="tabs-wrapper">
-      <div class="tabs">
-        <div class="tab active" data-filter="active">Активные <span class="count" id="active-count">0</span></div>
-        <div class="tab" data-filter="favorite"><i class="fa-solid fa-star" style="color: #fbbf24;"></i> Избранное <span class="count" id="fav-count">0</span></div>
-         <div class="tab" data-filter="done">Завершённые <span class="count" id="done-count">0</span></div>
-        <div class="tab" data-filter="all">Все цели <span class="count" id="total-count">0</span></div>
-        <div class="tab" data-filter="trash">Корзина <span class="count" id="trash-count">0</span></div>
+    <div>
+       <div class="card" style="margin-bottom: 24px; padding: 20px;">
+        <h2 style="font-size: 15px; margin-bottom:12px; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-chart-pie"></i> Общий прогресс</h2>
+        <div class="progress-bar" style="margin-top:0"><div class="progress-fill" id="overall-progress" style="width:0%"></div></div>
+        <div style="font-size:13px; color:var(--text-muted); text-align:right; margin-top:8px;" id="overall-text">0%</div>
       </div>
+      
+      <div class="multi-action-bar" id="multi-action-bar" style="display: none;">
+          <div class="multi-action-text" id="multi-action-text">Выбрано: 0</div>
+          <div class="multi-action-btns">
+              <button class="btn secondary" id="btn-select-all"><i class="fa-solid fa-list-check"></i> <span class="desktop-only">Выбрать все</span></button>
+              <button class="btn" id="btn-multi-done" title="Завершить"><i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span></button>
+              <button class="btn danger" id="btn-multi-trash" title="В корзину"><i class="fa-regular fa-trash-can"></i> <span class="desktop-only">В корзину</span></button>
+          </div>
+      </div>
+      <div class="goal-list" id="goals-list"></div>
     </div>
+  </div>
 
-    <div class="container grid">
-      <div class="card">
-        <h2><i class="fa-solid fa-square-plus"></i> Создать цель</h2>
-        
+  <div class="footer">
+    DesignFlow Tracker by <a href="https://t.me/r_zhegulyaev" target="_blank">Zhegulyaev</a>
+  </div>
+
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i> <span id="toast-message"></span>
+  </div>
+
+  <input type="file" id="file-import" accept="application/json" style="display:none" />
+
+  <div class="modal" id="edit-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Редактировать</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      </div>
+      <div class="modal-body">
         <div class="field">
           <label>Название</label>
-          <input id="g-title" placeholder="Например: Новый MacBook" />
+          <input id="edit-title" />
         </div>
-
         <div class="form-row">
           <div class="field">
             <label>Сумма</label>
-            <input id="g-target" placeholder="100 000 или 100к" inputmode="numeric" />
+            <input id="edit-target" inputmode="numeric" placeholder="100 000 или 100к" />
           </div>
           <div class="field">
-            <label>Есть</label>
-            <input id="g-current" placeholder="0 или 50к" inputmode="numeric" />
+            <label>Есть сейчас</label>
+            <input id="edit-current" inputmode="numeric" placeholder="0 или 50к" />
           </div>
         </div>
-
         <div class="form-row">
           <div class="field">
             <label>Дедлайн</label>
-            <input id="g-deadline" type="date" />
+            <input id="edit-deadline" type="date" />
           </div>
           <div class="field">
             <label>Приоритет</label>
-            <select id="g-priority">
+            <select id="edit-priority">
               <option value="med">Средний</option>
               <option value="high">Высокий</option>
               <option value="low">Низкий</option>
             </select>
           </div>
         </div>
-        
-        <div class="field">
+         <div class="field">
           <label>Шаблон срока</label>
-          <select id="g-template">
-            <option value="">Выбрать быстрый срок...</option>
+          <select id="edit-template">
+            <option value="">Не менять</option>
             <option value="7">Через неделю (7 дн.)</option>
             <option value="14">Через 2 недели (14 дн.)</option>
-            <option value="30">Через месяц (30 дн.)</option>
-            <option value="custom">Свой вариант...</option>
+            <option value="30">Месяц</option>
+            <option value="custom">Свой</option>
           </select>
-          <div class="custom-days-field" id="g-custom-days-field">
-            <input id="g-custom-days-input" type="number" min="1" placeholder="Введите кол-во дней" />
+           <div class="custom-days-field" id="edit-custom-days-field">
+            <input id="edit-custom-days-input" type="number" min="1" placeholder="Дней" />
           </div>
         </div>
-
         <div class="field">
           <label>Заметка</label>
-          <textarea id="g-notes" placeholder="План действий, ссылки, мысли..."></textarea>
-        </div>
-
-        <div class="btn-group">
-          <button class="btn primary" id="btn-add"><i class="fa-solid fa-plus"></i> Добавить</button>
-          <button class="btn secondary" id="btn-demo"><i class="fa-solid fa-wand-magic-sparkles"></i> Демо</button>
+          <textarea id="edit-notes"></textarea>
         </div>
       </div>
+      <div class="modal-actions">
+        <button class="btn primary" id="save-edit">Сохранить</button>
+      </div>
+    </div>
+  </div>
 
-      <div>
-         <div class="card" style="margin-bottom: 24px; padding: 20px;">
-          <h2 style="font-size: 15px; margin-bottom:12px; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-chart-pie"></i> Общий прогресс</h2>
-          <div class="progress-bar" style="margin-top:0"><div class="progress-fill" id="overall-progress" style="width:0%"></div></div>
-          <div style="font-size:13px; color:var(--text-muted); text-align:right; margin-top:8px;" id="overall-text">0%</div>
+  <div class="modal" id="progress-modal">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h2>Изменить баланс</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <label>Сумма операции</label>
+          <input id="progress-amount" placeholder="5 000 или 5к" inputmode="numeric" autofocus />
         </div>
+        <div class="field">
+            <label>Комментарий (опционально)</label>
+            <input id="progress-comment" placeholder="Например: Потратил на отель" />
+        </div>
+      </div>
+      <div class="modal-actions" style="justify-content: space-between;">
+        <button class="btn danger" id="btn-subtract"><i class="fa-solid fa-minus"></i> Вычесть</button>
+        <button class="btn primary" id="btn-add-progress"><i class="fa-solid fa-plus"></i> Добавить</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" id="history-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="history-modal-title">История операций</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      </div>
+      <div class="modal-body">
+        <div class="history-filter-container">
+            <input id="history-date-filter" placeholder="Фильтр по дате..." readonly style="cursor: pointer; background: var(--bg);" />
+            <button class="btn secondary" id="history-clear-filter" title="Сбросить фильтр"><i class="fa-solid fa-rotate-left"></i></button>
+        </div>
+
+        <div id="history-list-container" style="max-height: 50vh; overflow-y: auto; padding-right: 5px;"></div>
         
-        <div class="multi-action-bar" id="multi-action-bar" style="display: none;">
-            <div class="multi-action-text" id="multi-action-text">Выбрано: 0</div>
-            <div class="multi-action-btns">
-                <button class="btn secondary" id="btn-select-all"><i class="fa-solid fa-list-check"></i> <span class="desktop-only">Выбрать все</span></button>
-                <button class="btn" id="btn-multi-done" title="Завершить"><i class="fa-solid fa-check"></i> <span class="desktop-only">Готово</span></button>
-                <button class="btn danger" id="btn-multi-trash" title="В корзину"><i class="fa-regular fa-trash-can"></i> <span class="desktop-only">В корзину</span></button>
-            </div>
+        <div id="history-load-more-container" style="display:none;">
+            <button class="btn secondary" id="btn-history-load-more" style="width:100%">Показать еще</button>
         </div>
-        <div class="goal-list" id="goals-list"></div>
+      </div>
+      <div class="modal-actions">
+          <button class="btn secondary modal-close">Закрыть</button>
       </div>
     </div>
-
-    <div class="footer">
-      DesignFlow Tracker by <a href="https://t.me/r_zhegulyaev" target="_blank">Zhegulyaev</a>
-    </div>
-
-    <div class="toast" id="toast">
-      <i class="fa-solid fa-circle-check"></i> <span id="toast-message"></span>
-    </div>
-
-    <input type="file" id="file-import" accept="application/json" style="display:none" />
-
-    <div class="modal" id="edit-modal">
+  </div>
+  
+  <div class="modal" id="history-delete-modal">
       <div class="modal-content">
-        <div class="modal-header">
-          <h2>Редактировать</h2>
-          <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+          <div class="modal-header">
+              <h2>Удаление записи</h2>
+              <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+          </div>
+          <div class="modal-body">
+              <h3 id="hd-amount-display"></h3>
+              <p>Вы хотите просто удалить эту запись из истории или также отменить её влияние на текущий баланс цели?</p>
+              
+              <div class="history-delete-actions">
+                  <button class="btn primary" id="btn-hd-revert">
+                      <i class="fa-solid fa-rotate-left"></i> Удалить и вернуть деньги
+                  </button>
+                  <button class="btn secondary" id="btn-hd-delete-only">
+                      <i class="fa-regular fa-trash-can"></i> Только удалить запись
+                  </button>
+                  <button class="btn" style="background: transparent; border: 1px solid var(--border);" id="btn-hd-cancel">
+                      Отмена
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <div class="modal" id="history-edit-modal">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h2>Редактировать запись</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      </div>
+      <div class="modal-body">
+        <div class="field">
+          <label>Сумма операции</label>
+          <input id="he-amount" inputmode="numeric" />
         </div>
-        <div class="modal-body">
-          <div class="field">
-            <label>Название</label>
-            <input id="edit-title" />
-          </div>
-          <div class="form-row">
-            <div class="field">
-              <label>Сумма</label>
-              <input id="edit-target" inputmode="numeric" placeholder="100 000 или 100к" />
-            </div>
-            <div class="field">
-              <label>Есть сейчас</label>
-              <input id="edit-current" inputmode="numeric" placeholder="0 или 50к" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="field">
-              <label>Дедлайн</label>
-              <input id="edit-deadline" type="date" />
-            </div>
-            <div class="field">
-              <label>Приоритет</label>
-              <select id="edit-priority">
-                <option value="med">Средний</option>
-                <option value="high">Высокий</option>
-                <option value="low">Низкий</option>
-              </select>
-            </div>
-          </div>
-           <div class="field">
-            <label>Шаблон срока</label>
-            <select id="edit-template">
-              <option value="">Не менять</option>
-              <option value="7">Через неделю (7 дн.)</option>
-              <option value="14">Через 2 недели (14 дн.)</option>
-              <option value="30">Месяц</option>
-              <option value="custom">Свой</option>
-            </select>
-             <div class="custom-days-field" id="edit-custom-days-field">
-              <input id="edit-custom-days-input" type="number" min="1" placeholder="Дней" />
-            </div>
-          </div>
-          <div class="field">
-            <label>Заметка</label>
-            <textarea id="edit-notes"></textarea>
-          </div>
+        <div class="field">
+            <label>Комментарий</label>
+            <input id="he-comment" />
         </div>
-        <div class="modal-actions">
-          <button class="btn primary" id="save-edit">Сохранить</button>
+        <div style="font-size:12px; color:var(--text-muted); margin-top:8px; line-height:1.4">
+            При изменении суммы баланс цели будет автоматически скорректирован.
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn secondary modal-close">Отмена</button>
+        <button class="btn primary" id="btn-he-save">Сохранить</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" id="congratulations-modal">
+    <div class="modal-content">
+      <div class="modal-body">
+        <i class="fa-solid fa-trophy confetti-icon"></i>
+        <h2 id="congrats-title">Цель достигнута!</h2>
+        <p>Поздравляем с завершением задачи! Что будем делать дальше?</p>
+        <div class="congrats-actions">
+            <button class="btn secondary" id="btn-congrats-cancel"><i class="fa-solid fa-rotate-left"></i> Оставить активной</button>
+            <button class="btn primary" id="btn-congrats-done"><i class="fa-solid fa-check"></i> В завершенные</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="modal" id="progress-modal">
-      <div class="modal-content" style="max-width: 400px;">
-        <div class="modal-header">
-          <h2>Изменить баланс</h2>
-          <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-        </div>
-        <div class="modal-body">
-          <div class="field">
-            <label>Сумма операции</label>
-            <input id="progress-amount" placeholder="5 000 или 5к" inputmode="numeric" autofocus />
-          </div>
-          <div class="field">
-              <label>Комментарий (опционально)</label>
-              <input id="progress-comment" placeholder="Например: Потратил на отель" />
-          </div>
-        </div>
-        <div class="modal-actions" style="justify-content: space-between;">
-          <button class="btn danger" id="btn-subtract"><i class="fa-solid fa-minus"></i> Вычесть</button>
-          <button class="btn primary" id="btn-add-progress"><i class="fa-solid fa-plus"></i> Добавить</button>
-        </div>
+  <div class="modal" id="confirm-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Подтвердите действие</h2>
+        <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
       </div>
-    </div>
-    
-    <div class="modal" id="history-modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 id="history-modal-title">История операций</h2>
-          <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-        </div>
-        <div class="modal-body">
-          <div class="history-filter-container">
-              <input id="history-date-filter" placeholder="Фильтр по дате..." readonly style="cursor: pointer; background: var(--bg);" />
-              <button class="btn secondary" id="history-clear-filter" title="Сбросить фильтр"><i class="fa-solid fa-rotate-left"></i></button>
-          </div>
-
-          <div id="history-list-container" style="max-height: 50vh; overflow-y: auto; padding-right: 5px;"></div>
-          
-          <div id="history-load-more-container" style="display:none;">
-              <button class="btn secondary" id="btn-history-load-more" style="width:100%">Показать еще</button>
-          </div>
-        </div>
-        <div class="modal-actions">
-            <button class="btn secondary modal-close">Закрыть</button>
-        </div>
+      <div class="modal-body">
+        <p id="confirm-text"></p>
       </div>
-    </div>
-    
-    <div class="modal" id="history-delete-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Удаление записи</h2>
-                <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-            </div>
-            <div class="modal-body">
-                <h3 id="hd-amount-display"></h3>
-                <p>Вы хотите просто удалить эту запись из истории или также отменить её влияние на текущий баланс цели?</p>
-                
-                <div class="history-delete-actions">
-                    <button class="btn primary" id="btn-hd-revert">
-                        <i class="fa-solid fa-rotate-left"></i> Удалить и вернуть деньги
-                    </button>
-                    <button class="btn secondary" id="btn-hd-delete-only">
-                        <i class="fa-regular fa-trash-can"></i> Только удалить запись
-                    </button>
-                    <button class="btn" style="background: transparent; border: 1px solid var(--border);" id="btn-hd-cancel">
-                        Отмена
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal" id="history-edit-modal">
-      <div class="modal-content" style="max-width: 400px;">
-        <div class="modal-header">
-          <h2>Редактировать запись</h2>
-          <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-        </div>
-        <div class="modal-body">
-          <div class="field">
-            <label>Сумма операции</label>
-            <input id="he-amount" inputmode="numeric" />
-          </div>
-          <div class="field">
-              <label>Комментарий</label>
-              <input id="he-comment" />
-          </div>
-          <div style="font-size:12px; color:var(--text-muted); margin-top:8px; line-height:1.4">
-              При изменении суммы баланс цели будет автоматически скорректирован.
-          </div>
-        </div>
-        <div class="modal-actions">
-          <button class="btn secondary modal-close">Отмена</button>
-          <button class="btn primary" id="btn-he-save">Сохранить</button>
-        </div>
-      </div>
-    </div>
-    
-    <div class="modal" id="congratulations-modal">
-      <div class="modal-content">
-        <div class="modal-body">
-          <i class="fa-solid fa-party-horn confetti-icon"></i>
-          <h2 id="congrats-title">Цель достигнута!</h2>
-          <p>Поздравляем с завершением задачи! Что будем делать дальше?</p>
-          <div class="congrats-actions">
-              <button class="btn secondary" id="btn-congrats-cancel"><i class="fa-solid fa-rotate-left"></i> Оставить активной</button>
-              <button class="btn primary" id="btn-congrats-done"><i class="fa-solid fa-check"></i> В завершенные</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal" id="confirm-modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>Подтвердите действие</h2>
-          <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-        </div>
-        <div class="modal-body">
-          <p id="confirm-text"></p>
-        </div>
-        <div class="modal-actions">
-          <button class="btn secondary" id="confirm-cancel">Отмена</button>
-          <button class="btn danger" id="confirm-ok">ОК</button>
-        </div>
+      <div class="modal-actions">
+        <button class="btn secondary" id="confirm-cancel">Отмена</button>
+        <button class="btn danger" id="confirm-ok">ОК</button>
       </div>
     </div>
   </div>
 
 <script>
 (() => {
-  // Supabase конфигурация (замените на свои данные)
-  const SUPABASE_URL = 'https://your-project.supabase.co'; https://mljfqhczwxflwezgvkcv.supabase.co
-  const SUPABASE_ANON_KEY = 'your-anon-key'; eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1samZxaGN6d3hmbHdlemd2a2N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzODI1MDAsImV4cCI6MjA4MTk1ODUwMH0.S3empDGZqo8s6-BhSt5ziA0EC0sGvQgkXDDq-t2JuOs
+  const K = 'designFlowGoalData'; 
   
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  
+  // --- SUPABASE CONFIG ---
+  const SUPABASE_URL = 'https://mljfqhczwxflwezgvkcv.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1samZxaGN6d3hmbHdlemd2a2N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzODI1MDAsImV4cCI6MjA4MTk1ODUwMH0.S3empDGZqo8s6-BhSt5ziA0EC0sGvQgkXDDq-t2JuOs';
+  const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+  let user = null;
+
   let DATA = { goals: [] };
   let currentEditId = null;
   let currentProgressId = null;
@@ -1556,245 +1242,6 @@
   btnMultiFinalDelete.title = 'Удалить навсегда';
   btnMultiFinalDelete.id = 'btn-multi-final-delete';
 
-  // UI элементы авторизации
-  const authPage = document.getElementById('auth-page');
-  const app = document.getElementById('app');
-  const loginTab = document.getElementById('login-tab');
-  const registerTab = document.getElementById('register-tab');
-  const loginForm = document.getElementById('login-form');
-  const registerForm = document.getElementById('register-form');
-  const authError = document.getElementById('auth-error');
-  const userMenuBtn = document.getElementById('user-menu-btn');
-  const userDropdown = document.getElementById('user-dropdown');
-  const userEmail = document.getElementById('user-email');
-  const dropdownEmail = document.getElementById('dropdown-email');
-  const logoutBtn = document.getElementById('logout-btn');
-  const exportDataBtn = document.getElementById('export-data-btn');
-  const importDataBtn = document.getElementById('import-data-btn');
-  const themeBtnDropdown = document.getElementById('theme-btn-dropdown');
-
-  // Проверка авторизации при загрузке
-  async function checkAuth() {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (session) {
-      showApp(session.user.email);
-      load(); // Загружаем данные из Supabase
-    } else {
-      showAuth();
-    }
-  }
-
-  function showAuth() {
-    authPage.style.display = 'flex';
-    app.style.display = 'none';
-  }
-
-  function showApp(email) {
-    authPage.style.display = 'none';
-    app.style.display = 'block';
-    userEmail.textContent = email;
-    dropdownEmail.textContent = email;
-  }
-
-  // Переключение между вкладками авторизации
-  loginTab.addEventListener('click', () => {
-    loginTab.classList.add('active');
-    registerTab.classList.remove('active');
-    loginForm.style.display = 'flex';
-    registerForm.style.display = 'none';
-    authError.style.display = 'none';
-  });
-
-  registerTab.addEventListener('click', () => {
-    registerTab.classList.add('active');
-    loginTab.classList.remove('active');
-    registerForm.style.display = 'flex';
-    loginForm.style.display = 'none';
-    authError.style.display = 'none';
-  });
-
-  // Обработка входа
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-    
-    authError.style.display = 'none';
-    
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-    
-    if (error) {
-      authError.textContent = error.message;
-      authError.style.display = 'block';
-    } else {
-      showApp(data.user.email);
-      load();
-    }
-  });
-
-  // Обработка регистрации
-  registerForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-    const passwordConfirm = document.getElementById('register-password-confirm').value;
-    
-    if (password !== passwordConfirm) {
-      authError.textContent = 'Пароли не совпадают';
-      authError.style.display = 'block';
-      return;
-    }
-    
-    authError.style.display = 'none';
-    
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password
-    });
-    
-    if (error) {
-      authError.textContent = error.message;
-      authError.style.display = 'block';
-    } else {
-      showToast('Регистрация успешна! Проверьте вашу почту для подтверждения.');
-      // После регистрации переключаем на вкладку входа
-      loginTab.click();
-      document.getElementById('login-email').value = email;
-    }
-  });
-
-  // Выход из системы
-  logoutBtn.addEventListener('click', async () => {
-    await supabase.auth.signOut();
-    showAuth();
-    showToast('Вы вышли из системы');
-  });
-
-  // Меню пользователя
-  userMenuBtn.addEventListener('click', () => {
-    userDropdown.classList.toggle('show');
-  });
-
-  // Закрытие меню при клике вне его
-  document.addEventListener('click', (e) => {
-    if (!userMenuBtn.contains(e.target) && !userDropdown.contains(e.target)) {
-      userDropdown.classList.remove('show');
-    }
-  });
-
-  // Функции для работы с Supabase
-  async function save() {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
-      
-      const userId = session.user.id;
-      
-      // Сохраняем цели в Supabase
-      const { error } = await supabase
-        .from('user_goals')
-        .upsert({
-          user_id: userId,
-          goals: DATA.goals,
-          updated_at: new Date().toISOString()
-        });
-        
-      if (error) {
-        console.error('Supabase save error:', error);
-        showToast('Ошибка сохранения данных');
-      }
-    } catch(e) {
-      console.error("Save Error:", e);
-      showToast('Ошибка сохранения данных');
-    }
-  }
-
-  async function load() {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
-      
-      const userId = session.user.id;
-      
-      // Загружаем данные из Supabase
-      const { data, error } = await supabase
-        .from('user_goals')
-        .select('goals')
-        .eq('user_id', userId)
-        .single();
-        
-      if (error && error.code !== 'PGRST116') { // PGRST116 - нет данных
-        console.error('Supabase load error:', error);
-        showToast('Ошибка загрузки данных');
-        DATA.goals = [];
-      } else {
-        DATA.goals = data?.goals || [];
-        // Migration for history
-        DATA.goals.forEach(g => {
-            if (!g.history) g.history = [];
-        });
-      }
-    } catch(e) { 
-        console.error("Load Error:", e); 
-        DATA.goals = [];
-    }
-    render();
-  }
-
-  // Экспорт данных
-  exportDataBtn.addEventListener('click', async () => {
-    await load(); // Загружаем свежие данные
-    const dataToExport = JSON.stringify({ goals: DATA.goals }, null, 2);
-    
-    const blob = new Blob([dataToExport], {type: 'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'designflow-goals.json';
-    a.click();
-    showToast('Данные скачаны');
-  });
-
-  // Импорт данных
-  importDataBtn.addEventListener('click', () => {
-    document.getElementById('file-import').click();
-  });
-
-  // Импорт данных из файла
-  document.getElementById('file-import').onchange = async e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = async () => {
-        try {
-            const importedData = JSON.parse(reader.result);
-            
-            openConfirmModal('Загрузить данные? Текущие будут заменены!', async () => {
-                if (importedData.goals && Array.isArray(importedData.goals)) {
-                    DATA.goals = importedData.goals;
-                    // Migration for history
-                    DATA.goals.forEach(g => {
-                        if (!g.history) g.history = [];
-                    });
-                    await save();
-                    render();
-                    showToast('База загружена');
-                } else {
-                    showToast('Ошибка: Неверный формат файла');
-                }
-            });
-        } catch(err) {
-            showToast('Ошибка: Файл поврежден или не является JSON.');
-        }
-    };
-    reader.readAsText(file);
-    e.target.value = '';
-  };
 
   function showToast(msg) {
     toastMessage.textContent = msg;
@@ -1804,6 +1251,141 @@
 
   function nowISO() { return new Date().toISOString(); }
 
+  // --- SAFE ID GENERATOR (FIX for file:// protocol) ---
+  function generateId() {
+      // Пытаемся использовать crypto (если есть)
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+          return crypto.randomUUID();
+      }
+      // Фоллбэк для старых браузеров или небезопасного контекста (local files)
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+  }
+
+  // --- MAPPING FUNCTIONS (Supabase snake_case <-> App camelCase) ---
+  function toDbFormat(goal, userId) {
+      return {
+          id: goal.id,
+          user_id: userId,
+          title: goal.title,
+          target: goal.target,
+          current: goal.current,
+          deadline: goal.deadline,
+          priority: goal.priority,
+          notes: goal.notes,
+          is_done: goal.status === 'done',
+          is_trash: goal.status === 'trash',
+          is_favorite: goal.isFavorite,
+          is_pinned: goal.isPinned,
+          history: goal.history,
+          created_at: goal.createdAt,
+          updated_at: goal.updatedAt
+      };
+  }
+
+  function toLocalFormat(dbGoal) {
+      let status = 'active';
+      if (dbGoal.is_trash) status = 'trash';
+      else if (dbGoal.is_done) status = 'done';
+
+      return {
+          id: dbGoal.id,
+          title: dbGoal.title,
+          target: dbGoal.target,
+          current: dbGoal.current,
+          deadline: dbGoal.deadline,
+          priority: dbGoal.priority,
+          notes: dbGoal.notes,
+          status: status,
+          isFavorite: dbGoal.is_favorite,
+          isPinned: dbGoal.is_pinned,
+          history: dbGoal.history || [],
+          createdAt: dbGoal.created_at,
+          updatedAt: dbGoal.updated_at || dbGoal.created_at
+      };
+  }
+
+  // --- DB SYNC FUNCTIONS ---
+  async function syncGoalToCloud(goal) {
+      if (!user || !sb) return;
+      try {
+          const dbData = toDbFormat(goal, user.id);
+          const { error } = await sb.from('goals').upsert(dbData);
+          if (error) throw error;
+      } catch (e) {
+          console.error("Cloud Sync Error:", e);
+          showToast('Ошибка синхронизации с облаком');
+      }
+  }
+
+  async function deleteGoalFromCloud(id) {
+      if (!user || !sb) return;
+      try {
+          const { error } = await sb.from('goals').delete().eq('id', id).eq('user_id', user.id);
+          if (error) throw error;
+      } catch (e) {
+          console.error("Cloud Delete Error:", e);
+      }
+  }
+
+  // --- AUTH LOGIC ---
+  async function initAuth() {
+    if (!sb) return;
+    
+    const { data: { session } } = await sb.auth.getSession();
+    user = session?.user || null;
+    updateAuthUI();
+
+    sb.auth.onAuthStateChange(async (event, session) => {
+      user = session?.user || null;
+      updateAuthUI();
+      if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+          await load();
+          render();
+          showToast('Синхронизация с облаком...');
+      } else if (event === 'SIGNED_OUT') {
+          await load();
+          render();
+          showToast('Локальный режим');
+      }
+    });
+  }
+
+  function updateAuthUI() {
+    const btnL = document.getElementById('btn-login');
+    const btnO = document.getElementById('btn-logout');
+    const status = document.getElementById('auth-status');
+    const warn = document.getElementById('sync-warning');
+
+    if (user) {
+      btnL.style.display = 'none';
+      btnO.style.display = 'block';
+      status.style.display = 'block';
+      status.innerText = user.email;
+      warn.innerHTML = `<span style="color:var(--green)">Облачная синхронизация активна.</span>`;
+    } else {
+      btnL.style.display = 'block';
+      btnO.style.display = 'none';
+      status.style.display = 'none';
+      warn.innerHTML = `Данные хранятся только в вашем браузере. Войдите, чтобы сохранить их в облаке.`;
+    }
+  }
+
+  document.getElementById('btn-login').onclick = async () => {
+    if (!sb) return alert("Ключи Supabase не настроены!");
+    await sb.auth.signInWithOAuth({ 
+        provider: 'google',
+        options: { redirectTo: window.location.href }
+    });
+  };
+
+  document.getElementById('btn-logout').onclick = async () => {
+    await sb.auth.signOut();
+  };
+
+
   function safeParseNum(v) {
     if (!v && v !== 0) return 0;
     let str = String(v).replace(/\s+/g, '').replace(/,/g, '.').toLowerCase();
@@ -1811,6 +1393,9 @@
     if (str.endsWith('к') || str.endsWith('k')) {
         str = str.slice(0, -1);
         multiplier = 1000;
+    } else if (str.endsWith('м') || str.endsWith('m')) {
+        str = str.slice(0, -1);
+        multiplier = 1000000;
     }
     const res = parseFloat(str);
     return isNaN(res) ? 0 : res * multiplier;
@@ -1821,55 +1406,41 @@
     return Math.round(num).toLocaleString('ru-RU');
   }
 
-  // --- ОБНОВЛЕННАЯ ФУНКЦИЯ ФОРМАТИРОВАНИЯ И КАЛЬКУЛЯТОРА ---
   function formatNumberInput(inputId) {
       const input = document.getElementById(inputId);
       if (!input) return;
 
       let calcTimeout;
 
-      // 1. Форматирование при вводе (моментально)
       input.addEventListener('input', (e) => {
           clearTimeout(calcTimeout);
           
           let val = e.target.value;
-          // Если есть мат. знаки (+ - * /), значит это формула - не форматируем, ждем
           if (/[+\-*/]/.test(val)) {
-              // Запускаем таймер на вычисление (1 секунда бездействия)
               calcTimeout = setTimeout(() => {
                    calculateAndSet(e.target);
               }, 1000);
               return; 
           }
 
-          // Если просто число - форматируем пробелы сразу
-          // Удаляем всё кроме цифр и запятой/точки
           let clean = val.replace(/[^\d.,]/g, '');
           if (!clean) return;
 
-          // Пробуем отформатировать
           let num = safeParseNum(clean);
           if (!isNaN(num)) {
-             // Сохраняем позицию курсора (упрощенно: если в конце, то пусть будет в конце)
-             // Если число изменилось (добавился пробел), обновляем
              let formatted = new Intl.NumberFormat('ru-RU').format(num);
-             // Чтобы можно было писать 0.5 или запятую, проверяем
              if (!val.includes('.') && !val.includes(',')) {
                  if (val.replace(/\s/g,'') == formatted.replace(/\s/g,'')) {
-                     // Только добавляем пробелы, если контент тот же
                      e.target.value = formatted;
                  }
              }
           }
       });
 
-      // 2. Функция вычисления
       const calculateAndSet = (target) => {
           let val = target.value;
-          // Безопасное вычисление
           try {
              let safe = val.replace(/\s/g, '').replace(/,/g, '.');
-             // Разрешаем только цифры и мат. операторы
              if (/[^0-9+\-*/().]/.test(safe)) return; 
              
              let result = new Function('return ' + safe)();
@@ -1879,18 +1450,13 @@
           } catch(e) {}
       };
 
-      // 3. Также вычисляем при потере фокуса (на всякий случай)
       input.addEventListener('blur', (e) => calculateAndSet(e.target));
-      
-      // 4. И по Enter
       input.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
               calculateAndSet(e.target);
               e.target.blur();
           }
       });
-      
-      // 5. Убираем пробелы при фокусе для удобного редактирования
       input.addEventListener('focus', (e) => {
           let val = e.target.value;
           if (!/[+\-*/]/.test(val)) {
@@ -2001,6 +1567,55 @@
     return `${day} ${month}`;
   }
 
+  function save(goalToSync = null) {
+    // 1. Всегда сохраняем локально (кэш/бэкап)
+    try {
+        localStorage.setItem(K, JSON.stringify({data: {goals: DATA.goals}}));
+    } catch(e) {
+        showToast('Ошибка сохранения локально!');
+        console.error("LS Save Error:", e);
+    }
+
+    // 2. Если залогинены - отправляем в облако
+    if (user && goalToSync) {
+        syncGoalToCloud(goalToSync);
+    }
+  }
+
+  async function load() {
+    try {
+      // 1. По умолчанию пробуем грузить локально
+      const raw = localStorage.getItem(K);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        DATA.goals = Array.isArray(parsed.data?.goals) ? parsed.data.goals : [];
+        DATA.goals.forEach(g => { if (!g.history) g.history = []; });
+      }
+
+      // 2. Если пользователь залогинен, загружаем из Supabase
+      if (user && sb) {
+          const { data, error } = await sb.from('goals').select('*').eq('user_id', user.id);
+          if (error) throw error;
+          
+          if (data && data.length > 0) {
+              DATA.goals = data.map(toLocalFormat);
+              save(); 
+          } else {
+              // ВАЖНОЕ ИСПРАВЛЕНИЕ:
+              // Если в облаке пусто (0 записей), а локально что-то есть - НЕ стираем локальные данные.
+              // Это защищает пользователя, который залогинился, но у него пустая БД.
+              if (DATA.goals.length > 0) {
+                  showToast('Локальные данные сохранены (Облако пусто)');
+              }
+          }
+      }
+
+    } catch(e) { 
+        console.error("Load Error:", e); 
+        if (!DATA.goals.length) showToast('Ошибка загрузки данных.');
+    }
+  }
+
   function openModal(id) { document.getElementById(id).classList.add('show'); }
   function closeModal(id) { document.getElementById(id).classList.remove('show'); }
   
@@ -2026,10 +1641,8 @@
     modal.onclick = (e) => { if (e.target === modal) closeModal(modal.id); };
   });
   
-  document.getElementById('confirm-ok').onclick = async () => {
-      if(confirmAction) {
-        await confirmAction(); // Добавляем await для асинхронных операций
-      }
+  document.getElementById('confirm-ok').onclick = () => {
+      if(confirmAction) confirmAction();
       closeModal('confirm-modal');
       confirmAction = null;
   };
@@ -2038,13 +1651,12 @@
       confirmAction = null;
   };
   
-  document.getElementById('btn-congrats-done').onclick = async () => {
+  document.getElementById('btn-congrats-done').onclick = () => {
       const g = DATA.goals.find(x => x.id === congratsGoalId);
       if (g) {
           g.status = 'done';
           g.updatedAt = nowISO();
-          await save(); 
-          render();
+          save(g); render();
           showToast('Цель перенесена в завершенные!');
       }
       closeModal('congratulations-modal');
@@ -2137,13 +1749,13 @@
           const newStatus = allDone ? 'active' : 'done';
           const actionText = allDone ? 'вернуть в работу' : 'завершить';
           
-          openConfirmModal(`Вы действительно хотите ${actionText} ${selected.length} целей?`, async () => {
+          openConfirmModal(`Вы действительно хотите ${actionText} ${selected.length} целей?`, () => {
               selected.forEach(g => {
                   g.status = newStatus;
                   g.updatedAt = nowISO();
+                  save(g); // Sync each changed goal
               });
               selectedGoalIds.clear();
-              await save(); 
               render();
               showToast(newStatus === 'done' ? `Выполнено ${selected.length} целей!` : `Восстановлено ${selected.length} целей!`);
           });
@@ -2155,13 +1767,13 @@
           const selected = getSelectedGoals();
           if (selected.length === 0) return showToast('Сначала выберите цели!');
           
-          openConfirmModal(`Переместить ${selected.length} целей в корзину?`, async () => {
+          openConfirmModal(`Переместить ${selected.length} целей в корзину?`, () => {
               selected.forEach(g => {
                   g.status = 'trash';
                   g.updatedAt = nowISO();
+                  save(g);
               });
               selectedGoalIds.clear();
-              await save(); 
               render();
               showToast(`В корзину перемещено ${selected.length} целей`);
           });
@@ -2173,13 +1785,13 @@
           const selected = getSelectedGoals();
           if (selected.length === 0) return showToast('Сначала выберите цели!');
           
-          openConfirmModal(`Восстановить ${selected.length} целей из корзины?`, async () => {
+          openConfirmModal(`Восстановить ${selected.length} целей из корзины?`, () => {
               selected.forEach(g => {
                   g.status = 'active';
                   g.updatedAt = nowISO();
+                  save(g);
               });
               selectedGoalIds.clear();
-              await save(); 
               render();
               showToast(`Восстановлено ${selected.length} целей`);
           });
@@ -2191,17 +1803,20 @@
           const selected = getSelectedGoals();
           if (selected.length === 0) return showToast('Сначала выберите цели!');
           
-          openConfirmModal(`Удалить ${selected.length} целей безвозвратно?`, async () => {
+          openConfirmModal(`Удалить ${selected.length} целей безвозвратно?`, () => {
               const idsToDelete = Array.from(selectedGoalIds);
               DATA.goals = DATA.goals.filter(g => !idsToDelete.includes(g.id));
               selectedGoalIds.clear();
-              await save(); 
+              save(); // Local save
+              
+              // Sync Deletion
+              idsToDelete.forEach(id => deleteGoalFromCloud(id));
+              
               render();
               showToast(`Удалено навсегда ${selected.length} целей`);
           }, true);
       };
   }
-  
   
   function reorderGoals(draggedId, targetId) {
       const draggedIndex = DATA.goals.findIndex(g => g.id === draggedId);
@@ -2210,12 +1825,13 @@
       if (draggedIndex > -1 && targetIndex > -1) {
           const [movedItem] = DATA.goals.splice(draggedIndex, 1);
           DATA.goals.splice(targetIndex, 0, movedItem);
-          save();
+          save(); // Order only saves locally for now unless we add an 'order' field to DB
           render();
       }
   }
 
   let draggedItem = null;
+
 
   function render() {
     const list = document.getElementById('goals-list');
@@ -2237,6 +1853,7 @@
         if (a.isPinned === b.isPinned) return 0;
         return a.isPinned ? -1 : 1;
     });
+
 
     if (visible.length === 0) {
       list.innerHTML = `<div class="empty-message"><i class="fa-regular fa-folder-open"></i><span>Список пуст</span></div>`;
@@ -2281,17 +1898,15 @@
       const neededPerHour = isOverdue || hoursLeft === null || hoursLeft <= 0 ? 0 : (target - current) / hoursLeft;
       const neededPerDay = neededPerHour * 24;
 
+
       const el = document.createElement('div');
       el.className = `goal-card ${selectedGoalIds.has(g.id) ? 'selected' : ''} ${isTrash ? 'goal-card-trash' : ''} ${g.status === 'done' ? 'done' : ''}`;
       el.dataset.id = g.id; 
       
       el.setAttribute('draggable', 'true');
       
-      // Добавляем обработчик клика для выбора (вместо чекбокса)
       el.onclick = (e) => {
-        // Если кликнули на кнопку, ссылку или инпут внутри карточки - не выбираем
         if (e.target.closest('button') || e.target.closest('input') || e.target.closest('a') || e.target.closest('.star-icon') || e.target.closest('.pin-icon')) return;
-        
         toggleSelection(g.id);
       };
       
@@ -2320,7 +1935,6 @@
           `;
       }
 
-      // Убран <div class="goal-checkbox-wrapper">
       el.innerHTML = `
         <div class="goal-card-content">
             <div class="goal-header">
@@ -2401,16 +2015,14 @@
             if (act === 'fav') {
                 g.isFavorite = !g.isFavorite;
                 g.updatedAt = nowISO();
-                save(); 
-                render();
+                save(g); render();
                 showToast(g.isFavorite ? 'Добавлено в избранное' : 'Убрано из избранного');
             }
             
             if (act === 'pin') {
                 g.isPinned = !g.isPinned;
                 g.updatedAt = nowISO();
-                save(); 
-                render();
+                save(g); render();
                 showToast(g.isPinned ? 'Закреплено сверху' : 'Откреплено');
             }
 
@@ -2423,35 +2035,33 @@
                 if (newStatus === 'done' && safeParseNum(g.current) >= safeParseNum(g.target) && safeParseNum(g.target) > 0) {
                     showCongratulationsModal(goalId, g.title);
                 } else {
-                    openConfirmModal(`Вы действительно хотите ${newStatus === 'done' ? 'завершить' : 'вернуть в работу'} цель "${g.title}"?`, async () => {
+                    openConfirmModal(`Вы действительно хотите ${newStatus === 'done' ? 'завершить' : 'вернуть в работу'} цель "${g.title}"?`, () => {
                         g.status = newStatus;
                         g.updatedAt = nowISO();
-                        await save(); 
-                        render();
+                        save(g); render();
                         showToast(newStatus === 'done' ? 'Цель выполнена!' : 'Цель активна');
                     });
                 }
             }
             if (act === 'del') {
-                 openConfirmModal(`Переместить цель "${g.title}" в корзину?`, async () => {
+                 openConfirmModal(`Переместить цель "${g.title}" в корзину?`, () => {
                     g.status = 'trash';
                     g.updatedAt = nowISO();
-                    await save(); 
-                    render();
+                    save(g); render();
                     showToast('В корзине');
                 });
             }
             if (act === 'restore') {
                 g.status = 'active';
                 g.updatedAt = nowISO();
-                save(); 
-                render();
+                save(g); render();
                 showToast('Восстановлено');
             }
             if (act === 'del-final') {
-                openConfirmModal(`Удалить цель "${g.title}" безвозвратно?`, async () => {
+                openConfirmModal(`Удалить цель "${g.title}" безвозвратно?`, () => {
                     DATA.goals = DATA.goals.filter(x => x.id !== goalId);
-                    await save(); 
+                    save(); // Local save
+                    deleteGoalFromCloud(goalId); // Cloud delete
                     render();
                     showToast('Удалено');
                 }, true);
@@ -2459,6 +2069,7 @@
         }
       });
       
+
       list.appendChild(el);
     });
   }
@@ -2484,6 +2095,7 @@
     document.getElementById('total-count').textContent = all.length;
   }
 
+
   // --- ACTIONS ---
 
   function openEditModal(id) {
@@ -2505,7 +2117,7 @@
   }
 
   document.getElementById('save-edit').onclick = () => {
-    openConfirmModal('Сохранить изменения в цели?', async () => {
+    openConfirmModal('Сохранить изменения в цели?', () => {
         const g = DATA.goals.find(x => x.id === currentEditId);
         if (!g) return;
         
@@ -2523,11 +2135,10 @@
         
         g.current = newCurrent;
         
-        // --- ADDED: History log for manual edits ---
         if (diff !== 0) {
             if (!g.history) g.history = [];
             g.history.push({
-                id: Date.now().toString(36),
+                id: generateId(),
                 date: nowISO(),
                 amount: diff,
                 type: 'edit',
@@ -2537,7 +2148,7 @@
         
         const target = safeParseNum(g.target);
 
-        await save();
+        save(g); // Sync
         
         if (newCurrent >= target && target > 0 && oldCurrent < target && g.status !== 'done') {
             render(); 
@@ -2566,7 +2177,7 @@
     
     if (val <= 0) { showToast('Введите положительную сумму!'); return; }
     
-    openConfirmModal(`${isSubtract ? 'Вычесть' : 'Добавить'} ${fmt(val)}?`, async () => {
+    openConfirmModal(`${isSubtract ? 'Вычесть' : 'Добавить'} ${fmt(val)}?`, () => {
         const target = safeParseNum(g.target);
         const oldCurrent = safeParseNum(g.current);
         let newCurrent = oldCurrent;
@@ -2582,14 +2193,14 @@
         
         if (!g.history) g.history = [];
         g.history.push({
-            id: Date.now().toString(36),
+            id: generateId(),
             date: nowISO(),
             amount: isSubtract ? -val : val,
             type: isSubtract ? 'sub' : 'add',
             comment: comment || (isSubtract ? 'Уменьшение баланса' : 'Пополнение')
         });
 
-        await save(); 
+        save(g); // Sync
 
         closeModal('progress-modal');
         
@@ -2608,7 +2219,6 @@
   
   // --- HISTORY LOGIC ---
   
-  // Модальное окно для выбора способа удаления истории
   function openHistoryDeleteModal(historyItem) {
       hItemToDelete = historyItem;
       const displayAmount = (historyItem.amount > 0 ? '+' : '') + fmt(historyItem.amount);
@@ -2616,49 +2226,43 @@
       openModal('history-delete-modal');
   }
 
-  // Обработчики кнопок модального окна удаления истории
   document.getElementById('btn-hd-cancel').onclick = () => {
       closeModal('history-delete-modal');
       hItemToDelete = null;
   };
   
-  document.getElementById('btn-hd-delete-only').onclick = async () => {
+  document.getElementById('btn-hd-delete-only').onclick = () => {
       if (hCurrentGoalId && hItemToDelete) {
-          await performHistoryDelete(hCurrentGoalId, hItemToDelete.id, false);
+          performHistoryDelete(hCurrentGoalId, hItemToDelete.id, false);
       }
       closeModal('history-delete-modal');
   };
 
-  document.getElementById('btn-hd-revert').onclick = async () => {
+  document.getElementById('btn-hd-revert').onclick = () => {
       if (hCurrentGoalId && hItemToDelete) {
-          await performHistoryDelete(hCurrentGoalId, hItemToDelete.id, true);
+          performHistoryDelete(hCurrentGoalId, hItemToDelete.id, true);
       }
       closeModal('history-delete-modal');
   };
 
-  // Функция выполнения удаления
-  async function performHistoryDelete(goalId, historyId, revertBalance) {
+
+  function performHistoryDelete(goalId, historyId, revertBalance) {
       const g = DATA.goals.find(x => x.id === goalId);
       if (!g || !g.history) return;
       
       const item = g.history.find(h => h.id === historyId);
       if (!item) return;
 
-      // Если нужно вернуть деньги на счет
       if (revertBalance) {
-          // Если это было добавление (+1000), то надо отнять (current - 1000)
-          // Если это был расход (-1000), то надо прибавить (current - (-1000) = current + 1000)
           const newCurrent = Math.max(0, safeParseNum(g.current) - item.amount);
           g.current = newCurrent;
       }
       
-      // Удаляем из массива
       g.history = g.history.filter(h => h.id !== historyId);
-      await save();
+      save(g); // Sync
       
-      // Обновляем UI
       renderHistoryList();
-      render(); // Обновляем основную карточку, так как баланс мог измениться
+      render(); 
       
       const msg = revertBalance 
         ? 'Запись удалена, баланс скорректирован' 
@@ -2666,16 +2270,14 @@
       showToast(msg);
   }
   
-  // --- HISTORY EDIT LOGIC ---
   function openHistoryEditModal(historyItem) {
       hItemToEdit = historyItem;
-      // В инпут подставляем само число, можно с пробелами
       document.getElementById('he-amount').value = new Intl.NumberFormat('ru-RU').format(historyItem.amount);
       document.getElementById('he-comment').value = historyItem.comment || '';
       openModal('history-edit-modal');
   }
   
-  document.getElementById('btn-he-save').onclick = async () => {
+  document.getElementById('btn-he-save').onclick = () => {
       if (hCurrentGoalId && hItemToEdit) {
           const g = DATA.goals.find(x => x.id === hCurrentGoalId);
           if (!g) return;
@@ -2686,7 +2288,6 @@
           const newAmount = safeParseNum(document.getElementById('he-amount').value);
           const newComment = document.getElementById('he-comment').value.trim();
           
-          // Корректировка основного баланса
           const oldAmount = item.amount;
           const diff = newAmount - oldAmount;
           
@@ -2696,9 +2297,9 @@
           
           item.amount = newAmount;
           item.comment = newComment || (newAmount > 0 ? 'Пополнение' : 'Расход');
-          item.editedAt = nowISO(); // Ставим метку редактирования
+          item.editedAt = nowISO(); 
           
-          await save();
+          save(g); // Sync
           renderHistoryList();
           render();
           showToast('Запись изменена');
@@ -2706,37 +2307,34 @@
       }
   };
 
-  // Открытие модального окна истории
   function openHistoryModal(goalId) {
       hCurrentGoalId = goalId;
-      hLimit = 10; // Сбрасываем лимит при открытии
-      hFilterDate = null; // Сбрасываем фильтр
+      hLimit = 10; 
+      hFilterDate = null; 
 
       const g = DATA.goals.find(x => x.id === goalId);
       if (!g) return;
       
       document.getElementById('history-modal-title').textContent = `История: ${g.title}`;
 
-      // Инициализируем календарь, если еще не был создан
       if (!hPicker) {
         hPicker = flatpickr("#history-date-filter", {
             locale: "ru",
             dateFormat: "Y-m-d",
             onChange: (selectedDates, dateStr) => {
                 hFilterDate = dateStr;
-                hLimit = 10; // При фильтрации сбрасываем пагинацию
+                hLimit = 10; 
                 renderHistoryList();
             }
         });
       } else {
-        hPicker.clear(); // Очищаем поле при новом открытии
+        hPicker.clear(); 
       }
 
       renderHistoryList();
       openModal('history-modal');
   }
   
-  // Кнопка сброса фильтра
   document.getElementById('history-clear-filter').onclick = () => {
       if (hPicker) hPicker.clear();
       hFilterDate = null;
@@ -2744,13 +2342,11 @@
       renderHistoryList();
   };
   
-  // Кнопка "Показать еще"
   document.getElementById('btn-history-load-more').onclick = () => {
       hLimit += 15;
       renderHistoryList();
   };
 
-  // Основная функция отрисовки списка истории
   function renderHistoryList() {
       const container = document.getElementById('history-list-container');
       const loadMoreBtn = document.getElementById('history-load-more-container');
@@ -2763,17 +2359,13 @@
           return;
       }
       
-      // 1. Сортируем (новые сверху)
       let entries = [...g.history].sort((a,b) => new Date(b.date) - new Date(a.date));
       
-      // 2. Фильтруем по дате (если выбрана)
       if (hFilterDate) {
           entries = entries.filter(h => h.date.startsWith(hFilterDate));
       }
       
       const totalEntries = entries.length;
-      
-      // 3. Пагинация (берем только hLimit штук)
       const visibleEntries = entries.slice(0, hLimit);
       
       if (visibleEntries.length === 0) {
@@ -2782,8 +2374,6 @@
            return;
       }
       
-      // 4. Группировка
-      // Вспомогательная функция для заголовка группы
       const getGroupLabel = (dateIso) => {
           const d = new Date(dateIso);
           const today = new Date();
@@ -2800,29 +2390,23 @@
       let lastGroupLabel = '';
       
       visibleEntries.forEach(h => {
-          // Определяем группу
           const groupLabel = getGroupLabel(h.date);
           
-          // Если группа сменилась, рисуем заголовок
           if (groupLabel !== lastGroupLabel) {
-              // --- Считаем сумму за день для этой группы ---
               const groupItems = visibleEntries.filter(item => getGroupLabel(item.date) === groupLabel);
               const dayInc = groupItems.reduce((acc, curr) => curr.amount > 0 ? acc + curr.amount : acc, 0);
               const dayExp = groupItems.reduce((acc, curr) => curr.amount < 0 ? acc + curr.amount : acc, 0);
               
-              // NEW: Считаем чистое сальдо (net)
               const net = dayInc + dayExp;
 
               const header = document.createElement('div');
               header.className = 'history-group-header';
-              // Делаем так, чтобы дата была слева, а суммы справа
               header.style.justifyContent = 'space-between';
 
               let sumsHtml = '<div style="display:flex; align-items:center;">';
               if (dayInc > 0) sumsHtml += `<span style="color:var(--green); margin-left:10px;">+${fmt(dayInc)}</span>`;
               if (dayExp < 0) sumsHtml += `<span style="color:var(--red); margin-left:10px;">${fmt(dayExp)}</span>`;
               
-              // NEW: Если есть и доход и расход, показываем "Итого"
               if (dayInc !== 0 && dayExp !== 0) {
                   sumsHtml += ` <span style="color:var(--text-muted); margin: 0 4px;">=</span> `;
                   const netColor = net >= 0 ? 'var(--green)' : 'var(--red)';
@@ -2830,7 +2414,6 @@
                   sumsHtml += `<span style="color:${netColor}; font-weight:800; border:1px solid var(--border); padding:0 4px; border-radius:4px; background:var(--bg)">${netSign}${fmt(net)}</span>`;
               }
               
-              // Если вдруг всё по нулям (редкий случай)
               if (dayInc === 0 && dayExp === 0) sumsHtml += `<span style="color:var(--text-muted); margin-left:10px;">0</span>`;
               sumsHtml += '</div>';
 
@@ -2839,18 +2422,15 @@
               lastGroupLabel = groupLabel;
           }
           
-          // Рисуем элемент
           const isPositive = h.amount > 0;
           const sign = isPositive ? '+' : '';
           const colorClass = isPositive ? 'plus' : 'minus';
           
-          // Форматируем время (ЧЧ:ММ)
           let timeStr = '';
           try {
              timeStr = new Date(h.date).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
           } catch(e) {}
           
-          // Проверка на редактирование
           let editedHtml = '';
           if (h.editedAt) {
               const editTime = new Date(h.editedAt).toLocaleString('ru-RU');
@@ -2871,13 +2451,11 @@
             </div>
           `;
           
-          // Клик на редактирование
           const editBtn = item.querySelector('.btn-icon:not(.del)');
           editBtn.onclick = () => {
               openHistoryEditModal(h);
           };
 
-          // Клик на удаление (NEW: Вызов новой функции)
           const delBtn = item.querySelector('.btn-icon.del');
           delBtn.onclick = () => {
              openHistoryDeleteModal(h);
@@ -2886,7 +2464,6 @@
           container.appendChild(item);
       });
       
-      // 5. Показываем кнопку "Показать еще", если есть скрытые записи
       if (totalEntries > hLimit) {
           loadMoreBtn.style.display = 'block';
           document.getElementById('btn-history-load-more').textContent = `Показать еще (${totalEntries - hLimit})`;
@@ -2895,7 +2472,8 @@
       }
   }
 
-  document.getElementById('btn-add').onclick = async () => {
+
+  document.getElementById('btn-add').onclick = () => {
     const title = document.getElementById('g-title').value.trim();
     if (!title) { showToast('Введите название!'); return; }
 
@@ -2905,7 +2483,7 @@
     const isDone = (target > 0) && (current >= target);
 
     const g = {
-      id: Date.now().toString(36),
+      id: generateId(),
       title,
       priority: document.getElementById('g-priority').value,
       target: target,
@@ -2922,7 +2500,7 @@
     
     if (current > 0) {
         g.history.push({
-            id: Date.now().toString(36),
+            id: generateId(),
             date: nowISO(),
             amount: current,
             type: 'set',
@@ -2931,7 +2509,7 @@
     }
 
     DATA.goals.push(g);
-    await save(); 
+    save(g); // Sync
     render();
     
     if (isDone) {
@@ -2955,7 +2533,7 @@
       { t: 'Курсы английского', target: 60000, cur: 0, p: 'low', note: 'Уровень B2 к лету' }
   ];
 
-  document.getElementById('btn-demo').onclick = async () => {
+  document.getElementById('btn-demo').onclick = () => {
     if (DATA.goals.filter(g => g.status === 'active').length > 0) {
         showToast('Активные цели уже есть. Создайте вручную!');
         return;
@@ -2969,7 +2547,7 @@
         const current = isDone ? rnd.target : rnd.cur;
 
         const g = {
-          id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+          id: generateId(),
           title: rnd.t,
           priority: rnd.p,
           target: rnd.target,
@@ -2985,40 +2563,33 @@
         };
         
         if (current > 0) {
-            g.history.push({ id: Date.now().toString(36), date: nowISO(), amount: current, type: 'set', comment: 'Начальный баланс' });
+            g.history.push({ id: generateId(), date: nowISO(), amount: current, type: 'set', comment: 'Начальный баланс' });
         }
         DATA.goals.push(g);
+        save(g); // Sync
     });
     
-    await save(); 
     render(); 
     showToast('Демо-цели добавлены!');
   };
+
   
-  // Управление темой
-  function toggleTheme() {
+  document.getElementById('theme-btn').onclick = () => {
     const isDarkNow = document.body.dataset.theme === 'dark';
     const newTheme = isDarkNow ? '' : 'dark';
     document.body.dataset.theme = newTheme;
     localStorage.setItem('theme', newTheme);
     
-    const icon = isDarkNow ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
-    document.querySelector('#theme-btn i').className = icon;
-    
-    if (document.querySelector('#theme-btn-dropdown i')) {
-      document.querySelector('#theme-btn-dropdown i').className = icon;
-    }
-    
-    showToast(isDarkNow ? 'Тема изменена на светлую' : 'Тема изменена на темную');
-  }
-  
-  document.getElementById('theme-btn').onclick = toggleTheme;
-  themeBtnDropdown.onclick = toggleTheme;
+    document.querySelector('#theme-btn i').className = newTheme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  };
 
-  // Старые кнопки экспорта/импорта (оставлены для совместимости)
-  document.getElementById('export-btn').onclick = async () => {
-    await load(); // Загружаем свежие данные
-    const dataToExport = JSON.stringify({ goals: DATA.goals }, null, 2);
+
+  document.getElementById('export-btn').onclick = () => {
+    const dataToExport = localStorage.getItem(K);
+    if (!dataToExport) {
+        showToast('Нет данных для скачивания!');
+        return;
+    }
     
     const blob = new Blob([dataToExport], {type: 'application/json'});
     const url = URL.createObjectURL(blob);
@@ -3026,12 +2597,51 @@
     a.href = url;
     a.download = 'designflow-goals.json';
     a.click();
-    showToast('Данные скачаны');
+    showToast('Скачано');
   };
 
   document.getElementById('import-btn').onclick = () => document.getElementById('file-import').click();
+  document.getElementById('file-import').onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+        try {
+            const json = JSON.parse(reader.result); 
+            // Обработка разных форматов импорта
+            let newGoals = [];
+            if (Array.isArray(json)) newGoals = json;
+            else if (json.data && Array.isArray(json.data.goals)) newGoals = json.data.goals;
+            
+            // Если формат был другой, пробуем привести
+            newGoals = newGoals.map(g => {
+                if (!g.id) g.id = generateId();
+                return g;
+            });
 
-  // Вкладки
+            openConfirmModal('Загрузить данные? Текущие будут заменены!', async () => {
+                // Если облако активно, нужно будет загрузить туда
+                DATA.goals = newGoals;
+                
+                if (user) {
+                     showToast('Импорт в облако может занять время...');
+                     for (const g of DATA.goals) {
+                         await syncGoalToCloud(g);
+                     }
+                }
+                
+                save();
+                render();
+                showToast('База загружена');
+            });
+        } catch(err) {
+            showToast('Ошибка: Файл поврежден или не является JSON.');
+        }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
+
   document.querySelectorAll('.tab').forEach(tab => {
     tab.onclick = () => {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -3041,7 +2651,6 @@
     };
   });
   
-  // Инициализация темы
   const savedTheme = localStorage.getItem('theme') || '';
   document.body.dataset.theme = savedTheme;
   
@@ -3051,8 +2660,11 @@
       themeButtonIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
   }
   
-  // Проверка авторизации при загрузке
-  checkAuth();
+  (async () => {
+      await initAuth();
+      await load();
+      render();
+  })();
 })();
 </script>
 </body>
